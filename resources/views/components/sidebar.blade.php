@@ -32,7 +32,7 @@
             <ul class="navbar-nav" id="navbar-nav">
                 <li class="menu-title"><span>Inicio</span></li>
                 <li class="nav-item">
-                    <a href="{{route('home')}}" class="nav-link">
+                    <a href="{{route('home')}}" class="nav-link {{ request()->routeIs('app') ? 'active' : ''}}">
                         <i class="ri-dashboard-2-line"></i> <span>Panel</span>
                     </a>
                 </li>
@@ -82,12 +82,12 @@
                 </li>
                 <li class="menu-title"><i class="ri-more-fill"></i> <span>Roles y Usuarios</span></li>
                 <li class="nav-item">
-                    <a href="dashboard-analytics" class="nav-link">
+                    <a href="{{ route('roles.index')}}" class="nav-link {{ request()->routeIs('roles.index') ? 'active' : ''}}">
                         <i class="ri-settings-4-fill"></i> <span>Roles & Permisos</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="dashboard-analytics" class="nav-link">
+                    <a href="{{ route('users.index') }}" class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}">
                         <i class="ri-user-3-fill"></i> <span>Usarios</span>
                     </a>
                 </li>

@@ -93,26 +93,32 @@
                                                 @csrf
 
                                                 <div class="mb-3">
-                                                    <label for="username" class="form-label">Username</label>
+                                                    <label for="name" class="form-label">Nombres</label>
                                                     <input type="text" class="form-control" id="name" name="name"
-                                                        placeholder="Enter username">
+                                                        placeholder="Ingrese Nombres">
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <label for="username" class="form-label">Email</label>
-                                                    <input type="email" class="form-control" id="username" name="email"
-                                                        placeholder="Enter username">
+                                                    <label for="last_name" class="form-label">Apellidos</label>
+                                                    <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Ingrese Apellidos">
+                                                </div>
+
+
+                                                <div class="mb-3">
+                                                    <label for="email" class="form-label">Correo electrónico</label>
+                                                    <input type="email" class="form-control" id="email" name="email"
+                                                        placeholder="Ingresar Correo">
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <div class="float-end">
+                                                    {{-- <div class="float-end">
                                                         <a href="auth-pass-reset-cover" class="text-muted">Forgot
                                                             password?</a>
-                                                    </div>
-                                                    <label class="form-label" for="password-input">Password</label>
+                                                    </div> --}}
+                                                    <label class="form-label" for="password-input">Contraseña</label>
                                                     <div class="position-relative auth-pass-inputgroup mb-3">
                                                         <input type="password" class="form-control pe-5"
-                                                            placeholder="Enter password" id="password-input" name="password">
+                                                            placeholder="Ingrese Contraseña" id="password-input" name="password">
                                                         <button
                                                             class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted"
                                                             type="button" id="password-addon"><i
@@ -120,9 +126,9 @@
                                                     </div>
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="username" class="form-label">Confirmar password</label>
+                                                    <label for="username" class="form-label">Confirmar Contraseña</label>
                                                     <input type="password" class="form-control" id="username" name="password_confirmation"
-                                                        placeholder="Password">
+                                                        placeholder="Confirmar Contraseña">
                                                 </div>
 
                                                 <div class="form-check">
