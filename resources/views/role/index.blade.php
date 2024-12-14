@@ -48,7 +48,8 @@
                                     </tr>
                                 </thead>
                                 <tbody class="list form-check-all">
-                                    @forelse ($roles as $role)
+                                    @foreach ($roles as $role)
+                                    @include('role.edit', ['role' => $role])
                                         <tr>
                                             <td class="id" style="display:none;">
                                                 <a href="javascript:void(0);" class="fw-medium link-primary">#{{ $role->id }}</a>
@@ -59,7 +60,7 @@
                                                 <div class="d-flex gap-2">
                                                     <div class="edit">
                                                         <button class="btn btn-sm btn-success edit-item-btn" data-bs-toggle="modal"
-                                                            data-bs-target="#showModal">Edit</button>
+                                                            data-bs-target="#editarRol-{{$role->id}}">Edit</button>
                                                     </div>
                                                     <div class="remove">
                                                         <button class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal"
@@ -68,11 +69,11 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                    @empty
+                                    {{-- @empty
                                         <tr>
                                             <td colspan="4" class="text-center">No hay roles disponibles.</td>
-                                        </tr>
-                                    @endforelse
+                                        </tr> --}}
+                                    @endforeach
                                 </tbody>
                             </table>
                             <div class="noresult" style="display: none">

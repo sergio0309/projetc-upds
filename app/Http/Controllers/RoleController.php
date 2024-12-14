@@ -31,7 +31,7 @@ class RoleController extends Controller
         ]);
 
         // Mostrar los datos antes de continuar
-        dd($request->all());  // Verifica si los permisos están en el request
+        // dd($request->all());  // Verifica si los permisos están en el request
 
         try {
             DB::beginTransaction();
@@ -39,8 +39,8 @@ class RoleController extends Controller
             // Crear rol
             $rol = Role::create(['name' => $request->name]);
 
-            // Asignar permisos
-            $rol->syncPermissions($request->permissions);
+            $permissions = Permission::whereIn('id', $request->permissions)->get();
+            $rol->givePermissionTo($permissions);
 
             DB::commit();
         } catch (\Exception $e) {
@@ -63,8 +63,30 @@ class RoleController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Actualizar un recurso específico
+        // dd($request->all());
+        $request->validate([
+            'name' => 'required|unique:roles,name,' . $id,
+            'permissions' => 'required|array',
+            'permissions.*' => 'exists:permissions,id',
+        ]);
+
+
+        try {
+            DB::beginTransaction();
+
+            $role = Role::findOrFail($id);
+            $role->update(['name' => $request->name]);
+            $role->syncPermissions($request->permissions);
+
+            DB::commit();
+
+            return redirect()->route('roles.index')->with('success', 'Rol actualizado correctamente');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->withErrors('Error al actualizar el rol: ' . $e->getMessage());
+        }
     }
+
 
     public function destroy($id)
     {
