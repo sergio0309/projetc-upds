@@ -33,32 +33,31 @@
                                     <tr>
                                         <th class="sort" data-sort="customer_name">N°</th>
                                         <th class="sort" data-sort="customer_name">Role</th>
-                                        <th class="sort" data-sort="customer_name">Estado</th>
                                         <th class="sort" data-sort="action">Acción</th>
                                     </tr>
                                 </thead>
                                 <tbody class="list form-check-all">
                                     @foreach ($roles as $role)
+                                    @include('role.show', ['role' => $role, 'permisos' => $permisos])
                                         <tr>
                                             <td class="id" style="display:none;">
                                                 <a href="javascript:void(0);" class="fw-medium link-primary">#{{ $role->id }}</a>
                                             </td>
                                             <td class="counter">{{ $loop->iteration }}</td>
                                             <td class="customer_name">{{ $role->name }}</td>
-                                            <td class="customer_name">1</td>
                                             <td>
                                                 <div class="d-flex gap-2">
                                                     <div class="edit">
                                                         <button class="btn btn-sm btn-primary edit-item-btn"
-                                                            data-bs-toggle="modal" title="Ver" data-bs-target="#verUser"><i data-feather="eye"></i></button>
+                                                            data-bs-toggle="modal" title="Ver" data-bs-target="#verRol-{{$role->id}}" ><i data-feather="eye"></i></button>
                                                     </div>
                                                     <div class="edit">
                                                         <a class="btn btn-sm btn-warning edit-item-btn" href="{{ route('roles.edit', $role->id) }}"><i data-feather="edit-3"></i></a>
                                                     </div>
-                                                    <div class="remove">
+                                                    {{-- <div class="remove">
                                                         <button class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal"
                                                             data-bs-target="#deleteRecordModal"><i data-feather="refresh-cw"></i></button>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                             </td>
                                         </tr>
