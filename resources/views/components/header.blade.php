@@ -49,17 +49,29 @@
 
 
                 <div class="dropdown ms-sm-3 header-item topbar-user">
-                    <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <span class="d-flex align-items-center">
-                            {{-- <img class="rounded-circle header-profile-user" src="http://localhost/creative2/public/images/avatar-1.jpg"
-                                alt="Header Avatar"> --}}
-                            <span class="text-start ms-xl-2">
-                                {{-- <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{auth()->user()->name}}</span> --}}
-                                <span class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">Usuario</span>
+                    @if(auth()->check())
+                        <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <span class="d-flex align-items-center">
+                                <img class="rounded-circle header-profile-user" src="{{ asset('images/avatar-1.jpg') }}"
+                                    alt="Header Avatar">
+                                <span class="text-start ms-xl-2">
+                                    <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{ auth()->user()->name }}</span>
+                                    <span class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">Usuario</span>
+                                </span>
                             </span>
-                        </span>
-                    </button>
+                        </button>
+                    @else
+                        <button type="button" class="btn" id="page-header-user-dropdown" disabled>
+                            <span class="d-flex align-items-center">
+                                <span class="text-start ms-xl-2">
+                                    <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">Guest</span>
+                                    <span class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">Sin sesión</span>
+                                </span>
+                            </span>
+                        </button>
+                    @endif
+
                     <div class="dropdown-menu dropdown-menu-end">
                         <!-- item-->
                         <h6 class="dropdown-header">Welcome Anna!</h6>
@@ -69,15 +81,14 @@
 
 
                         <div class="dropdown-divider"></div>
-
-
-                        {{-- <a class="dropdown-item " href="javascript:void();"
-                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i
-                                class="bx bx-power-off font-size-16 align-middle me-1"></i> <span
-                                key="t-logout">Logout</span></a> --}}
-                        <form action="{{route('logout')}}" method="POST" >
+                        <a class="dropdown-item" href="javascript:void(0);"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <i class="bx bx-power-off font-size-16 align-middle me-1"></i>
+                            <span key="t-logout">Logout</span>
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
-                            <input type="submit" value="logout">                        </form>
+                        </form>
                     </div>
                 </div>
             </div>

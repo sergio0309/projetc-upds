@@ -1,5 +1,4 @@
 @extends('layouts.app')
-@include('role.create')
 @section('content')
 {{-- @include('layouts.partials.alert') --}}
     <div class="row">
@@ -14,12 +13,8 @@
                         <div class="row g-4 mb-3">
                             <div class="col-sm-auto">
                                 <div>
-                                    <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal"
-                                        id="create-btn" data-bs-target="#createRole"><i
-                                            class="ri-add-line align-bottom me-1"></i> Crear nuevo Rol</button>
-                                    {{-- <button class="btn btn-soft-danger" onClick="deleteMultiple()"><i
-                                        class="ri-delete-bin-2-line"></i>
-                                    </button> --}}
+                                    <a href="{{route('roles.create')}}" type="button" class="btn btn-success add-btn">
+                                        <i class="ri-add-line align-bottom me-1"></i> Crear nuevo Rol</a>
                                 </div>
                             </div>
                             <div class="col-sm">
@@ -36,43 +31,37 @@
                             <table class="table align-middle table-nowrap" id="customerTable">
                                 <thead class="table-light">
                                     <tr>
-                                        {{-- <th scope="col" style="width: 50px;">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="checkAll"
-                                                    value="option">
-                                            </div>
-                                        </th> --}}
                                         <th class="sort" data-sort="customer_name">N°</th>
                                         <th class="sort" data-sort="customer_name">Role</th>
+                                        <th class="sort" data-sort="customer_name">Estado</th>
                                         <th class="sort" data-sort="action">Acción</th>
                                     </tr>
                                 </thead>
                                 <tbody class="list form-check-all">
                                     @foreach ($roles as $role)
-                                    @include('role.edit', ['role' => $role])
                                         <tr>
                                             <td class="id" style="display:none;">
                                                 <a href="javascript:void(0);" class="fw-medium link-primary">#{{ $role->id }}</a>
                                             </td>
                                             <td class="counter">{{ $loop->iteration }}</td>
                                             <td class="customer_name">{{ $role->name }}</td>
+                                            <td class="customer_name">1</td>
                                             <td>
                                                 <div class="d-flex gap-2">
                                                     <div class="edit">
-                                                        <button class="btn btn-sm btn-success edit-item-btn" data-bs-toggle="modal"
-                                                            data-bs-target="#editarRol-{{$role->id}}">Edit</button>
+                                                        <button class="btn btn-sm btn-primary edit-item-btn"
+                                                            data-bs-toggle="modal" title="Ver" data-bs-target="#verUser"><i data-feather="eye"></i></button>
+                                                    </div>
+                                                    <div class="edit">
+                                                        <a class="btn btn-sm btn-warning edit-item-btn" href="{{ route('roles.edit', $role->id) }}"><i data-feather="edit-3"></i></a>
                                                     </div>
                                                     <div class="remove">
                                                         <button class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal"
-                                                            data-bs-target="#deleteRecordModal">Remove</button>
+                                                            data-bs-target="#deleteRecordModal"><i data-feather="refresh-cw"></i></button>
                                                     </div>
                                                 </div>
                                             </td>
                                         </tr>
-                                    {{-- @empty
-                                        <tr>
-                                            <td colspan="4" class="text-center">No hay roles disponibles.</td>
-                                        </tr> --}}
                                     @endforeach
                                 </tbody>
                             </table>

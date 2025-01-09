@@ -18,6 +18,7 @@ class RoleController extends Controller
 
     public function create()
     {
+        $permisos = Permission::all();
         return view('role.create', compact('permisos'));
     }
 
@@ -37,7 +38,7 @@ class RoleController extends Controller
             DB::beginTransaction();
 
             // Crear rol
-            $rol = Role::create(['name' => $request->name]);
+            $rol = Role::create(['name' => strtoupper($request->name)]);
 
             $permissions = Permission::whereIn('id', $request->permissions)->get();
             $rol->givePermissionTo($permissions);
@@ -53,39 +54,48 @@ class RoleController extends Controller
 
     public function show($id)
     {
-        // Mostrar un recurso específico
+
     }
 
     public function edit($id)
     {
-        // Mostrar el formulario para editar un recurso específico
+        // Buscar el rol por su ID
+        $rol = Role::findOrFail($id);
+
+        // Recuperar todos los permisos disponibles
+        $permisos = Permission::all();
+
+        // Retornar la vista con el rol y los permisos
+        return view('role.edit', compact('rol', 'permisos'));
     }
 
     public function update(Request $request, $id)
     {
-        // dd($request->all());
+        // Validación de datos de entrada
         $request->validate([
-            'name' => 'required|unique:roles,name,' . $id,
-            'permissions' => 'required|array',
-            'permissions.*' => 'exists:permissions,id',
+            'name' => 'required|unique:roles,name,' . $id, // Validación para asegurar que el nombre no sea duplicado
+            'permissions' => 'required|array'
         ]);
-
-
         try {
             DB::beginTransaction();
+            Role::where('id', $id)
+                ->update([
+                    'name' => $request->name
+                ]);
 
             $role = Role::findOrFail($id);
-            $role->update(['name' => $request->name]);
-            $role->syncPermissions($request->permissions);
+            $role->permissions()->sync($request->permissions);
 
-            DB::commit();
+            DB::commit(); // Confirmar transacción
 
             return redirect()->route('roles.index')->with('success', 'Rol actualizado correctamente');
         } catch (\Exception $e) {
-            DB::rollBack();
+            DB::rollBack(); // Si algo falla, revertir la transacción
+            // Mostrar error
             return back()->withErrors('Error al actualizar el rol: ' . $e->getMessage());
         }
     }
+
 
 
     public function destroy($id)

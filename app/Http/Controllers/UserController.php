@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -23,21 +24,41 @@ class UserController extends Controller
     public function store( Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'ci' => 'required|string|max:15|unique:users,ci',
+            'complement_ci' => 'nullable|string|max:15|unique:users,complement_ci',
+            'nit' => 'nullable|string|max:25|unique:users,nit',
+            'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
+            'gender' => 'required|string',
+            'date_birth' => 'required|date',
+            'phone' => 'required|string|max:15',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'address' => 'required|string|max:255',
         ]);
 
         try {
             DB::beginTransaction();
-
+            $imagePath = null;
+            if ($request->hasFile('image')) {
+                $imagePath = $request->file('image')->store('users', 'public');
+            }
             $user = User::create([
-                'name' => $request->input('name'),
-                'last_name' => $request->input('last_name'),
+                'ci' => $request->input('ci'),
+                'complement_ci' => $request->input('complement_ci'),
+                'nit' => $request->input('nit'),
+                'first_name' => strtoupper($request->input('first_name')),
+                'last_name' => strtoupper($request->input('last_name')),
+                'gender' => $request->input('gender'),
+                'date_birth' => $request->input('date_birth'),
+                'phone' => $request->input('phone'),
                 'email' => $request->input('email'),
+                'email_verified_at' => now(),
                 'password' => Hash::make($request->input('password')),
                 'status' => 1, // Por defecto, el usuario está activo
+                'image' => $imagePath, // Ruta de la imagen almacenada
+                'address' => strtoupper($request->input('address')),
             ]);
 
             DB::commit();
@@ -63,10 +84,18 @@ class UserController extends Controller
     {
         // Validación de los datos de entrada
         $request->validate([
-            'name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $id,  // Asegura que el email sea único excepto el del usuario actual
-            'password' => 'nullable|string|min:8|confirmed',  // La contraseña es opcional, pero si se llena, debe confirmarse
+            'ci' => 'nullable|string|max:15|unique:users,ci,' . $id,
+            'complement_ci' => 'nullable|string|max:15|unique:users,complement_ci,' . $id,  // Se añade la validación para complement_ci
+            'nit' => 'nullable|string|max:25|unique:users,nit,' . $id, // Asegúrate de especificar la tabla y columna
+            'first_name' => 'nullable|string|max:255',
+            'last_name' => 'nullable|string|max:255',
+            'gender' => 'nullable|string',
+            'date_birth' => 'nullable|date',
+            'phone' => 'nullable|string|max:15',
+            'email' => 'nullable|string|email|max:255|unique:users,email,' . $id,
+            'password' => 'nullable|string|min:8|confirmed',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'address' => 'nullable|string|max:255',
         ]);
 
         try {
@@ -75,17 +104,33 @@ class UserController extends Controller
             // Encuentra al usuario por su ID
             $user = User::findOrFail($id);
 
-            // Actualiza los datos del usuario
-            $user->name = $request->input('name');
+            // Manejo de la imagen
+            if ($request->hasFile('image')) {
+                if ($user->image && file_exists(public_path('storage'. $user->image))) {
+                    unlink(public_path('storage'. $user->image));
+                }
+                $imagePath = $request->file('image')->store('users', 'public');
+                $user->image = $imagePath;
+
+            }
+
+            $user->ci = $request->input('ci');
+            $user->complement_ci = $request->input('complement_ci');
+            $user->nit = $request->input('nit');
+            $user->first_name = $request->input('first_name');
             $user->last_name = $request->input('last_name');
+            $user->gender = $request->input('gender');
+            $user->date_birth = $request->input('date_birth');
+            $user->phone = $request->input('phone');
             $user->email = $request->input('email');
+            $user->address = $request->input('address');
 
             // Si la contraseña está presente, actualízala
             if ($request->filled('password')) {
                 $user->password = Hash::make($request->input('password'));
             }
 
-            $user->save();  // Guarda los cambios
+            $user->save(); // Guarda los cambios
 
             DB::commit();
 
@@ -95,6 +140,7 @@ class UserController extends Controller
             return redirect()->route('users.index')->with('error', 'Error al actualizar el usuario.');
         }
     }
+
 
     public function destroy($id, Request $request)
     {

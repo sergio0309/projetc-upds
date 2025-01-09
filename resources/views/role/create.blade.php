@@ -1,37 +1,63 @@
-<div class="modal fade" id="createRole" tabindex="-1" aria-labelledby="createRoleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header bg-light p-3">
-                <h5 class="modal-title" id="createRoleModalLabel"></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                    id="close-modal"></button>
-            </div>
-            <form action="{{ route('roles.store') }}" method="POST">
-                @csrf
-                <div class="modal-body">
+@extends('layouts.app')
+@section('content')
 
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Nuevo Rol</label>
-                        <input type="text" id="name" name="name" class="form-control" placeholder="Ingresar Nuevo Rol" required />
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title mb-0">Crear Rol</h4>
+            </div><!-- end card header -->
+
+            <div class="card-body">
+                <form action="{{ route('roles.store') }}" method="POST">
+                    @csrf
+                    <div>
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Nuevo Rol</label>
+                                    <input type="text" id="name" name="name" class="form-control" placeholder="Ingresar Nuevo Rol" required />
+                                </div>
+
+                            </div><!-- end col -->
+                        </div><!-- end row -->
                     </div>
 
-                    <div class="mb-3">
-                        <label for="permissions" class="form-label">Permisos</label>
-                        <select class="form-control" id="choices-multiple-remove-button" data-choices data-choices-removeItem name="permissions[]" multiple>
+                    <div class="border mt-3 border-dashed"></div>
+
+                    <div class="mt-4">
+                        <h6 class="mb-3 fs-15 text-muted">Permisos</h6>
+                        <div class="row">
                             @foreach ($permisos as $permiso)
-                                <option value="{{ $permiso->id }}">{{ $permiso->name }}</option>
+                                <div class="col-md-4">
+                                    <div class="form-check mb-2">
+                                        <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            name="permissions[]"
+                                            value="{{ $permiso->id }}"
+                                            id="permiso-{{ $permiso->id }}">
+                                        <label class="form-check-label" for="permiso-{{ $permiso->id }}">
+                                            {{ strtoupper($permiso->name) }}
+                                        </label>
+                                    </div>
+                                </div>
                             @endforeach
-                        </select>
+                        </div>
                     </div>
 
-                </div>
-                <div class="modal-footer">
-                    <div class="hstack gap-2 justify-content-end">
-                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-success" id="add-btn">Guardar</button>
+                    <div class="border mt-3 border-dashed"></div>
+
+                    <div class="mt-4 d-flex justify-content-center">
+                        <a href="{{ route('roles.index') }}" class="btn btn-light me-2">Cancelar</a>
+                        <button type="submit" class="btn btn-success">Guardar Rol</button>
                     </div>
-                </div>
-            </form>
-        </div>
+
+                </form><!-- end form -->
+            </div><!-- end card-body -->
+        </div><!-- end card -->
     </div>
+    <!-- end col -->
 </div>
+
+@endsection

@@ -1,34 +1,69 @@
-<div class="modal fade" id="editarRol-{{$role->id}}" tabindex="-1" aria-labelledby="editarRolLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header bg-light p-3">
-                <h5 class="modal-title" id="editarRolLabel">Editar Rol</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="{{ route('roles.update', $role->id) }}" method="POST">
-                @csrf
-                @method('PUT')
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Nombre del Rol</label>
-                        <input type="text" id="name" name="name" class="form-control" value="{{ $role->name }}" required>
+@extends('layouts.app')
+
+@section('content')
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title mb-0">Editar Rol</h4>
+            </div><!-- end card header -->
+
+            <div class="card-body">
+                <form action="{{ route('roles.update', $rol->id) }}" method="POST">
+                    @method('PATCH')
+                    @csrf
+                    <div>
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Nombre del Rol</label>
+                                    <input type="text" id="name" name="name" class="form-control"
+                                        value="{{ old('name', $rol->name) }}" placeholder="Ingresar Nuevo Rol" required />
+                                    @error('name')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div><!-- end col -->
+                        </div><!-- end row -->
                     </div>
-                    <div class="mb-3">
-                        <label for="permissions" class="form-label">Permisos</label>
-                        <select class="form-control" id="choices-multiple-remove-button" data-choices data-choices-removeItem multiple name="permissions[]">
+
+                    <div class="border mt-3 border-dashed"></div>
+
+                    <div class="mt-4">
+                        <h6 class="mb-3 fs-15 text-muted">Permisos para el Rol:</h6>
+                        <div class="row">
                             @foreach ($permisos as $permiso)
-                                <option value="{{ $permiso->id }}" {{ $role->permissions->contains($permiso->id) ? 'selected' : '' }}>
-                                    {{ $permiso->name }}
-                                </option>
+                                <div class="col-md-4">
+                                    <div class="form-check mb-2">
+                                        <input
+
+                                            type="checkbox"
+                                            name="permissions[]"
+                                            id="permiso-{{ $permiso->id }}"
+                                            class="form-check-input"
+                                            value="{{ $permiso->id }}"
+                                            {{ $rol->permissions->contains($permiso->id) ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="permiso-{{ $permiso->id }}">
+                                            {{ $permiso->name }}
+                                        </label>
+                                    </div>
+                                </div>
                             @endforeach
-                        </select>
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-success">Guardar cambios</button>
-                </div>
-            </form>
-        </div>
+
+                    <div class="border mt-3 border-dashed"></div>
+
+                    <div class="mt-4 d-flex justify-content-center">
+                        <a href="{{ route('roles.index') }}" class="btn btn-light me-2">Cancelar</a>
+                        <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                    </div>
+
+                </form><!-- end form -->
+            </div><!-- end card-body -->
+        </div><!-- end card -->
     </div>
+    <!-- end col -->
 </div>
+@endsection
