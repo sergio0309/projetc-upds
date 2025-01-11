@@ -36,6 +36,8 @@ class UserController extends Controller
             'password' => 'required|string|min:8|confirmed',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'address' => 'required|string|max:255',
+            'emergency_contact' => 'required|string|max:255',
+            'emergency_number' => 'required|string|max:255',
         ]);
 
         try {
@@ -59,6 +61,8 @@ class UserController extends Controller
                 'status' => 1, // Por defecto, el usuario está activo
                 'image' => $imagePath, // Ruta de la imagen almacenada
                 'address' => strtoupper($request->input('address')),
+                'emergency_contact' => strtoupper($request->input('emergency_contact')),
+                'emergency_number' => $request->input('emergency_number'),
             ]);
 
             DB::commit();
@@ -96,6 +100,8 @@ class UserController extends Controller
             'password' => 'nullable|string|min:8|confirmed',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'address' => 'nullable|string|max:255',
+            'emergency_contact' => 'required|string|max:255',
+            'emergency_number' => 'required|string|max:255',
         ]);
 
         try {
@@ -124,6 +130,8 @@ class UserController extends Controller
             $user->phone = $request->input('phone');
             $user->email = $request->input('email');
             $user->address = $request->input('address');
+            $user->emergency_contact = $request->input('emergency_contact');
+            $user->emergency_number = $request->input('emergency_number');
 
             // Si la contraseña está presente, actualízala
             if ($request->filled('password')) {

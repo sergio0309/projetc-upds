@@ -27,6 +27,8 @@ return new class extends Migration
             $table->tinyInteger('status')->default(1)->comment('0 = Inactivo, 1 = Activo');
             $table->string('image')->nullable();
             $table->string('address')->nullable();
+            $table->string('emergency_contact')->nullable();
+            $table->string('emergency_number')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

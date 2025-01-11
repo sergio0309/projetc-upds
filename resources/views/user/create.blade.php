@@ -67,8 +67,6 @@
                                 required />
                         </div>
                     </div>
-                    {{-- <div class="row mb-3">
-                    </div> --}}
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label class="form-label" for="password-input">Contraseña</label>
@@ -104,6 +102,17 @@
                             <label for="image" class="form-labe">Imagen</label>
                             <input type="file" class="form-control" id="image" name="image" placeholder="Selecciones imagen">
 
+                        </div>
+                    </div>
+                    <div class="border mt-3 border-dashed"></div><br>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="emergency_contact" class="form-label">Contacto de emergencia</label>
+                            <input type="text" name="emergency_contact" id="emergency_contact" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="emergency_number" class="form-label">Número de contacto</label>
+                            <input type="number" name="emergency_number" id="emergency_number" class="form-control">
                         </div>
                     </div>
 

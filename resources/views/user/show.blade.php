@@ -76,6 +76,16 @@
                             <input type="text" id="address" name="address" class="form-control" value="{{ $user->address }}" disabled />
                         </div>
                     </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="emergency_contact" class="form-label">Contacto de emergencia</label>
+                            <input type="text" name="emergency_contact" id="emergency_contact" value="{{ $user->emergency_contact }}" class="form-control" disabled>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="emergency_number" class="form-label">Número de contacto</label>
+                            <input type="number" name="emergency_number" id="emergency_number" value="{{ $user->emergency_number }}" class="form-control" disabled>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>

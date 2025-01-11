@@ -22,13 +22,15 @@ class UserSeeder extends Seeder
             'last_name' => strtoupper('Rodriguez Aramayo'),
             'gender' => strtoupper('Masculino'),
             'date_birth' => '2000-09-03',
-            'phone' => '12781469',
+            'phone' => '73868164',
             'email' => 'JPM.12781469@Outlook.com',
             'email_verified_at' => now(),  // Cambié esto a la fecha actual
             'password' => Hash::make('12345678'),
             'status' => 1,
             'image' => '',
-            'address' => strtoupper('Calle Ficticia 123, Ciudad Real')
+            'address' => strtoupper('Calle Ficticia 123, Ciudad Real'),
+            'emergency_contact' => 'Ronald Rodrigo Rodriguez Aramayo',
+            'emergency_number' => '73333374'
         ]);
     }
 }

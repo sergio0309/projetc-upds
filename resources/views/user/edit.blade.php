@@ -124,6 +124,16 @@
 
                         </div>
                     </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="emergency_contact" class="form-label">Contacto de emergencia</label>
+                            <input value="{{ $user->emergency_contact }}" type="text" name="emergency_contact" id="emergency_contact" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="emergency_number" class="form-label">Número de contacto</label>
+                            <input value="{{ $user->emergency_number }}" type="number" name="emergency_number" id="emergency_number" class="form-control">
+                        </div>
+                    </div>
 
                     <div class="form-check mb-3">
                         <input type="checkbox" class="form-check-input" id="changePassword-{{ $user->id }}" onclick="togglePasswordFields({{ $user->id }})">
