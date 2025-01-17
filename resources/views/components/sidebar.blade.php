@@ -38,8 +38,8 @@
                 </li>
                 <li class="menu-title"><i class="ri-more-fill"></i> <span>Modulos</span></li>
                 <li class="nav-item">
-                    <a href="" class="nav-link">
-                        <i class="ri-bookmark-fill"></i> <span>Clientes</span>
+                    <a href="{{ route('clients.index')}}" class="nav-link {{ request()->routeIs('clients.index') ? 'active' : '' }}">
+                        <i class="ri-team-fill"></i> <span>Clientes</span>
                     </a>
                 </li>
                 <li class="nav-item">

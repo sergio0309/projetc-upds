@@ -54,17 +54,16 @@
                     <div class="row mb-3">
                         <div class="col-md-3">
                             <label for="date_birth" class="form-label">Fecha de Nacimiento</label>
-                            <input type="date" id="date_birth" name="date_birth" class="form-control" placeholder="Ingrese Fecha de nacimiento">
+                            <input type="date" id="date_birth" name="date_birth" class="form-control" placeholder="Ingrese Fecha de nacimiento" required>
                         </div>
 
                         <div class="col-md-3">
                             <label for="phone" class="form-label">Número de Celular</label>
-                            <input type="text" id="phone" name="phone" class="form-control" placeholder="Ingrese celular">
+                            <input type="text" id="phone" name="phone" class="form-control" placeholder="Ingrese celular" required>
                         </div>
                         <div class="col-md-6">
                             <label for="email-field" class="form-label">Correo electrónico</label>
-                            <input type="email" id="email" name="email" class="form-control" placeholder="Ingrese correo electrónico"
-                                required />
+                            <input type="email" id="email" name="email" class="form-control" placeholder="Ingrese correo electrónico" required/>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -96,7 +95,7 @@
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label for="address" class="form-labe">Dirección:</label>
-                            <input type="text" class="form-control" id="address" name="address" placeholder="Ingrese Dirección">
+                            <input type="text" class="form-control" id="address" name="address" placeholder="Ingrese Dirección" >
                         </div>
                         <div class="col-md-6">
                             <label for="image" class="form-labe">Imagen</label>

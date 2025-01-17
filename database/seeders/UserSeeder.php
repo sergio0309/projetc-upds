@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
             'status' => 1,
             'image' => '',
             'address' => strtoupper('Calle Ficticia 123, Ciudad Real'),
-            'emergency_contact' => 'Ronald Rodrigo Rodriguez Aramayo',
+            'emergency_contact' => strtoupper('Ronald Rodrigo Rodriguez Aramayo'),
             'emergency_number' => '73333374'
         ]);
     }

@@ -17,7 +17,7 @@
                                 <div>
                                     <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal"
                                         id="create-btn" data-bs-target="#createUser"><i
-                                            class="ri-add-line align-bottom me-1"></i> Crear</button>
+                                            class="ri-add-line align-bottom me-1"></i>Nuevo Usuario</button>
                                 </div>
                             </div>
                             <div class="col-sm">
