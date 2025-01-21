@@ -43,8 +43,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link">
-                        <i class="ri-stack-fill"></i> <span>Reportes</span>
+                    <a href="{{ route('workers.index') }}" class="nav-link {{ request()->routeIs('workers.index') ? 'active' : '' }}">
+                        <i class="ri-briefcase-fill"></i> <span>Trabajadores</span>
                     </a>
                 </li>
                 <li class="nav-item">

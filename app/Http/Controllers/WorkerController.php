@@ -2,24 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Client;
 use App\Models\User;
+use App\Models\Worker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
-class ClientController extends Controller
+class WorkerController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $clients = Client::with('user')->get();
+
+        $workers = Worker::with('user.roles')->get();
         $users = User::with('roles')->get();
         $roles = Role::all();
-        return view('client.index', compact('clients', 'users', 'roles'));
+        return view('worker.index', compact('workers', 'users', 'roles'));
     }
 
     /**
@@ -27,9 +28,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-        $users = User::all();
-        $roles = Role::all();
-        return view('client.create', compact('users', 'roles'));
+        //
     }
 
     /**
@@ -37,7 +36,6 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        // dd('Llegó aquí', $request->all());
         $request->validate([
             'user_id' => 'nullable|exists:users,id',
             'ci' => 'nullable|string|max:15|unique:users,ci',
@@ -54,31 +52,30 @@ class ClientController extends Controller
             'address' => 'nullable|string|max:255',
             'emergency_contact' => 'nullable|string|max:255',
             'emergency_number' => 'nullable|string|max:255',
-            'email_2' => 'nullable|string|email|max:255|unique:clients,email_2',
-            'deadline' => 'nullable|string|max:255',
-            'rol' => 'nullable|integer|exists:roles,id'
+            'profession' => 'nullable|string|max:255',
+            'marital_status' => 'nullable|string|max:255',
+            'roles' => 'nullable|array',
         ]);
+        // dd('validate',$request->all());
 
         try {
             DB::beginTransaction();
-
-            if (!is_null($request->input('user_id')) ) {
-
+            if( !is_null($request->input('user_id')) ){
                 $user = User::findOrFail($request->user_id);
-
-                Client::create([
-                    'email_2' => $request->input('email_2'),
-                    'deadline' => $request->input('deadline'),
+                Worker::create([
+                    'profession' => $request->input('profession'),
+                    'marital_status' => $request->input('marital_status'),
                     'user_id' => $user->id
                 ]);
 
-                $role = Role::findOrFail($request->input('rol'));
-                $user->assignRole($role);
-
-                DB::commit();
-                return redirect()->route('clients.index')->with('success', 'Cliente asociado al usuario existente creado exitosamente.');
+                $roles = $request->input('roles');
+                foreach( $roles as $roleId ){
+                    $role = Role::findOrFail($roleId);
+                    $user->assignRole($role);
+                }
             }
 
+            // dd('aqui',$request->all());
             $imagePath = null;
             if ($request->hasFile('image')) {
                 $imagePath = $request->file('image')->store('users', 'public');
@@ -103,28 +100,26 @@ class ClientController extends Controller
                 'emergency_number' => $request->input('emergency_number'),
             ]);
 
-            $roleId = $request->input('rol');
-            $role = Role::findOrFail($roleId);
-            $user->assignRole($role);
-
-            Client::create([
-                'email_2' => $request->input('email_2'),
-                'deadline' => $request->input('deadline'),
-                'user_id' => $user->id,
+            Worker::create([
+                'profession' => strtoupper($request->input('profession')),
+                'marital_status' => strtoupper($request->input('marital_status')),
+                'user_id' => $user->id
             ]);
 
+            $user->syncRoles($request->input('roles'));
+
             DB::commit();
-            return redirect()->route('clients.index')->with('success', 'Cliente creado exitosamente.');
+            return redirect()->route('workers.index')->with('success', 'Trabajador creado exitosamente.');
         } catch (\Throwable $th) {
-            DB::rollBack();
-            return redirect()->route('clients.index')->with('Error', 'Error al registrar el cliente');
+            DB::commit();
+            return redirect()->route('workers.index')->with('Error', 'Error al registrar el trabajador');
         }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Client $client)
+    public function show(Worker $worker)
     {
         //
     }
@@ -132,7 +127,7 @@ class ClientController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Client $client)
+    public function edit(Worker $worker)
     {
         //
     }
@@ -142,6 +137,7 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request->all());
         $request->validate([
             'ci' => 'nullable|string|max:15|unique:users,ci,' . $id,
             'complement_ci' => 'nullable|string|max:15|unique:users,complement_ci,' . $id,
@@ -157,10 +153,10 @@ class ClientController extends Controller
             'address' => 'nullable|string|max:255',
             'emergency_contact' => 'nullable|string|max:255',
             'emergency_number' => 'nullable|string|max:255',
-            'email_2' => 'nullable|string|email|max:255|unique:clients,email_2',
-            'deadline' => 'nullable|string|max:255',
+            'profession' => 'nullable|string|max:255',
+            'marital_status' => 'nullable|string|max:255',
+            'roles' => 'nullable|array',
         ]);
-
         try {
             DB::beginTransaction();
             $user = User::findOrFail($id);
@@ -184,31 +180,32 @@ class ClientController extends Controller
             $user->address = strtoupper($request->input('address'));
             $user->emergency_contact = strtoupper($request->input('emergency_contact'));
             $user->emergency_number = $request->input('emergency_number');
-
-            // Si la contraseña está presente, actualízala
             if ($request->filled('password')) {
                 $user->password = Hash::make($request->input('password'));
             }
             $user->save(); // Guarda los cambios
 
-            $client = Client::where('user_id', $id)->firstOrFail();
-            $client->update([
-                'email_2' => $request->input('email_2'),
-                'deadline' => $request->input('deadline'),
+            $worker = Worker::where('user_id', $id)->firstOrFail();
+            $worker->update([
+                'profession' => strtoupper($request->input('profession')),
+                'marital_status' => strtoupper($request->input('marital_status')),
+                'user_id' => $user->id
             ]);
+            $user->roles()->sync($request->roles);
+
 
             DB::commit();
-            return redirect()->route('clients.index')->with('success', 'Cliente actualizado exitosamente.');
+            return redirect()->route('workers.index')->with('success', 'Trabajador actualizado exitosamente.');
         } catch (\Throwable $th) {
-            DB::rollBack();
-            return redirect()->route('clients.index')->with('Error', 'Error al actualizar el cliente');
+            DB::commit();
+            return redirect()->route('workers.index')->with('Error', 'Error al actualizar el trabajador');
         }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Client $client)
+    public function destroy(Worker $worker)
     {
         //
     }

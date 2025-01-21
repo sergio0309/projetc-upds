@@ -1,0 +1,108 @@
+@extends('layouts.app')
+@include('worker.create', ['workers' => $workers, 'roles' => $roles])
+@section('content')
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title mb-0">Trabajadores</h4>
+            </div><!-- end card header -->
+
+            <div class="card-body">
+                <div id="customerList">
+                    <div class="row g-4 mb-3">
+                        <div class="col-sm-auto">
+                            <div>
+                                <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal" data-bs-target="#createWorker">
+                                    <i class="ri-add-line align-bottom me-1"></i>Nuevo Trabajador
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="d-flex justify-content-sm-end">
+                                <div class="search-box ms-2">
+                                    <input type="text" class="form-control search" placeholder="Search...">
+                                    <i class="ri-search-line search-icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive table-card mt-3 mb-1">
+                        <table class="table align-middle table-nowrap" id="customerTable">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="sort" data-sort="customer_name">N°</th>
+                                    <th class="sort" data-sort="customer_name">Trabajador</th>
+                                    <th class="sort" data-sort="customer_name">Cédula Identidad</th>
+                                    <th class="sort" data-sort="date">NIT</th>
+                                    <th class="sort" data-sort="phone">Celular</th>
+                                    <th class="sort" data-sort="date">Fecha de Nacimiento</th>
+                                    <th class="sort" data-sort="customer_name">Dirección</th>
+                                    <th class="sort" data-sort="action">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody class="list form-check-all">
+                                @foreach ($workers as $worker)
+                                @include('worker.edit', ['workers' => $workers])
+                                @include('worker.show')
+                                    <tr>
+                                        <td class="counter">{{ $loop->iteration }}</td>
+                                        <td class="customer_name">{{ $worker->user->first_name ?? 'N/A' }} {{ $worker->user->last_name ?? 'N/A' }}</td>
+                                        <td>{{ $worker->user->ci ?? 'N/A' }}</td>
+                                        <td>{{ $worker->user->nit ?? 'N/A' }}</td>
+                                        <td>{{ $worker->user->phone ?? 'N/A' }}</td>
+                                        <td>{{ strtoupper(optional(\Carbon\Carbon::parse($worker->user->date_birth))->translatedFormat('d \d\e F \d\e Y') ?? 'N/A') }}</td>
+                                        <td>{{ $worker->user->address ?? 'N/A' }}</td>
+                                        <td>
+                                            <div class="d-flex gap-2">
+                                                <div class="show">
+                                                    <button type="button" class="btn btn-sm btn-primary" title="Ver"
+                                                            data-bs-toggle="modal" data-bs-target="#verWorker-{{ $worker->user->id }}">
+                                                        <i data-feather="eye"></i>
+                                                    </button>
+                                                </div>
+
+                                                <div class="edit">
+                                                    <a href="" class="btn btn-sm btn-warning" title="Editar" data-bs-toggle="modal" data-bs-target="#editWorker-{{ $worker->user->id }}">
+                                                        <i data-feather="edit-3"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <div class="noresult" style="display: none">
+                            <div class="text-center">
+                                <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop"
+                                    colors="primary:#121331,secondary:#08a88a" style="width:75px;height:75px">
+                                </lord-icon>
+                                <h5 class="mt-2">Sorry! No Result Found</h5>
+                                <p class="text-muted mb-0">We've searched more than 150+ Orders We did not find any
+                                    orders for you search.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end">
+                        <div class="pagination-wrap hstack gap-2">
+                            <a class="page-item pagination-prev disabled" href="#">
+                                Previous
+                            </a>
+                            <ul class="pagination listjs-pagination mb-0"></ul>
+                            <a class="page-item pagination-next" href="#">
+                                Next
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- end card -->
+        </div>
+        <!-- end col -->
+    </div>
+    <!-- end col -->
+</div>
+@endsection
+

@@ -1,9 +1,9 @@
 
-<div class="modal fade" id="createClient" tabindex="-1" aria-labelledby="createClientModalLabel" aria-hidden="true">
+<div class="modal fade" id="createWorker" tabindex="-1" aria-labelledby="createWorkerModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header bg-light p-3">
-                <h4 class="card-title mb-0 flex-grow-1">NUEVO CLIENTE</h4>
+                <h4 class="card-title mb-0 flex-grow-1">NUEVO TRABAJADOR</h4>
                 <div class="input-group" style="width: 300px;">
                     <input type="text" class="form-control" id="search-ci" placeholder="Buscar por CI"/>
                     <button class="btn btn-outline-secondary" type="button" onclick="searchClientByCI()">
@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
-                        <form action="{{ route('clients.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('workers.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="modal-body">
                                 <div class="row mb-3">
@@ -42,12 +42,12 @@
                                 </div>
                                 <div class="row mb-3">
 
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <label for="ci" class="form-label">Cédula de Identidad</label>
                                         <input type="number" id="ci" name="ci" class="form-control" placeholder="Ingresar CI" required />
                                     </div>
 
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <label for="complement_ci" class="form-label">Complemento CI</label>
                                         <input type="text" id="complement_ci" name="complement_ci" class="form-control" placeholder="Complemento"/>
                                     </div>
@@ -59,18 +59,12 @@
                                         </label>
                                         <input type="number" id="nit" name="nit" class="form-control mt-2" placeholder="Ingresar NIT" disabled />
                                     </div>
-
-                                    <div class="col-md-3">
-                                        <label for="deadline" class="form-label">Fecha limite de pago</label>
-                                        <input type="number" id="deadline" name="deadline" class="form-control" placeholder="Fecha"/>
-                                    </div>
-
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-md-6">
+                                    <div class="col-md-5">
                                         <label for="email-field" class="form-label">Correo electrónico</label>
                                         <input type="email" id="email" name="email" class="form-control" placeholder="Ingrese correo electrónico" required/>
                                     </div>
+                                </div>
+                                <div class="row mb-3">
                                     <div class="col-md-3">
                                         <label class="form-label" for="password-input">Contraseña</label>
                                         <div class="position-relative auth-pass-inputgroup mb-3">
@@ -95,8 +89,6 @@
                                             </button>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row mb-3">
                                     <div class="col-md-3">
                                         <label for="date_birth" class="form-label">Fecha de Nacimiento</label>
                                         <input type="date" id="date_birth" name="date_birth" class="form-control" placeholder="Ingrese Fecha de nacimiento" required>
@@ -106,17 +98,31 @@
                                         <label for="phone" class="form-label"> Celular</label>
                                         <input type="text" id="phone" name="phone" class="form-control" placeholder="Ingrese celular" required>
                                     </div>
-                                    <div class="col-md-3">
-                                        <label for="email_2" class="form-label">Correo electrónico 2</label>
-                                        <input type="email" id="email_2" name="email_2" class="form-control" placeholder="Ingrese correo electrónico" required/>
-                                    </div>
+                                </div>
+                                <div class="row mb-3">
 
                                     <div class="col-md-3">
-                                        <label for="rol" class="form-label">Rol</label>
-                                        <input type="text" class="form-control" value="CLIENTE" readonly>
-                                        <input type="hidden" id="rol" name="rol" value="{{ $roles->firstWhere('name', 'CLIENTE')->id }}">
+                                        <label for="profession" class="form-label">Profesión</label>
+                                        <input type="text" id="profession" name="profession" class="form-control" placeholder="Ingresar Nombre" required />
                                     </div>
 
+                                    <div class="col-md-2">
+                                        <label for="marital_status" class="form-label">Estado</label>
+                                        <select id="marital_status" name="marital_status" class="form-control" required>
+                                            <option value="" disabled selected>Estado</option>
+                                            <option value="SOLTERO/A">SOLTERO/A</option>
+                                            <option value="CASADO/A">CASADO/A</option>
+                                            <option value="DIVORCIADO/A">DIVORCIADO/A</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <label for="roles" class="form-label">Roles</label>
+                                        <select id="roles" name="roles[]" data-choices multiple class="form-control">
+                                            @foreach ($roles as $rol)
+                                                <option value="{{ $rol->id }}">{{ $rol->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-md-6">
@@ -189,10 +195,10 @@
 
         if (this.checked) {
             // Si NIT está habilitado, usar NIT en el correo
-            emailField.value = `JPM.${nitField.value}@Outlook.com`;
+            emailField.value = `JPM.${nitField.value}@outlook.com`;
         } else {
             // Si NIT no está habilitado, usar CI en el correo
-            emailField.value = `JPM.${ciField.value}@Outlook.com`;
+            emailField.value = `JPM.${ciField.value}@outlook.com`;
         }
     });
 
@@ -204,9 +210,9 @@
         const emailField = document.getElementById('email');
 
         if (enableNit.checked) {
-            emailField.value = `JPM.${nitField.value}@Outlook.com`; // Si el NIT está habilitado
+            emailField.value = `JPM.${nitField.value}@outlook.com`; // Si el NIT está habilitado
         } else {
-            emailField.value = `JPM.${ciField.value}@Outlook.com`; // Si el NIT no está habilitado
+            emailField.value = `JPM.${ciField.value}@outlook.com`; // Si el NIT no está habilitado
         }
     });
 
@@ -218,9 +224,9 @@
         const emailField = document.getElementById('email');
 
         if (enableNit.checked) {
-            emailField.value = `JPM.${nitField.value}@Outlook.com`; // Si el NIT está habilitado
+            emailField.value = `JPM.${nitField.value}@outlook.com`; // Si el NIT está habilitado
         } else {
-            emailField.value = `JPM.${ciField.value}@Outlook.com`; // Si el NIT no está habilitado
+            emailField.value = `JPM.${ciField.value}@outlook.com`; // Si el NIT no está habilitado
         }
     });
 
@@ -265,6 +271,7 @@
 
     //Searcg-CI
     var users = @json($users);
+    var roles = @json($roles);
     function searchClientByCI() {
         var ciInput = document.getElementById('search-ci').value; // Obtener el valor del campo CI
         var user = users.find(function(user) {
@@ -279,10 +286,8 @@
             document.getElementById('ci').value = user.ci;
             document.getElementById('complement_ci').value = user.complement_ci;
             document.getElementById('nit').value = user.nit;
-            // document.getElementById('deadline').value = user.deadline;
             document.getElementById('email').value = user.email;
             document.getElementById('phone').value = user.phone;
-            // document.getElementById('email_2').value = user.email_2;
             document.getElementById('address').value = user.address;
             document.getElementById('emergency_contact').value = user.emergency_contact;
             document.getElementById('emergency_number').value = user.emergency_number;
@@ -299,6 +304,7 @@
                 document.getElementById('nit').value = ''; // Limpiar el campo NIT
                 document.getElementById('nit').disabled = true;
             }
+
             // Deshabilitar los campos y eliminar el atributo 'name'
             var inputsToDisable = [
                 'first_name', 'last_name', 'gender', 'ci', 'complement_ci', 'nit',
@@ -311,13 +317,7 @@
                 input.setAttribute('disabled', 'true'); // Deshabilitar el campo
                 input.removeAttribute('name'); // Eliminar el atributo name
             });
-            // // Si el usuario tiene una imagen asociada, puedes agregarla en el formulario si es necesario
-            // if (user.image) {
-            //     document.getElementById('image').value = user.image;
-            // }
 
-            // // Cambiar el rol a CLIENTE (si es necesario) o lo que corresponda
-            // document.getElementById('rol').value = user.role_id; // Asumiendo que el rol es una propiedad del usuario
         } else {
             // Si no se encuentra el usuario
             alert('Usuario no encontrado');
