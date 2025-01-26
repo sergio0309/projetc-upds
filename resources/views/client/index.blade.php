@@ -49,8 +49,12 @@
                                     <tr>
                                         <td class="counter">{{ $loop->iteration }}</td>
                                         <td class="customer_name">{{ $client->user->first_name ?? 'N/A' }} {{ $client->user->last_name ?? 'N/A' }}</td>
-                                        <td>{{ $client->user->ci ?? 'N/A' }}</td>
-                                        <td>{{ $client->user->nit ?? 'N/A' }}</td>
+                                        <td>{{ $client->user->ci }}</td>
+                                        @if ( $client->user->nit )
+                                            <td class="counter">{{ $client->user->nit }}</td>
+                                        @else
+                                            <td class="counter" style="opacity: 0.5;">N/A</td>
+                                        @endif
                                         <td>{{ $client->user->phone ?? 'N/A' }}</td>
                                         <td>{{ strtoupper(optional(\Carbon\Carbon::parse($client->user->date_birth))->translatedFormat('d \d\e F \d\e Y') ?? 'N/A') }}</td>
                                         <td>{{ $client->user->address ?? 'N/A' }}</td>
@@ -67,6 +71,37 @@
                                                     <a href="" class="btn btn-sm btn-warning" title="Editar" data-bs-toggle="modal" data-bs-target="#editClient-{{ $client->user->id }}">
                                                         <i data-feather="edit-3"></i>
                                                     </a>
+                                                </div>
+                                                <div class="remove">
+                                                    <button class="btn btn-sm {{ $client->user->status == 1 ? 'btn-danger' : 'btn-success' }} remove-item-btn"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#confirmarModal-{{ $client->user->id }}"
+                                                        title="{{ $client->user->status == 1 ? 'Inhabilitar' : 'Restaurar' }}">
+                                                        <i data-feather="refresh-cw"></i>
+                                                    </button>
+                                                </div>
+                                                <!-- Modal-Estado-->
+                                                <div class="modal fade" id="confirmarModal-{{ $client->user->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Mensaje de confirmación</h1>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                {{ $client->user->id == 1 ? '¿Seguro que quieres desactivar el usuario?' : '¿Seguro que quieres restaurar el usuario?' }}
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                                <form action="{{ route('users.destroy', $client->user->id) }}" method="post">
+                                                                    @method('DELETE')
+                                                                    @csrf
+                                                                    <input type="hidden" name="status" value="{{ $client->user->status }}">
+                                                                    <button type="submit" class="btn btn-danger">Confirmar</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </td>

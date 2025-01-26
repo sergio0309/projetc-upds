@@ -172,4 +172,34 @@
         const passwordFields = document.getElementById(`passwordFields-${userId}`);
         passwordFields.style.display = passwordFields.style.display === 'none' || passwordFields.style.display === '' ? 'block' : 'none';
     }
+
+    function toggleNitField(userId) {
+        const nitField = document.getElementById(`nit-${userId}`);
+        const enableNitCheckbox = document.getElementById(`enable_nit-${userId}`);
+        const ciField = document.getElementById(`ci-${userId}`);
+        const emailField = document.getElementById(`email-${userId}`);
+
+        if (enableNitCheckbox.checked) {
+            nitField.disabled = false; // Habilitar el campo NIT
+            nitField.value = ciField ? ciField.value : ''; // Reflejar el valor del CI en el NIT
+            emailField.value = `JPM.${nitField.value}@outlook.com`; // Generar correo basado en NIT
+        } else {
+            nitField.disabled = true; // Deshabilitar el campo NIT
+            nitField.value = ''; // Vaciar el campo NIT
+            emailField.value = `JPM.${ciField.value}@outlook.com`; // Generar correo basado en CI
+        }
+    }
+
+    // Sincronización de NIT con CI no es necesaria, porque NIT no debe afectar a CI
+    function syncNitWithCi(userId) {
+        const nitField = document.getElementById(`nit-${userId}`);
+        const ciField = document.getElementById(`ci-${userId}`);
+        const enableNitCheckbox = document.getElementById(`enable_nit-${userId}`);
+        const emailField = document.getElementById(`email-${userId}`);
+
+        if (!enableNitCheckbox.checked) {
+            // Si el NIT está deshabilitado, sincronizamos el correo con el CI
+            emailField.value = `JPM.${ciField.value}@outlook.com`; // Correo basado en CI
+        }
+    }
 </script>

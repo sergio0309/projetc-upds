@@ -62,7 +62,7 @@
 
                                     <div class="col-md-3">
                                         <label for="deadline" class="form-label">Fecha limite de pago</label>
-                                        <input type="number" id="deadline" name="deadline" class="form-control" placeholder="Fecha"/>
+                                        <input type="number" id="deadline" name="deadline" class="form-control" placeholder="Fecha" required/>
                                     </div>
 
                                 </div>
@@ -189,10 +189,10 @@
 
         if (this.checked) {
             // Si NIT está habilitado, usar NIT en el correo
-            emailField.value = `JPM.${nitField.value}@Outlook.com`;
+            emailField.value = `JPM.${nitField.value}@outlook.com`;
         } else {
             // Si NIT no está habilitado, usar CI en el correo
-            emailField.value = `JPM.${ciField.value}@Outlook.com`;
+            emailField.value = `JPM.${ciField.value}@outlook.com`;
         }
     });
 
@@ -204,9 +204,9 @@
         const emailField = document.getElementById('email');
 
         if (enableNit.checked) {
-            emailField.value = `JPM.${nitField.value}@Outlook.com`; // Si el NIT está habilitado
+            emailField.value = `JPM.${nitField.value}@outlook.com`; // Si el NIT está habilitado
         } else {
-            emailField.value = `JPM.${ciField.value}@Outlook.com`; // Si el NIT no está habilitado
+            emailField.value = `JPM.${ciField.value}@outlook.com`; // Si el NIT no está habilitado
         }
     });
 
@@ -218,9 +218,9 @@
         const emailField = document.getElementById('email');
 
         if (enableNit.checked) {
-            emailField.value = `JPM.${nitField.value}@Outlook.com`; // Si el NIT está habilitado
+            emailField.value = `JPM.${nitField.value}@outlook.com`; // Si el NIT está habilitado
         } else {
-            emailField.value = `JPM.${ciField.value}@Outlook.com`; // Si el NIT no está habilitado
+            emailField.value = `JPM.${ciField.value}@outlook.com`; // Si el NIT no está habilitado
         }
     });
 

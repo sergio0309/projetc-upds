@@ -181,11 +181,11 @@
         if (enableNitCheckbox.checked) {
             nitField.disabled = false; // Habilitar el campo NIT
             nitField.value = ciField ? ciField.value : ''; // Reflejar el valor del CI en el NIT
-            emailField.value = `JPM.${nitField.value}@Outlook.com`; // Generar correo basado en NIT
+            emailField.value = `JPM.${nitField.value}@outlook.com`; // Generar correo basado en NIT
         } else {
             nitField.disabled = true; // Deshabilitar el campo NIT
             nitField.value = ''; // Vaciar el campo NIT
-            emailField.value = `JPM.${ciField.value}@Outlook.com`; // Generar correo basado en CI
+            emailField.value = `JPM.${ciField.value}@outlook.com`; // Generar correo basado en CI
         }
     }
 
@@ -198,7 +198,7 @@
 
         if (!enableNitCheckbox.checked) {
             // Si el NIT está deshabilitado, sincronizamos el correo con el CI
-            emailField.value = `JPM.${ciField.value}@Outlook.com`; // Correo basado en CI
+            emailField.value = `JPM.${ciField.value}@outlook.com`; // Correo basado en CI
         }
     }
 

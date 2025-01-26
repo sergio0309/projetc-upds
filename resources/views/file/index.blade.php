@@ -45,13 +45,6 @@
                                                     <i data-feather="eye"></i>
                                                 </button>
                                             </div>
-                                            {{-- <div>
-                                                <button
-                                                    title="Editar"
-                                                    class="btn btn-sm btn-warning edit-item-btn">
-                                                    <i data-feather="edit-3"></i>
-                                                </button>
-                                            </div> --}}
                                             <div>
                                                 <button
                                                     title="Reemplazar archivo"

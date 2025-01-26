@@ -38,7 +38,7 @@
                                             value="{{ $permiso->id }}"
                                             id="permiso-{{ $permiso->id }}">
                                         <label class="form-check-label" for="permiso-{{ $permiso->id }}">
-                                            {{ strtoupper($permiso->name) }}
+                                            {{ $permiso->name }}
                                         </label>
                                     </div>
                                 </div>

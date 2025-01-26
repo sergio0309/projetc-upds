@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
             'gender' => strtoupper('Masculino'),
             'date_birth' => '2000-09-03',
             'phone' => '73868164',
-            'email' => 'JPM.12781469@Outlook.com',
+            'email' => 'JPM.12781469@outlook.com',
             'email_verified_at' => now(),  // Cambié esto a la fecha actual
             'password' => Hash::make('12345678'),
             'status' => 1,

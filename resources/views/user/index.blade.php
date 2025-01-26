@@ -61,7 +61,7 @@
                                             @if ( $user->nit )
                                                 <td class="counter">{{ $user->nit }}</td>
                                             @else
-                                                <td class="counter" style="opacity: 0.5;">NO EXISTE</td>
+                                                <td class="counter" style="opacity: 0.5;">N/A</td>
                                             @endif
                                             <td class="phone">{{ $user->phone }}</td>
                                             <td class="customer_name">{{ strtoupper(\Carbon\Carbon::parse($user->date_birth)->translatedFormat('d \d\e F \d\e Y')) }}</td>
