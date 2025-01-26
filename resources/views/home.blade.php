@@ -1,7 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+<script>
 
+    document.addEventListener('DOMContentLoaded', function() {
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth'
+      });
+      calendar.render();
+    });
+
+</script>
 
 <div class="row">
     <div class="col-12">
@@ -20,8 +31,8 @@
 </div>
 
 <div class="row">
-    <div class="col-xl-3 col-md-6">
-        <!-- card -->
+    {{-- <div class="col-xl-3 col-md-6">
+
         <div class="card card-animate bg-danger">
             <div class="card-body">
                 <div class="d-flex align-items-center">
@@ -43,7 +54,7 @@
                                 class="counter-value" data-target="559.25">0</span>k
                         </h4>
                         <a href="">Ver mas</a>
-                        {{-- <a href="{{route('brazaletes.index')}}" class="text-decoration-underline text-white-50">Ver Mas</a> --}}
+
                     </div>
                     <div class="avatar-sm flex-shrink-0">
                         <span class="avatar-title bg-soft-light rounded fs-3">
@@ -51,12 +62,12 @@
                         </span>
                     </div>
                 </div>
-            </div><!-- end card body -->
-        </div><!-- end card -->
-    </div><!-- end col -->
+            </div>
+        </div>
+    </div> --}}
 
-    <div class="col-xl-3 col-md-6">
-        <!-- card -->
+    {{-- <div class="col-xl-3 col-md-6">
+
         <div class="card card-animate bg-info">
             <div class="card-body">
                 <div class="d-flex align-items-center">
@@ -78,7 +89,7 @@
                             class="counter-value" data-target="36894">0</span></h4>
                         <a href="">Ver mas</a>
 
-                            {{-- <a href="{{route('personales.index')}}" class="text-decoration-underline text-white-50">Ver Mas</a> --}}
+
                     </div>
                     <div class="avatar-sm flex-shrink-0">
                         <span class="avatar-title bg-soft-light rounded fs-3">
@@ -86,12 +97,12 @@
                         </span>
                     </div>
                 </div>
-            </div><!-- end card body -->
-        </div><!-- end card -->
-    </div><!-- end col -->
+            </div>
+        </div>
+    </div> --}}
 
-    <div class="col-xl-3 col-md-6">
-        <!-- card -->
+    {{-- <div class="col-xl-3 col-md-6">
+
         <div class="card card-animate bg-dark">
             <div class="card-body">
                 <div class="d-flex align-items-center">
@@ -119,9 +130,12 @@
                         </span>
                     </div>
                 </div>
-            </div><!-- end card body -->
-        </div><!-- end card -->
-    </div><!-- end col -->
+            </div>>
+        </div>
+    </div> --}}
+
+    <div id='calendar'></div>
 </div> <!-- end row-->
 
 @endsection
+

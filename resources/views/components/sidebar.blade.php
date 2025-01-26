@@ -33,7 +33,7 @@
                 <li class="menu-title"><span>Inicio</span></li>
                 <li class="nav-item">
                     <a href="{{route('home')}}" class="nav-link {{ request()->routeIs('app') ? 'active' : ''}}">
-                        <i class="ri-dashboard-2-line"></i> <span>Panel</span>
+                        <i class="ri-dashboard-2-line"></i> <span>Home</span>
                     </a>
                 </li>
                 <li class="menu-title"><i class="ri-more-fill"></i> <span>Modulos</span></li>
@@ -48,8 +48,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link">
-                        <i class="ri-shopping-bag-fill"></i> <span>Historial</span>
+                    <a href="{{ route('files.index')}}" class="nav-link {{ request()->routeIs('files.index', 'files.show') ? 'active' : '' }}">
+                        <i class="ri-file-list-3-fill"></i> <span>Documentos</span>
                     </a>
                 </li>
                 <li class="nav-item">
