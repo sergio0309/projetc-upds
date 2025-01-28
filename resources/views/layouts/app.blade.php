@@ -41,6 +41,8 @@
             <div class="page-content">
                 <div class="container-fluid">
                     @yield('content')
+                    @stack('css')
+                    @stack('js')
                 </div>
             </div>
 
