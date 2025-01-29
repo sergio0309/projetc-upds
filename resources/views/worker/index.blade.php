@@ -59,14 +59,46 @@
                                                 <div class="show">
                                                     <button type="button" class="btn btn-sm btn-primary" title="Ver"
                                                             data-bs-toggle="modal" data-bs-target="#verWorker-{{ $worker->user->id }}">
-                                                        <i data-feather="eye"></i>
+                                                        <i class="ri-eye-fill"></i>
                                                     </button>
                                                 </div>
 
                                                 <div class="edit">
                                                     <a href="" class="btn btn-sm btn-warning" title="Editar" data-bs-toggle="modal" data-bs-target="#editWorker-{{ $worker->user->id }}">
-                                                        <i data-feather="edit-3"></i>
+                                                        <i class="ri-edit-2-fill"></i>
                                                     </a>
+                                                </div>
+
+                                                <div class="remove">
+                                                    <button class="btn btn-sm {{ $worker->user->status == 1 ? 'btn-danger' : 'btn-success' }} remove-item-btn"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#confirmarModal-{{ $worker->user->id }}"
+                                                        title="{{ $worker->user->status == 1 ? 'Inhabilitar' : 'Restaurar' }}">
+                                                        <i class="ri-refresh-line"></i>
+                                                    </button>
+                                                </div>
+                                                <!-- Modal-Estado-->
+                                                <div class="modal fade" id="confirmarModal-{{ $worker->user->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Mensaje de confirmación</h1>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                {{ $worker->user->id == 1 ? '¿Seguro que quieres desactivar el usuario?' : '¿Seguro que quieres restaurar el usuario?' }}
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                                <form action="{{ route('workers.destroy', $worker->user->id) }}" method="post">
+                                                                    @method('DELETE')
+                                                                    @csrf
+                                                                    <input type="hidden" name="status" value="{{ $worker->user->status }}">
+                                                                    <button type="submit" class="btn btn-danger">Confirmar</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </td>

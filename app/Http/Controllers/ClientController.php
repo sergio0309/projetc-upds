@@ -208,8 +208,18 @@ class ClientController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Client $client)
+    public function destroy($id, Request $request)
     {
-        //
+        $user = User::findOrFail($id);
+
+        if ($request->input('status') == 1) {
+            $user->status = 0; // Cambia el estado a inactivo
+        } else {
+            $user->status = 1; // Cambia el estado a activo
+        }
+
+        $user->save();
+
+        return redirect()->route('clients.index')->with('success', 'Cliente actualizado correctamente.');
     }
 }

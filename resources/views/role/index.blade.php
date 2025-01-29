@@ -49,10 +49,10 @@
                                                 <div class="d-flex gap-2">
                                                     <div class="edit">
                                                         <button class="btn btn-sm btn-primary edit-item-btn"
-                                                            data-bs-toggle="modal" title="Ver" data-bs-target="#verRol-{{$role->id}}" ><i data-feather="eye"></i></button>
+                                                            data-bs-toggle="modal" title="Ver" data-bs-target="#verRol-{{$role->id}}" ><i class="ri-eye-fill"></i></i></button>
                                                     </div>
                                                     <div class="edit">
-                                                        <a class="btn btn-sm btn-warning edit-item-btn" href="{{ route('roles.edit', $role->id) }}"><i data-feather="edit-3"></i></a>
+                                                        <a class="btn btn-sm btn-warning edit-item-btn" href="{{ route('roles.edit', $role->id) }}"><i class="ri-edit-2-fill"></i></i></a>
                                                     </div>
                                                     {{-- <div class="remove">
                                                         <button class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal"

@@ -1,37 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
-<script>
-
-    document.addEventListener('DOMContentLoaded', function() {
-      var calendarEl = document.getElementById('calendar');
-      var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth'
-      });
-      calendar.render();
-    });
-
-</script>
 
 <div class="row">
-    <div class="col-12">
-        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-            <h4 class="mb-sm-0 font-size-18">App</h4>
-
-            <div class="page-title-right">
-                <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
-                </ol>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    {{-- <div class="col-xl-3 col-md-6">
+    <div class="col-xl-3 col-md-6">
 
         <div class="card card-animate bg-danger">
             <div class="card-body">
@@ -64,9 +36,9 @@
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
 
-    {{-- <div class="col-xl-3 col-md-6">
+    <div class="col-xl-3 col-md-6">
 
         <div class="card card-animate bg-info">
             <div class="card-body">
@@ -99,9 +71,9 @@
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
 
-    {{-- <div class="col-xl-3 col-md-6">
+    <div class="col-xl-3 col-md-6">
 
         <div class="card card-animate bg-dark">
             <div class="card-body">
@@ -132,9 +104,7 @@
                 </div>
             </div>>
         </div>
-    </div> --}}
-
-    <div id='calendar'></div>
+    </div>
 </div> <!-- end row-->
 
 @endsection

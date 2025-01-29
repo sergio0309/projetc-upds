@@ -53,33 +53,35 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ route('typesservice.index') }}" class="nav-link {{ request()->routeIs('typesservice.index') ? 'active' : '' }}">
+                        <i class="ri-bar-chart-2-fill"></i> <span>Tipos de servicio</span>
+                    </a>
+                </li>
+                {{-- <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarCompras" data-bs-toggle="collapse" role="button"
                        aria-expanded="{{ request()->is('compras*') ? 'true' : 'false' }}" aria-controls="sidebarCompras">
-                        <i class="ri-shopping-cart-2-fill"></i> <span>Tipoa de Servicio</span>
+                        <i class="ri-shopping-cart-2-fill"></i> <span>Servicios</span>
                     </a>
                     <div class="collapse menu-dropdown {{ request()->is('compras*') ? 'show' : '' }}" id="sidebarCompras">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="" class="nav-link">
-                                    {{-- href="{{ route('compras.index') }}" class="nav-link {{ request()->routeIs('compras.index') ? 'active' : '' }}" --}}
-
-                                    <i class="ri-eye-fill"></i> <span>Ver</span>
+                                <a href="{{ route('typesservice.index') }}" class="nav-link {{ request()->routeIs('typesservice.index') ? 'active' : '' }}">
+                                    <i class="ri-bar-chart-2-fill"></i> <span>Tipos de servicio</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="" class="nav-link">
-                                    {{-- href="{{ route('compras.create') }}" class="nav-link {{ request()->routeIs('compras.create') ? 'active' : '' }}" --}}
                                     <i class="ri-add-circle-line"></i> <span>Crear</span>
                                 </a>
                             </li>
                         </ul>
                     </div>
-                </li>
-                <li class="nav-item">
+                </li> --}}
+                {{-- <li class="nav-item">
                     <a href="" class="nav-link">
                         <i class="ri-team-fill"></i> <span>Personal</span>
                     </a>
-                </li>
+                </li> --}}
                 <li class="menu-title"><i class="ri-more-fill"></i> <span>Roles y Usuarios</span></li>
                 <li class="nav-item">
                     <a href="{{ route('roles.index')}}" class="nav-link {{ request()->routeIs('roles.index') ? 'active' : ''}}">

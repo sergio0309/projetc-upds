@@ -63,21 +63,22 @@
                                                 <div class="show">
                                                     <button type="button" class="btn btn-sm btn-primary" title="Ver"
                                                             data-bs-toggle="modal" data-bs-target="#verClient-{{ $client->user->id }}">
-                                                        <i data-feather="eye"></i>
+                                                        <i class="ri-eye-fill"></i>
                                                     </button>
                                                 </div>
 
                                                 <div class="edit">
                                                     <a href="" class="btn btn-sm btn-warning" title="Editar" data-bs-toggle="modal" data-bs-target="#editClient-{{ $client->user->id }}">
-                                                        <i data-feather="edit-3"></i>
+                                                        <i class="ri-edit-2-fill"></i>
                                                     </a>
                                                 </div>
+
                                                 <div class="remove">
                                                     <button class="btn btn-sm {{ $client->user->status == 1 ? 'btn-danger' : 'btn-success' }} remove-item-btn"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#confirmarModal-{{ $client->user->id }}"
                                                         title="{{ $client->user->status == 1 ? 'Inhabilitar' : 'Restaurar' }}">
-                                                        <i data-feather="refresh-cw"></i>
+                                                        <i class="ri-refresh-line"></i>
                                                     </button>
                                                 </div>
                                                 <!-- Modal-Estado-->
@@ -93,7 +94,7 @@
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                                                <form action="{{ route('users.destroy', $client->user->id) }}" method="post">
+                                                                <form action="{{ route('clients.destroy', $client->user->id) }}" method="post">
                                                                     @method('DELETE')
                                                                     @csrf
                                                                     <input type="hidden" name="status" value="{{ $client->user->status }}">

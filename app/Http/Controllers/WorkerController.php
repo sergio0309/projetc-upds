@@ -205,8 +205,18 @@ class WorkerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Worker $worker)
+    public function destroy($id, Request $request)
     {
-        //
+        $user = User::findOrFail($id);
+
+        if ($request->input('status') == 1) {
+            $user->status = 0; // Cambia el estado a inactivo
+        } else {
+            $user->status = 1; // Cambia el estado a activo
+        }
+
+        $user->save();
+
+        return redirect()->route('workers.index')->with('success', 'Trabajador actualizado correctamente.');
     }
 }

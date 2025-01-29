@@ -76,18 +76,18 @@
                                                 <div class="d-flex gap-2">
                                                     <div class="edit">
                                                         <button class="btn btn-sm btn-primary edit-item-btn"
-                                                            data-bs-toggle="modal" title="Ver" data-bs-target="#verUser-{{$user->id}}"><i data-feather="eye"></i></button>
+                                                            data-bs-toggle="modal" title="Ver" data-bs-target="#verUser-{{$user->id}}"><i class="ri-eye-fill"></i></i></button>
                                                     </div>
                                                     <div class="edit">
                                                         <button class="btn btn-sm btn-warning edit-item-btn"
-                                                            data-bs-toggle="modal" title="Editar" data-bs-target="#editUser-{{$user->id}}"><i data-feather="edit-3"></i></button>
+                                                            data-bs-toggle="modal" title="Editar" data-bs-target="#editUser-{{$user->id}}"><i class="ri-edit-2-fill"></i></button>
                                                     </div>
                                                     <div class="remove">
                                                         <button class="btn btn-sm {{ $user->status == 1 ? 'btn-danger' : 'btn-success' }} remove-item-btn"
                                                             data-bs-toggle="modal"
                                                             data-bs-target="#confirmarModal-{{ $user->id }}"
                                                             title="{{ $user->status == 1 ? 'Inhabilitar' : 'Restaurar' }}">
-                                                            <i data-feather="refresh-cw"></i>
+                                                            <i class="ri-refresh-line"></i>
                                                         </button>
                                                     </div>
                                                 </div>
