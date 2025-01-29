@@ -141,14 +141,9 @@
                 navLinks: true, // Permite navegar haciendo clic en un día o semana
                 editable: true, // Permite arrastrar y editar eventos
                 selectable: true, // Permite seleccionar días o intervalos
-                events: {
-                    url: "{{ route('reservations.events') }}",
-                    method: 'GET',
-                    failure: function() {
-                        alert('Hubo un problema al cargar los eventos.');
-                    }
-                },
+                events: @json($events),
                 dateClick:function(info){
+                    formulario.reset();
                     document.getElementById('start').value = info.dateStr;
                     document.getElementById('end').value = info.dateStr;
                     $("#evento").modal("show");
@@ -160,7 +155,7 @@
             document.getElementById("btnGuardar").addEventListener("click", function(e) {
                 e.preventDefault(); // Prevenir el envío normal del formulario
 
-                // Obtener los valores de los campos
+
                 const title = document.getElementById('title').value;
                 const description = document.getElementById('description').value;
                 const start = document.getElementById('start').value;
@@ -191,13 +186,12 @@
                     end: endDatetime,
                     client_id: client_id,
                     worker_id: worker_id,
-                    // start: start,
-                    // end: end
                 };
 
                 // Enviar los datos al servidor usando Axios
                 axios.post("http://127.0.0.1:8000/reservations", datos)
                     .then(response => {
+                        calendar.refetchEvent();
                         console.log(response.data); // Muestra la respuesta para depuración
                         $("#evento").modal("hide"); // Cerrar el modal
                     })
