@@ -42,6 +42,7 @@
                                     <th class="sort" data-sort="phone">Celular</th>
                                     <th class="sort" data-sort="date">Fecha de Nacimiento</th>
                                     <th class="sort" data-sort="customer_name">Dirección</th>
+                                    <th class="sort" data-sort="action">Estado</th>
                                     <th class="sort" data-sort="action">Acción</th>
                                 </tr>
                             </thead>
@@ -57,6 +58,13 @@
                                         <td>{{ $worker->user->phone ?? 'N/A' }}</td>
                                         <td>{{ strtoupper(optional(\Carbon\Carbon::parse($worker->user->date_birth))->translatedFormat('d \d\e F \d\e Y') ?? 'N/A') }}</td>
                                         <td>{{ $worker->user->address ?? 'N/A' }}</td>
+                                        <td>
+                                            @if ($worker->user->status == 1)
+                                                <span class="badge badge-soft-success text-uppercase">Active</span></td>
+                                            @else
+                                                <span class="badge badge-soft-danger text-uppercase">Inactivo</span>
+                                            @endif
+                                        <td>
                                         <td>
                                             <div class="d-flex gap-2">
                                                 <div class="show">

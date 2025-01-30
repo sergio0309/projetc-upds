@@ -115,26 +115,23 @@
                                             <option value="DIVORCIADO/A">DIVORCIADO/A</option>
                                         </select>
                                     </div>
-                                    <div class="col-md-7">
+                                    <div class="col-md-3">
+                                        <label for="address" class="form-labe">Dirección:</label>
+                                        <input type="text" class="form-control" id="address" name="address" placeholder="Ingrese Dirección" >
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="image" class="form-labe">Imagen</label>
+                                        <input type="file" class="form-control" id="image" name="image" placeholder="Selecciones imagen">
+                                    </div>
+                                    {{-- <div class="col-md-7">
                                         <label for="roles" class="form-label">Roles</label>
                                         <select id="roles" name="roles[]" data-choices multiple class="form-control">
                                             @foreach ($roles as $rol)
                                                 <option value="{{ $rol->id }}">{{ $rol->name }}</option>
                                             @endforeach
                                         </select>
-                                    </div>
+                                    </div> --}}
                                 </div>
-                                <div class="row mb-3">
-                                    <div class="col-md-6">
-                                        <label for="address" class="form-labe">Dirección:</label>
-                                        <input type="text" class="form-control" id="address" name="address" placeholder="Ingrese Dirección" >
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="image" class="form-labe">Imagen</label>
-                                        <input type="file" class="form-control" id="image" name="image" placeholder="Selecciones imagen">
-                                    </div>
-                                </div>
-                                <div class="border mt-3 border-dashed"></div><br>
                                 <div class="row mb-3">
                                     <div class="col-md-6">
                                         <label for="emergency_contact" class="form-label">Contacto de emergencia</label>
@@ -145,7 +142,28 @@
                                         <input type="number" name="emergency_number" id="emergency_number" class="form-control">
                                     </div>
                                 </div>
-
+                                <div class="border mt-3 border-dashed"></div><br>
+                                <div class="col-md-7">
+                                    <label for="roles" class="form-label">Roles</label>
+                                    {{-- <select id="roles" name="roles[]" data-choices multiple class="form-control">
+                                        @foreach ($roles as $rol)
+                                            <option value="{{ $rol->id }}">{{ $rol->name }}</option>
+                                        @endforeach
+                                    </select> --}}
+                                    <div class="row">
+                                        @foreach ($roles as $role)
+                                            <div class="col-md-4">
+                                                <input
+                                                    type="checkbox"
+                                                    name="roles[]"
+                                                    class="form-check-input">
+                                                <label for="role-{{ $role->id }}" class="form-check-label">
+                                                    {{ $role->name }}
+                                                </label>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <a href="javascript:void(0);" class="btn btn-link link-primary fw-medium" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Close</a>

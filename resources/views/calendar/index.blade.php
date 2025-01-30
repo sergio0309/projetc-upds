@@ -191,7 +191,7 @@
                 // Enviar los datos al servidor usando Axios
                 axios.post("http://127.0.0.1:8000/reservations", datos)
                     .then(response => {
-                        calendar.refetchEvent();
+                        // calendar.refetchEvent();
                         console.log(response.data); // Muestra la respuesta para depuración
                         $("#evento").modal("hide"); // Cerrar el modal
                     })

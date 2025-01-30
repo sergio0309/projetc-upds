@@ -98,9 +98,10 @@
                         <i class="ri-team-fill"></i> <span>Personal</span>
                     </a>
                 </li> --}}
-                @can('ver-role' || 'ver-user')
+                @canany(['ver-role', 'ver-user'])
                 <li class="menu-title"><i class="ri-more-fill"></i> <span>Roles y Usuarios</span></li>
-                @endcan
+                @endcanany
+
                 <!----Roles---->
                 @can('ver-role')
                 <li class="nav-item">
