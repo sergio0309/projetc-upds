@@ -13,6 +13,7 @@
                 <div class="card-body">
                     <div id="customerList">
                         <div class="row g-4 mb-3">
+                            @can('crear-user')
                             <div class="col-sm-auto">
                                 <div>
                                     <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal"
@@ -20,6 +21,7 @@
                                             class="ri-add-line align-bottom me-1"></i>Nuevo Usuario</button>
                                 </div>
                             </div>
+                            @endcan
                             <div class="col-sm">
                                 <div class="d-flex justify-content-sm-end">
                                     <div class="search-box ms-2">
@@ -78,10 +80,15 @@
                                                         <button class="btn btn-sm btn-primary edit-item-btn"
                                                             data-bs-toggle="modal" title="Ver" data-bs-target="#verUser-{{$user->id}}"><i class="ri-eye-fill"></i></i></button>
                                                     </div>
+
+                                                    @can('editar-user')
                                                     <div class="edit">
                                                         <button class="btn btn-sm btn-warning edit-item-btn"
                                                             data-bs-toggle="modal" title="Editar" data-bs-target="#editUser-{{$user->id}}"><i class="ri-edit-2-fill"></i></button>
                                                     </div>
+                                                    @endcan
+
+                                                    @can('eliminar-user')
                                                     <div class="remove">
                                                         <button class="btn btn-sm {{ $user->status == 1 ? 'btn-danger' : 'btn-success' }} remove-item-btn"
                                                             data-bs-toggle="modal"
@@ -90,6 +97,7 @@
                                                             <i class="ri-refresh-line"></i>
                                                         </button>
                                                     </div>
+                                                    @endcan
                                                 </div>
                                             </td>
                                         </tr>

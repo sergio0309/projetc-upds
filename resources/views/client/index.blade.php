@@ -11,6 +11,7 @@
             <div class="card-body">
                 <div id="customerList">
                     <div class="row g-4 mb-3">
+                        @can('crear-cliente')
                         <div class="col-sm-auto">
                             <div>
                                 <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal" data-bs-target="#createClient">
@@ -18,6 +19,7 @@
                                 </button>
                             </div>
                         </div>
+                        @endcan
                         <div class="col-sm">
                             <div class="d-flex justify-content-sm-end">
                                 <div class="search-box ms-2">
@@ -67,12 +69,15 @@
                                                     </button>
                                                 </div>
 
+                                                @can('editar-cliente')
                                                 <div class="edit">
                                                     <a href="" class="btn btn-sm btn-warning" title="Editar" data-bs-toggle="modal" data-bs-target="#editClient-{{ $client->user->id }}">
                                                         <i class="ri-edit-2-fill"></i>
                                                     </a>
                                                 </div>
+                                                @endcan
 
+                                                @can('eliminar-cliente')
                                                 <div class="remove">
                                                     <button class="btn btn-sm {{ $client->user->status == 1 ? 'btn-danger' : 'btn-success' }} remove-item-btn"
                                                         data-bs-toggle="modal"
@@ -81,6 +86,7 @@
                                                         <i class="ri-refresh-line"></i>
                                                     </button>
                                                 </div>
+                                                @endcan
                                                 <!-- Modal-Estado-->
                                                 <div class="modal fade" id="confirmarModal-{{ $client->user->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog">

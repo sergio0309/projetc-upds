@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\DB;
 
 class TypeServiceController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:ver-servicio|crear-servicio|editar-servicio|eliminar-servicio', ['only' => ['index']]);
+        $this->middleware('permission:crear-servicio', ['only' => ['create', 'store']]);
+        $this->middleware('permission:editar-servicio', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:eliminar-servicio', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      */

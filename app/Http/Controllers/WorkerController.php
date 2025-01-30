@@ -11,6 +11,15 @@ use Spatie\Permission\Models\Role;
 
 class WorkerController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('permission:ver-trabajador|crear-trabajador|editar-trabajador|eliminar-trabajador', ['only' => ['index']]);
+        $this->middleware('permission:crear-trabajador', ['only' => ['create', 'store']]);
+        $this->middleware('permission:editar-trabajador', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:eliminar-trabajador', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      */

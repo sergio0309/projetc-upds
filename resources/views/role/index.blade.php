@@ -11,12 +11,14 @@
                 <div class="card-body">
                     <div id="customerList">
                         <div class="row g-4 mb-3">
+                            @can('crear-role')
                             <div class="col-sm-auto">
                                 <div>
                                     <a href="{{route('roles.create')}}" type="button" class="btn btn-success add-btn">
                                         <i class="ri-add-line align-bottom me-1"></i> Crear nuevo Rol</a>
                                 </div>
                             </div>
+                            @endcan
                             <div class="col-sm">
                                 <div class="d-flex justify-content-sm-end">
                                     <div class="search-box ms-2">
@@ -51,9 +53,11 @@
                                                         <button class="btn btn-sm btn-primary edit-item-btn"
                                                             data-bs-toggle="modal" title="Ver" data-bs-target="#verRol-{{$role->id}}" ><i class="ri-eye-fill"></i></i></button>
                                                     </div>
+                                                    @can('editar-role')
                                                     <div class="edit">
                                                         <a class="btn btn-sm btn-warning edit-item-btn" href="{{ route('roles.edit', $role->id) }}"><i class="ri-edit-2-fill"></i></i></a>
                                                     </div>
+                                                    @endcan
                                                     {{-- <div class="remove">
                                                         <button class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal"
                                                             data-bs-target="#deleteRecordModal"><i data-feather="refresh-cw"></i></button>

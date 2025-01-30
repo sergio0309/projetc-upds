@@ -11,6 +11,15 @@ use Illuminate\Support\Facades\Storage;
 
 class FileController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:ver-archivo|crear-archivo|editar-archivo|eliminar-archivo', ['only' => ['index']]);
+        $this->middleware('permission:crear-archivo', ['only' => ['create', 'store']]);
+        $this->middleware('permission:editar-archivo', ['only' => ['edit', 'update', 'download']]);
+        // $this->middleware('permission:descargar-archivo', ['only' => ['download']]);
+        $this->middleware('permission:eliminar-archivo', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      */

@@ -11,6 +11,7 @@
                 <div class="card-body">
                     <div id="customerList">
                         <div class="row g-4 mb-3">
+                            @can('crear-servicio')
                             <div class="col-sm-auto">
                                 <div>
                                     <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal"
@@ -18,6 +19,7 @@
                                             class="ri-add-line align-bottom me-1"></i>Nuevo Servicio</button>
                                 </div>
                             </div>
+                            @endcan
                             <div class="col-sm">
                                 <div class="d-flex justify-content-sm-end">
                                     <div class="search-box ms-2">
@@ -57,18 +59,23 @@
                                                         <button class="btn btn-sm btn-primary edit-item-btn"
                                                             data-bs-toggle="modal" title="Ver" data-bs-target="#verRol-"><i class="ri-eye-fill"></i></button>
                                                     </div>
+                                                    @can('editar-servicio')
                                                     <div class="edit">
                                                         <button class="btn btn-sm btn-warning edit-item-btn"
                                                         data-bs-toggle="modal" title="Editar" data-bs-target="#editarServicio-{{$service->id}}">
                                                             <i class="ri-edit-2-fill"></i>
                                                         </button>
                                                     </div>
+                                                    @endcan
+
+                                                    @can('eliminar-servicio')
                                                     <div class="remove">
                                                         <button class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal" data-bs-target="#confirmarModal-{{ $service->id }}"
                                                             title="{{ $service->status == 1 ? 'Inhabilitar' : 'Restaurar' }}">
                                                             <i class="ri-refresh-line"></i>
                                                         </button>
                                                     </div>
+                                                    @endcan
                                                     <!-- Modal-Estado-->
                                                     <div class="modal fade" id="confirmarModal-{{ $service->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog">

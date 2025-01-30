@@ -8,6 +8,7 @@
             <div class="card-body">
                 <div id="customerList">
                     <div class="row g-4 mb-3">
+                        @can('crear-archivo')
                         <div class="col-sm-auto">
                             <div>
                                 <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal" data-bs-target="#uploadFile">
@@ -15,6 +16,7 @@
                                 </button>
                             </div>
                         </div>
+                        @endcan
                     </div>
                     <div class="table-responsive table-card mt-3 mb-1">
                         <table class="table align-middle table-nowrap" id="customerTable">
@@ -45,6 +47,7 @@
                                                     <i data-feather="eye"></i>
                                                 </button>
                                             </div>
+                                            @can('editar-archivo')
                                             <div>
                                                 <button
                                                     title="Reemplazar archivo"
@@ -55,6 +58,7 @@
                                                     <i data-feather="edit-3"></i>
                                                 </button>
                                             </div>
+                                            @endcan
                                             <div class="modal fade" id="editFileModal" tabindex="-1" aria-labelledby="editFileModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
@@ -81,6 +85,7 @@
                                                 </div>
                                             </div>
 
+                                            @can('editar-archivo')
                                             <div>
                                                 <a href="{{ route('files.download', $file->id) }}"
                                                    title="Descargar archivo"
@@ -88,11 +93,15 @@
                                                     <i data-feather="download"></i>
                                                 </a>
                                             </div>
+                                            @endcan
+
+                                            @can('eliminar-archivo')
                                             <div>
                                                 <button type="button" class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal" data-bs-target="#confirmarModal-{{ $file->id }}">
                                                     <i data-feather="delete"></i>
                                                 </button>
                                             </div>
+                                            @endcan
                                             <div class="modal fade" id="confirmarModal-{{ $file->id }}" tabindex="-1" aria-labelledby="modalLabel-{{ $file->id }}" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">

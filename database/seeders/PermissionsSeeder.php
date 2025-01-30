@@ -43,6 +43,13 @@ class PermissionsSeeder extends Seeder
             'crear-archivo',
             'editar-archivo',
             'eliminar-archivo',
+            'descargar-archivo',
+
+            //servicio
+            'ver-servicio',
+            'crear-servicio',
+            'editar-servicio',
+            'eliminar-servicio',
         ];
 
         foreach ($permissions as $permission) {
