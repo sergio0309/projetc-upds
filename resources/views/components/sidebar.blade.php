@@ -73,6 +73,14 @@
                 </li>
                 @endcan
 
+                @can('ver-declaracion')
+                <li class="nav-item">
+                    <a href="{{ route('statements.index') }}" class="nav-link {{ request()->routeIs('statements.index') ? 'active' : '' }}">
+                        <i class="ri-folder-3-fill"></i> <span>Declaraciones</span>
+                    </a>
+                </li>
+                @endcan
+
                 {{-- <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarCompras" data-bs-toggle="collapse" role="button"
                        aria-expanded="{{ request()->is('compras*') ? 'true' : 'false' }}" aria-controls="sidebarCompras">
