@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Models\Statement;
 use App\Models\Worker;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -134,6 +135,14 @@ class StatementController extends Controller
             DB::rollBack();
             return redirect()->route('statements.index')->with('error', 'Error al eliminar la declaración.');
         }
+    }
+
+    public function GenerarPDF($id)
+    {
+        $statement = Statement::findOrFail($id);
+        $client = $statement->client;
+        $pdf = Pdf::loadView('statement.pdf', compact('statement'));
+        return $pdf->stream('statement.pdf');
     }
 
 }

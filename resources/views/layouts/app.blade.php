@@ -9,9 +9,9 @@
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
     <!-- App favicon -->
-    {{-- <link rel="shortcut icon" href="{{asset('assets/images/favicon.ico')}}"> --}}
+    <link rel="shortcut icon" href="{{asset('assets/images/favicon.ico')}}">
     <!-- Layout config Js -->
-    <script src="{{asset('assets/js/layout.js')}}"></script>
+    <script src="{{asset('assets/js/layout.js')}}" type="js"></script>
     <!-- Bootstrap Css -->
     <link href="{{asset('assets/css/bootstrap.min.css')}}" id="bootstrap-style" rel="stylesheet" type="text/css" />
     <!-- Icons Css -->
@@ -21,7 +21,7 @@
     <!-- custom Css-->
     <link href="{{asset('assets/css/custom.min.css')}}" id="app-style" rel="stylesheet" type="text/css" />
 
-    {{-- <link href="{{asset('assets/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" /> --}}
+    <link href="{{asset('assets/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
     <!--datatable css-->
     <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css" />
     <!--datatable responsive css-->
@@ -41,8 +41,8 @@
             <div class="page-content">
                 <div class="container-fluid">
                     @yield('content')
-                    @stack('css')
-                    @stack('js')
+                    {{-- @stack('css')
+                    @stack('js') --}}
                 </div>
             </div>
 
@@ -641,26 +641,26 @@
                             <div class="form-check sidebar-setting card-radio">
                                 <input class="form-check-input" type="radio" name="data-sidebar-image" id="sidebarimg-01" value="img-1">
                                 <label class="form-check-label p-0 avatar-sm h-auto" for="sidebarimg-01">
-                                    <img src="http://localhost/creative2/public/assets/images/sidebar/img-1.jpg" class="avatar-md w-auto object-cover">
+                                    <img src="{{url('assets/images/sidebar/img-1.jpg')}}" class="avatar-md w-auto object-cover">
                                 </label>
                             </div>
 
                             <div class="form-check sidebar-setting card-radio">
                                 <input class="form-check-input" type="radio" name="data-sidebar-image" id="sidebarimg-02" value="img-2">
                                 <label class="form-check-label p-0 avatar-sm h-auto" for="sidebarimg-02">
-                                    <img src="http://localhost/creative2/public/assets/images/sidebar/img-2.jpg" class="avatar-md w-auto object-cover">
+                                    <img src="{{url('assets/images/sidebar/img-2.jpg')}}" class="avatar-md w-auto object-cover">
                                 </label>
                             </div>
                             <div class="form-check sidebar-setting card-radio">
                                 <input class="form-check-input" type="radio" name="data-sidebar-image" id="sidebarimg-03" value="img-3">
                                 <label class="form-check-label p-0 avatar-sm h-auto" for="sidebarimg-03">
-                                    <img src="http://localhost/creative2/public/assets/images/sidebar/img-3.jpg" class="avatar-md w-auto object-cover">
+                                    <img src="{{url('assets/images/sidebar/img-3.jpg')}}" class="avatar-md w-auto object-cover">
                                 </label>
                             </div>
                             <div class="form-check sidebar-setting card-radio">
                                 <input class="form-check-input" type="radio" name="data-sidebar-image" id="sidebarimg-04" value="img-4">
                                 <label class="form-check-label p-0 avatar-sm h-auto" for="sidebarimg-04">
-                                    <img src="http://localhost/creative2/public/assets/images/sidebar/img-4.jpg" class="avatar-md w-auto object-cover">
+                                    <img src="{{url('assets/images/sidebar/img-4.jpg')}}" class="avatar-md w-auto object-cover">
                                 </label>
                             </div>
                         </div>
@@ -682,19 +682,23 @@
         </div>
     </div>
 
+    <!-- Cargar jQuery primero -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"></script>
 
-    <!-- JAVASCRIPT -->
+    <!-- Librerías esenciales -->
     <script src="{{asset('assets/libs/bootstrap/bootstrap.min.js')}}"></script>
     <script src="{{asset('assets/libs/simplebar/simplebar.min.js')}}"></script>
     <script src="{{asset('assets/libs/node-waves/node-waves.min.js')}}"></script>
     <script src="{{asset('assets/libs/feather-icons/feather-icons.min.js')}}"></script>
+
+    <!-- Plugins y funciones generales -->
     <script src="{{asset('assets/js/pages/plugins/lord-icon-2.1.0.min.js')}}"></script>
     <script src="{{asset('assets/js/plugins.min.js')}}"></script>
     <script src="{{asset('assets/js/app.min.js')}}"></script>
 
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
+    <!-- Cargar DataTables después de jQuery -->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
@@ -705,8 +709,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
 
+    <!-- Inicialización de DataTables -->
     <script src="{{asset('assets/js/pages/datatables.init.js')}}"></script>
-    <script src="{{ asset('js/scripts.js') }}"></script>
+
+    <!-- Scripts personalizados (Debe ir al final) -->
+    {{-- <script src="{{asset('js/scripts.js') }}"></script> --}}
+
 
 </body>
 

@@ -33,3 +33,4 @@ Route::get('/files/{file}/download', [App\Http\Controllers\FileController::class
 
 Route::get('/reservations/events', [ReservationController::class, 'getEvents'])->name('reservations.events');
 
+Route::get('statements/{id}/pdf', [StatementController::class, 'GenerarPDF'])->name('statement.pdf');

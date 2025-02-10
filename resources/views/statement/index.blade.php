@@ -59,6 +59,13 @@
                                                         </button>
                                                     </div>
 
+                                                    <div class="col-sm-auto">
+                                                        <div>
+                                                            <a href="{{ route('statement.pdf', $statement->id) }}" type="submit" class="btn btn-success add-btn">
+                                                                <i class="ri-add-line align-bottom me-1"></i>PDF</a>
+                                                        </div>
+                                                    </div>
+
                                                     @can('editar-declaracion')
                                                     <div class="edit">
                                                         <button class="btn btn-sm btn-warning edit-item-btn"
