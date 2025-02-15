@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('statements', function (Blueprint $table) {
             $table->id();
-            $table->date('date')->nullable();
             $table->integer('sales')->nullable();
             $table->integer('discounts')->nullable();
             $table->integer('purchases')->nullable();
@@ -27,10 +26,6 @@ return new class extends Migration
             $table->integer('calculated_IT')->nullable();
             $table->integer('real_IT')->nullable();
             $table->integer('IUE')->nullable();
-            $table->foreignId('client_id')->nullable()->constrained('clients')
-                ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('worker_id')->nullable()->constrained('workers')
-                ->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

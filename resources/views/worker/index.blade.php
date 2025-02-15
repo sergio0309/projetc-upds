@@ -60,11 +60,11 @@
                                         <td>{{ $worker->user->address ?? 'N/A' }}</td>
                                         <td>
                                             @if ($worker->user->status == 1)
-                                                <span class="badge badge-soft-success text-uppercase">Active</span></td>
+                                                <span class="badge badge-soft-success text-uppercase">Active</span>
                                             @else
                                                 <span class="badge badge-soft-danger text-uppercase">Inactivo</span>
                                             @endif
-                                        <td>
+                                        </td>
                                         <td>
                                             <div class="d-flex gap-2">
                                                 <div class="show">

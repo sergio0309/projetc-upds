@@ -10,7 +10,6 @@ class Statement extends Model
     use HasFactory;
 
     protected $fillable = [
-        'date',
         'sales',
         'discounts',
         'purchases',
@@ -24,8 +23,6 @@ class Statement extends Model
         'calculated_IT',
         'real_IT',
         'IUE',
-        'client_id',
-        'worker_id',
     ];
 
     // Relación con el modelo Client

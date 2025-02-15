@@ -1,13 +1,13 @@
-<div class="modal fade bs-example-modal-sm" id="nuevaDeclaracion" tabindex="-1" aria-labelledby="nuevaDeclaracionModalLabel" aria-hidden="true">
+<div class="modal fade bs-example-modal-sm" id="declaracion" tabindex="-1" aria-labelledby="declaracionModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content ">
             <div class="modal-header bg-light p-3">
-                <h5 class="modal-title" id="nuevaDeclaracionModalLabel">Declaración</h5>
+                <h5 class="modal-title" id="declaracionModalLabel">Declaración</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                     id="close-modal"></button>
             </div>
             <div class="card-body">
-                <form action="{{ route('statements.store') }}" method="POST">
+                <form action="{{ route('service_records.store') }}" method="POST">
                     @csrf
                     <div>
                         <div class="row">
@@ -24,8 +24,11 @@
                                     </select>
                                 </div>
                                 <div class="col-md-3">
-                                    <label for="date" class="form-label">Fecha</label>
-                                    <input type="date" id="date" name="date" class="form-control" required/>
+                                    <label for="amount">Precio:</label>
+                                    <div class="input-group">
+                                        <input type="number" name="amount" id="amount" class="form-control" step="1" min="0" required>
+                                        <span class="input-group-text">Bs</span>
+                                    </div>
                                 </div>
                             </div>
 
@@ -99,14 +102,19 @@
                                     <input placeholder="0" type="number" id="IUE" name="IUE" class="form-control"/>
                                 </div>
                             </div>
-
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <label for="description" class="form-label">Descripción</label>
+                                    <textarea class="form-control" name="description" id="description" placeholder="Ingrese descripción" style="height: 10px;"></textarea>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="border mt-3 border-dashed"></div>
 
                     <div class="mt-4 d-flex justify-content-center">
-                        <a href="{{ route('statements.index') }}" class="btn btn-light me-2">Cancelar</a>
-                        <button type="submit" class="btn btn-success">Guardar</button>
+                        <a href="{{ route('service_records.index') }}" class="btn btn-light me-2">Cancelar</a>
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
                     </div>
 
                 </form><!-- end form -->
@@ -150,3 +158,4 @@
     document.getElementById('calculated_IT').addEventListener('input', calculateRealIT);
     document.getElementById('sales').addEventListener('input', calculateITCalculated);
 </script>
+

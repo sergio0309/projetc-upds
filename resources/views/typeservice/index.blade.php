@@ -70,7 +70,7 @@
 
                                                     @can('eliminar-servicio')
                                                     <div class="remove">
-                                                        <button class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal" data-bs-target="#confirmarModal-{{ $service->id }}"
+                                                        <button class="btn btn-sm {{ $service->status == 1 ? 'btn-danger' : 'btn-success' }} remove-item-btn" data-bs-toggle="modal" data-bs-target="#confirmarModal-{{ $service->id }}"
                                                             title="{{ $service->status == 1 ? 'Inhabilitar' : 'Restaurar' }}">
                                                             <i class="ri-refresh-line"></i>
                                                         </button>

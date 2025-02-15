@@ -35,7 +35,7 @@ class CreateAdminUserSeeder extends Seeder
             'emergency_number' => '73333374'
         ]);
 
-        $role = Role::create(['name' => 'Admin']);
+        $role = Role::create(['name' => 'ADMIN']);
 
         $permissions = Permission::pluck('id','id')->all();
 

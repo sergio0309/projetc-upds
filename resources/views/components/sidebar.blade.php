@@ -64,7 +64,6 @@
                 </li>
                 @endcan
 
-                 <!----Tipos de servicio---->
                 @can('ver-servicio')
                 <li class="nav-item">
                     <a href="{{ route('typesservice.index') }}" class="nav-link {{ request()->routeIs('typesservice.index') ? 'active' : '' }}">
@@ -73,13 +72,19 @@
                 </li>
                 @endcan
 
-                @can('ver-declaracion')
+                <li class="nav-item">
+                    <a href="{{ route('service_records.index') }}" class="nav-link {{ request()->routeIs('service_records.index') ? 'active' : '' }}">
+                        <i class="ri-folder-3-fill"></i> <span>Consultas</span>
+                    </a>
+                </li>
+
+                {{-- @can('ver-declaracion')
                 <li class="nav-item">
                     <a href="{{ route('statements.index') }}" class="nav-link {{ request()->routeIs('statements.index') ? 'active' : '' }}">
                         <i class="ri-folder-3-fill"></i> <span>Declaraciones</span>
                     </a>
                 </li>
-                @endcan
+                @endcan --}}
 
                 {{-- <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarCompras" data-bs-toggle="collapse" role="button"

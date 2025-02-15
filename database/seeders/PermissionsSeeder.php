@@ -56,6 +56,12 @@ class PermissionsSeeder extends Seeder
             'crear-declaracion',
             'editar-declaracion',
             'eliminar-declaracion',
+
+            //consulta
+            'ver-consulta',
+            'crear-consulta',
+            'editar-consulta',
+            'eliminar-consulta',
         ];
 
         foreach ($permissions as $permission) {

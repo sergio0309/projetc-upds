@@ -36,15 +36,15 @@
                             <table class="table align-middle table-nowrap" id="customerTable">
                                 <thead class="table-light">
                                     <tr>
-                                        <th class="sort" data-sort="customer_name">N°</th>
-                                        <th class="sort" data-sort="customer_name">Usuario</th>
-                                        <th class="sort" data-sort="customer_name">Cédula Identidad</th>
-                                        <th class="sort" data-sort="date">NIT</th>
-                                        <th class="sort" data-sort="phone">Celular</th>
-                                        <th class="sort" data-sort="date">Fecha de Nacimiento</th>
-                                        <th class="sort" data-sort="customer_name">Dirección</th>
-                                        <th class="sort" data-sort="status">Estado</th>
-                                        <th class="sort" data-sort="action">Acción</th>
+                                        <th data-sort="customer_name">N°</th>
+                                        <th data-sort="customer_name">Usuario</th>
+                                        <th data-sort="customer_name">Cédula Identidad</th>
+                                        <th data-sort="date">NIT</th>
+                                        <th data-sort="phone">Celular</th>
+                                        <th data-sort="date">Fecha de Nacimiento</th>
+                                        <th data-sort="customer_name">Dirección</th>
+                                        <th data-sort="status">Estado</th>
+                                        <th data-sort="action">Acción</th>
                                     </tr>
                                 </thead>
                                 <tbody class="list form-check-all">
@@ -70,7 +70,7 @@
                                             <td class="address">{{ $user->address }}</td>
                                             <td class="status">
                                                 @if ($user->status == 1)
-                                                    <span class="badge badge-soft-success text-uppercase">Active</span></td>
+                                                    <span class="badge badge-soft-success text-uppercase">Activo</span></td>
                                                 @else
                                                     <span class="badge badge-soft-danger text-uppercase">Inactivo</span>
                                                 @endif

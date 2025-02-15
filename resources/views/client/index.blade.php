@@ -34,15 +34,15 @@
                         <table class="table align-middle table-nowrap" id="customerTable">
                             <thead class="table-light">
                                 <tr>
-                                    <th class="sort" data-sort="customer_name">N°</th>
-                                    <th class="sort" data-sort="customer_name">Cliente</th>
-                                    <th class="sort" data-sort="customer_name">Cédula Identidad</th>
-                                    <th class="sort" data-sort="date">NIT</th>
-                                    <th class="sort" data-sort="phone">Celular</th>
-                                    <th class="sort" data-sort="date">Fecha de Nacimiento</th>
-                                    <th class="sort" data-sort="customer_name">Dirección</th>
-                                    <th class="sort" data-sort="customer_name">Estado</th>
-                                    <th class="sort" data-sort="action">Acción</th>
+                                    <th data-sort="customer_name">N°</th>
+                                    <th data-sort="customer_name">Cliente</th>
+                                    <th data-sort="customer_name">Cédula Identidad</th>
+                                    <th data-sort="date">NIT</th>
+                                    <th data-sort="phone">Celular</th>
+                                    <th data-sort="date">Fecha de Nacimiento</th>
+                                    <th data-sort="customer_name">Dirección</th>
+                                    <th data-sort="customer_name">Estado</th>
+                                    <th data-sort="action">Acción</th>
                                 </tr>
                             </thead>
                             <tbody class="list form-check-all">
@@ -63,11 +63,11 @@
                                         <td>{{ $client->user->address ?? 'N/A' }}</td>
                                         <td>
                                             @if ($client->user->status == 1)
-                                                <span class="badge badge-soft-success text-uppercase">Active</span></td>
+                                                <span class="badge badge-soft-success text-uppercase">Active</span>
                                             @else
                                                 <span class="badge badge-soft-danger text-uppercase">Inactivo</span>
                                             @endif
-                                        <td>
+                                        </td>
                                         <td>
                                             <div class="d-flex gap-2">
                                                 <div class="show">
@@ -95,29 +95,6 @@
                                                     </button>
                                                 </div>
                                                 @endcan
-                                                <!-- Modal-Estado-->
-                                                <div class="modal fade" id="confirmarModal-{{ $client->user->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Mensaje de confirmación</h1>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                {{ $client->user->id == 1 ? '¿Seguro que quieres desactivar el usuario?' : '¿Seguro que quieres restaurar el usuario?' }}
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                                                <form action="{{ route('clients.destroy', $client->user->id) }}" method="post">
-                                                                    @method('DELETE')
-                                                                    @csrf
-                                                                    <input type="hidden" name="status" value="{{ $client->user->status }}">
-                                                                    <button type="submit" class="btn btn-danger">Confirmar</button>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </td>
                                     </tr>

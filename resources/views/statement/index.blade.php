@@ -61,8 +61,8 @@
 
                                                     <div class="col-sm-auto">
                                                         <div>
-                                                            <a href="{{ route('statement.pdf', $statement->id) }}" type="submit" class="btn btn-success add-btn">
-                                                                <i class="ri-add-line align-bottom me-1"></i>PDF</a>
+                                                            <a href="{{ route('statement.pdf', $statement->id) }}" type="submit" class="btn btn-sm btn-success add-btn">
+                                                                <i class="ri-add-line ri-clipboard-fill"></i></a>
                                                         </div>
                                                     </div>
 
