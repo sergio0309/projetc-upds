@@ -147,12 +147,67 @@
                                 <thead class="table-light">
                                     <tr>
                                         <th data-sort="customer_name">N°</th>
-                                        <th data-sort="customer_name">Role</th>
-                                        <th data-sort="action">Acción</th>
+                                        <th data-sort="customer_name">Servicio</th>
+                                        <th data-sort="date">Fecha de consulta</th>
+                                        <th data-sort="customer_name">Deuda del servicio</th>
+                                        <th>Estado</th>
+                                        <th>Acción</th>
                                     </tr>
                                 </thead>
                                 <tbody class="list form-check-all">
+                                    @forelse ($pay_servicio as $service)
+                                    @include('pays.show')
+                                        @if ($service->status == 2) <!-- Solo mostrar si el estado es Activo (1) -->
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>
+                                                    @if ($service->type_service)
+                                                        {{ $service->type_service->name }}
+                                                    @elseif ($service->statement)
+                                                        Declaración
+                                                    @else
+                                                        N/A
+                                                    @endif
+                                                </td>
+                                                <td class="counter">{{ strtoupper(optional(\Carbon\Carbon::parse($service->date))->translatedFormat('d \d\e F \d\e Y') ?? 'N/A') }}</td>
+                                                <td>
+                                                    <div style="display: flex; align-items: center;">
+                                                        <span>{{ number_format($service->amount, 0, '.', ',') }}</span>
+                                                        <span style="margin-left: 5px;">Bs</span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span class="badge bg-warning">Pendiente</span>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex gap-2">
+                                                        {{-- Botón Editar --}}
+                                                        <button class="btn btn-sm btn-primary edit-item-btn"
+                                                            data-bs-toggle="modal"
+                                                            title="Ver"
+                                                            data-bs-target="#verPlan-{{$service->id}}"
+                                                        >
+                                                            <i class="ri-eye-fill"></i>
+                                                        </button>
 
+                                                        {{-- Botón Eliminar --}}
+                                                        <button class="btn btn-sm btn-warning remove-item-btn"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#EditarPlan-{{$service->id}}"
+                                                            title="Editar"
+                                                        >
+                                                            <i class="ri-edit-2-fill"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+                                        @endif
+                                    @empty
+                                        <tr>
+                                            <td colspan="5" class="text-center">No hay servicios disponibles.</td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>
