@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\ServiceRecord;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -23,7 +24,9 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $clients = Client::with('user')->get();
+
+        $clients = Client::with(['user', 'files', 'serviceRecords'])->get();
+        $serviceRecord = ServiceRecord::with('pays')->get();
         $users = User::with('roles')->get();
         $roles = Role::all();
         return view('client.index', compact('clients', 'users', 'roles'));

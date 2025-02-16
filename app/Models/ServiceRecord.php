@@ -43,6 +43,11 @@ class ServiceRecord extends Model
         return $this->belongsTo(TypeService::class, 'type_service_id');
     }
 
+    public function pays()
+    {
+        return $this->hasMany(Pay::class, 'service_record_id');
+    }
+
     public function plantsPays()
     {
         return $this->belongsToMany(PlantsPay::class, 'pays', 'service_record_id', 'plant_pay_id')

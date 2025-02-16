@@ -91,6 +91,85 @@
                                                     </button>
                                                 </div>
                                                 @endcan
+                                                <!-- Modal-Estado-->
+                                                <div class="modal fade" id="confirmarModal-{{ $client->user->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Mensaje de confirmación</h1>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                {{ $client->user->id == 1 ? '¿Seguro que quieres desactivar el usuario?' : '¿Seguro que quieres restaurar el usuario?' }}
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                                <form action="{{ route('clients.destroy', $client->user->id) }}" method="post">
+                                                                    @method('DELETE')
+                                                                    @csrf
+                                                                    <input type="hidden" name="status" value="{{ $client->user->status }}">
+                                                                    <button type="submit" class="btn btn-danger">Confirmar</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="remove">
+                                                    <button class="btn btn-sm btn-info remove-item-btn" data-bs-toggle="modal" data-bs-target="#documento-{{ $client->id }}" title="Documentos">
+                                                        <i class="ri-file-3-fill"></i>
+                                                    </button>
+                                                </div>
+
+                                                <!-- Modal para mostrar documentos -->
+                                                <div class="modal fade" id="documento-{{ $client->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content">
+                                                            <div class="modal-body">
+                                                                <div class="table-responsive">
+                                                                    <table class="table align-middle table-nowrap">
+                                                                        <thead class="table-light">
+                                                                            <tr>
+                                                                                <th>N°</th>
+                                                                                <th>Fecha</th>
+                                                                                <th>Acción</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            @forelse ($client->files as $file)
+                                                                                <tr>
+                                                                                    <td>{{ $loop->iteration }}</td>
+                                                                                    <td>
+                                                                                        {{ strtoupper(\Carbon\Carbon::parse($file->data)->translatedFormat('d \d\e F \d\e Y')) }}
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <div class="d-flex gap-2">
+                                                                                            <!-- Botón para abrir el modal de vista previa -->
+                                                                                            {{-- <button title="Ver" class="btn btn-sm btn-primary view-file-btn" data-bs-toggle="modal"
+                                                                                                data-bs-target="#viewFileModal-{{$file->id}}" data-file-url="{{ $file->file_url }}" data-file-type="{{ $file->file_type }}">
+                                                                                                <i class="ri-eye-fill"></i>
+                                                                                            </button> --}}
+
+                                                                                            <!-- Botón para descargar el archivo -->
+                                                                                            <a href="{{ route('files.download', $file->id) }}" title="Descargar archivo" class="btn btn-sm btn-success">
+                                                                                                <i class="ri-folder-download-fill"></i>
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            @empty
+                                                                                <tr>
+                                                                                    <td colspan="3" class="text-center">Sin documentos</td>
+                                                                                </tr>
+                                                                            @endforelse
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </td>
                                     </tr>
@@ -129,3 +208,33 @@
 </div>
 @endsection
 
+{{-- @push('js')
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const viewFileButtons = document.querySelectorAll('.view-file-btn');
+            viewFileButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const fileUrl = this.getAttribute('data-file-url');
+                    const fileType = this.getAttribute('data-file-type');
+                    const previewContainer = document.getElementById('file-preview-container');
+
+                    // Limpiar cualquier contenido previo
+                    previewContainer.innerHTML = '';
+
+                    // Mostrar vista previa según el tipo de archivo
+                    if (fileType.startsWith('image/')) {
+                        // Vista previa para imágenes
+                        previewContainer.innerHTML = `<img src="${fileUrl}" alt="Vista previa" class="img-fluid" />`;
+                    } else if (fileType === 'application/pdf') {
+                        // Vista previa para PDFs
+                        previewContainer.innerHTML = `<iframe src="${fileUrl}" class="img-fluid" style="height: 500px;" frameborder="0"></iframe>`;
+                    } else {
+                        // Si el archivo no tiene vista previa disponible
+                        previewContainer.innerHTML = `<p>Vista previa no disponible para este tipo de archivo.</p>`;
+                    }
+                });
+            });
+        });
+
+    </script>
+@endpush --}}

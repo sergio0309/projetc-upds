@@ -13,7 +13,7 @@ class Pay extends Model
 
     public function serviceRecord()
     {
-        return $this->belongsTo(ServiceRecord::class);
+        return $this->belongsTo(ServiceRecord::class, 'service_record_id');
     }
 
     public function plantPay()

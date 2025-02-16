@@ -20,7 +20,7 @@
             </div>
         </div>
         <div>
-            <button type="button" class="btn btn-secondary waves-effect waves-light"
+            <button hidden type="button" class="btn btn-secondary waves-effect waves-light"
                 data-bs-toggle="modal" data-bs-target="#evento">
                 Launch
             </button>

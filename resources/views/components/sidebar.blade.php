@@ -38,12 +38,18 @@
                 </li>
                 <li class="menu-title"><i class="ri-more-fill"></i> <span>Modulos</span></li>
                  <!----Clientes---->
-                @can('ver-cliente')
-                <li class="nav-item">
-                    <a href="{{ route('clients.index')}}" class="nav-link {{ request()->routeIs('clients.index') ? 'active' : '' }}">
-                        <i class="ri-team-fill"></i> <span>Clientes</span>
-                    </a>
-                </li>
+                 @can('ver-cliente')
+                    <li class="nav-item position-relative">
+                        <a href="{{ route('clients.index')}}" class="nav-link {{ request()->routeIs('clients.index') ? 'active' : '' }}">
+                            <i class="ri-team-fill"></i>
+                            <span>Clientes</span>
+
+                            <!-- Notificación simulada sobre el texto "Clientes" -->
+                            <span class="badge bg-danger position-absolute top-0 start-50 translate-middle-x rounded-pill">
+                                5
+                            </span>
+                        </a>
+                    </li>
                 @endcan
 
                  <!----Trabajadores---->

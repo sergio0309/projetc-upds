@@ -25,4 +25,9 @@ class Client extends Model
     {
         return $this->hasMany(File::class);
     }
+
+    public function serviceRecords()
+    {
+        return $this->hasMany(ServiceRecord::class);
+    }
 }

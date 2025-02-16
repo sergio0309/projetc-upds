@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->date('data');
             $table->string('file');
+            $table->tinyInteger('status')->default(0)->comment('0 = Inactivo, 1 = Activo');
             $table->foreignId('client_id')->constrained('clients')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
