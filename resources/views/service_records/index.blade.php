@@ -39,14 +39,14 @@
                             <table class="table align-middle table-nowrap" id="customerTable">
                                 <thead class="table-light">
                                     <tr>
-                                        <th class="sort" data-sort="customer_name">N°</th>
-                                        <th class="sort" data-sort="customer_name">Servicio</th>
-                                        <th class="sort" data-sort="date">Fecha de consulta</th>
-                                        <th class="sort" data-sort="customer_name">Cliente</th>
-                                        <th class="sort" data-sort="customer_name">Deuda del servicio</th>
-                                        <th class="sort" data-sort="customer_name">Pagado</th>
-                                        <th class="sort">Estado - Servicio</th>
-                                        <th class="sort" data-sort="action">Acción</th>
+                                        <th data-sort="customer_name">N°</th>
+                                        <th data-sort="customer_name">Servicio</th>
+                                        <th data-sort="date">Fecha de consulta</th>
+                                        <th data-sort="customer_name">Cliente</th>
+                                        <th data-sort="customer_name">Deuda del servicio</th>
+                                        <th data-sort="customer_name">Pagado</th>
+                                        <th>Estado - Servicio</th>
+                                        <th data-sort="action">Acción</th>
                                     </tr>
                                 </thead>
                                 <tbody class="list form-check-all">

@@ -22,9 +22,9 @@
                         <table class="table align-middle table-nowrap" id="customerTable">
                             <thead class="table-light">
                                 <tr>
-                                    <th class="sort">#</th>
-                                    <th class="sort">Fecha</th>
-                                    <th class="sort">Vista previa</th>
+                                    <th>N°</th>
+                                    <th>Fecha</th>
+                                    <th>Vista previa</th>
                                 </tr>
                             </thead>
                             <tbody class="list form-check-all">

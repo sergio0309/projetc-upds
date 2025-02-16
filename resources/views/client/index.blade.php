@@ -4,10 +4,6 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
-            <div class="card-header">
-                <h4 class="card-title mb-0">Clientes</h4>
-            </div><!-- end card header -->
-
             <div class="card-body">
                 <div id="customerList">
                     <div class="row g-4 mb-3">

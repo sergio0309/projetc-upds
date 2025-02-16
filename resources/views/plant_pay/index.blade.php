@@ -30,10 +30,10 @@
                         <table class="table align-middle table-nowrap" id="customerTable">
                             <thead class="table-light">
                                 <tr>
-                                    <th class="sort" data-sort="customer_name">N°</th>
-                                    <th class="sort" data-sort="customer_name">Nombre - Plan de Pago</th>
-                                    <th class="sort" data-sort="customer_name">Estado</th>
-                                    <th class="sort" data-sort="action">Acción</th>
+                                    <th data-sort="customer_name">N°</th>
+                                    <th data-sort="customer_name">Nombre - Plan de Pago</th>
+                                    <th data-sort="customer_name">Estado</th>
+                                    <th data-sort="action">Acción</th>
                                 </tr>
                             </thead>
                             <tbody class="list form-check-all">

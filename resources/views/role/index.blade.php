@@ -4,10 +4,6 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title mb-0">Roles</h4>
-                </div><!-- end card header -->
-
                 <div class="card-body">
                     <div id="customerList">
                         <div class="row g-4 mb-3">
@@ -33,9 +29,9 @@
                             <table class="table align-middle table-nowrap" id="customerTable">
                                 <thead class="table-light">
                                     <tr>
-                                        <th class="sort" data-sort="customer_name">N°</th>
-                                        <th class="sort" data-sort="customer_name">Role</th>
-                                        <th class="sort" data-sort="action">Acción</th>
+                                        <th data-sort="customer_name">N°</th>
+                                        <th data-sort="customer_name">Role</th>
+                                        <th data-sort="action">Acción</th>
                                     </tr>
                                 </thead>
                                 <tbody class="list form-check-all">

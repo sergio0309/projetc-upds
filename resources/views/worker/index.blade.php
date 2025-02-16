@@ -4,10 +4,6 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
-            <div class="card-header">
-                <h4 class="card-title mb-0">Trabajadores</h4>
-            </div><!-- end card header -->
-
             <div class="card-body">
                 <div id="customerList">
                     <div class="row g-4 mb-3">
@@ -35,15 +31,15 @@
                         <table class="table align-middle table-nowrap" id="customerTable">
                             <thead class="table-light">
                                 <tr>
-                                    <th class="sort" data-sort="customer_name">N°</th>
-                                    <th class="sort" data-sort="customer_name">Trabajador</th>
-                                    <th class="sort" data-sort="customer_name">Cédula Identidad</th>
-                                    <th class="sort" data-sort="date">NIT</th>
-                                    <th class="sort" data-sort="phone">Celular</th>
-                                    <th class="sort" data-sort="date">Fecha de Nacimiento</th>
-                                    <th class="sort" data-sort="customer_name">Dirección</th>
-                                    <th class="sort" data-sort="action">Estado</th>
-                                    <th class="sort" data-sort="action">Acción</th>
+                                    <th data-sort="customer_name">N°</th>
+                                    <th data-sort="customer_name">Trabajador</th>
+                                    <th data-sort="customer_name">Cédula Identidad</th>
+                                    <th data-sort="date">NIT</th>
+                                    <th data-sort="phone">Celular</th>
+                                    <th data-sort="date">Fecha de Nacimiento</th>
+                                    <th data-sort="customer_name">Dirección</th>
+                                    <th data-sort="action">Estado</th>
+                                    <th data-sort="action">Acción</th>
                                 </tr>
                             </thead>
                             <tbody class="list form-check-all">
