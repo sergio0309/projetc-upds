@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\PayController;
 use App\Http\Controllers\PlantsPayController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\RoleController;
@@ -31,7 +32,8 @@ Route::resources([
     'typesservice' => TypeServiceController::class,
     'statements' => StatementController::class,
     'service_records' => ServiceRecordController::class,
-    'plant_pay' => PlantsPayController::class
+    'plant_pay' => PlantsPayController::class,
+    'pays' => PayController::class
 ]);
 Route::get('/reservations', [ReservationController::class, 'index'])->name('reservations.index');
 Route::get('/reservations/create', [ReservationController::class, 'create'])->name('reservations.create');

@@ -11,4 +11,11 @@ class PlantsPay extends Model
         'image',
         'status',
     ];
+
+    public function serviceRecords()
+    {
+        return $this->belongsToMany(ServiceRecord::class, 'pays')
+                    ->withPivot('pay', 'file', 'description', 'status')
+                    ->withTimestamps();
+    }
 }

@@ -32,7 +32,7 @@
             <ul class="navbar-nav" id="navbar-nav">
                 <li class="menu-title"><span>Inicio</span></li>
                 <li class="nav-item">
-                    <a href="{{route('home')}}" class="nav-link {{ request()->routeIs('app') ? 'active' : ''}}">
+                    <a href="{{route('home')}}" class="nav-link {{ request()->routeIs('reservations.index') ? 'active' : ''}}">
                         <i class="ri-dashboard-2-line"></i> <span>Home</span>
                     </a>
                 </li>
@@ -81,6 +81,12 @@
                 <li class="nav-item">
                     <a href="{{ route('plant_pay.index') }}" class="nav-link {{ request()->routeIs('plant_pay.index') ? 'active' : '' }}">
                         <i class="ri-funds-box-fill"></i> <span>Plan de pagos</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('pays.index')}}" class="nav-link {{ request()->routeIs('pays.index') ? 'active' : '' }}">
+                        <i class="ri-funds-box-fill"></i> <span>Pagos</span>
                     </a>
                 </li>
 

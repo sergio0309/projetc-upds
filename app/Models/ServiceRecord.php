@@ -40,6 +40,13 @@ class ServiceRecord extends Model
     // Relación con el modelo Worker
     public function type_service()
     {
-        return $this->belongsTo(TypeService::class);
+        return $this->belongsTo(TypeService::class, 'type_service_id');
+    }
+
+    public function plantsPays()
+    {
+        return $this->belongsToMany(PlantsPay::class, 'pays', 'service_record_id', 'plant_pay_id')
+                ->withPivot('pay', 'file', 'description', 'status')
+                ->withTimestamps();
     }
 }
