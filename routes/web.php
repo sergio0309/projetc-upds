@@ -27,14 +27,20 @@ Route::resources([
     'clients' => ClientController::class,
     'workers' => WorkerController::class,
     'files' => FileController::class,
-    'reservations' => ReservationController::class,
+    // 'reservations' => ReservationController::class,
     'typesservice' => TypeServiceController::class,
     'statements' => StatementController::class,
     'service_records' => ServiceRecordController::class,
     'plant_pay' => PlantsPayController::class
 ]);
-Route::get('/files/{file}/download', [App\Http\Controllers\FileController::class, 'download'])->name('files.download');
+Route::get('/reservations', [ReservationController::class, 'index'])->name('reservations.index');
+Route::get('/reservations/create', [ReservationController::class, 'create'])->name('reservations.create');
+Route::post('/reservations', [ReservationController::class, 'store'])->name('reservations.store');
+Route::get('/reservations/{id}', [ReservationController::class, 'show'])->name('reservations.show');
+Route::get('/reservations/{id}/edit', [ReservationController::class, 'edit'])->name('reservations.edit');
+Route::put('/reservations/{id}', [ReservationController::class, 'update']);
+Route::delete('/reservations/{id}', [ReservationController::class, 'destroy'])->name('reservations.destroy');
 
-Route::get('/reservations/events', [ReservationController::class, 'getEvents'])->name('reservations.events');
+Route::get('/files/{file}/download', [App\Http\Controllers\FileController::class, 'download'])->name('files.download');
 
 Route::get('statements/{id}/pdf', [StatementController::class, 'GenerarPDF'])->name('statement.pdf');

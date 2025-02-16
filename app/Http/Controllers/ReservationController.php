@@ -52,10 +52,10 @@ class ReservationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Reservation $reservation)
+    public function show( $id)
     {
-        $reservations = Reservation::with(['client.user', 'worker.user'])->get();
-        return response()->json($reservations);
+        $reservation = Reservation::findOrFail($id);
+        return response()->json($reservation);
     }
 
     /**
@@ -69,16 +69,28 @@ class ReservationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Reservation $reservation)
+    public function update(Request $request, $id)
     {
-        //
+        $reservation = Reservation::findOrFail($id);
+
+        $reservation->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'start' => $request->start,
+            'end' => $request->end,
+            'client_id' => $request->client_id,
+            'worker_id' => $request->worker_id,
+        ]);
+
+        return response()->json($reservation, 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Reservation $reservation)
+    // Método para eliminar una reservación
+    public function destroy($id)
     {
-        //
+        $reservation = Reservation::findOrFail($id);
+        $reservation->delete();
+
+        return response()->json(['message' => 'Evento eliminado'], 200);
     }
 }
