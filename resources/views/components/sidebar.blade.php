@@ -78,39 +78,13 @@
                     </a>
                 </li>
 
-                {{-- @can('ver-declaracion')
                 <li class="nav-item">
-                    <a href="{{ route('statements.index') }}" class="nav-link {{ request()->routeIs('statements.index') ? 'active' : '' }}">
-                        <i class="ri-folder-3-fill"></i> <span>Declaraciones</span>
+                    <a href="{{ route('plant_pay.index') }}" class="nav-link {{ request()->routeIs('plant_pay.index') ? 'active' : '' }}">
+                        <i class="ri-funds-box-fill"></i> <span>Plan de pagos</span>
                     </a>
                 </li>
-                @endcan --}}
 
-                {{-- <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarCompras" data-bs-toggle="collapse" role="button"
-                       aria-expanded="{{ request()->is('compras*') ? 'true' : 'false' }}" aria-controls="sidebarCompras">
-                        <i class="ri-shopping-cart-2-fill"></i> <span>Servicios</span>
-                    </a>
-                    <div class="collapse menu-dropdown {{ request()->is('compras*') ? 'show' : '' }}" id="sidebarCompras">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="{{ route('typesservice.index') }}" class="nav-link {{ request()->routeIs('typesservice.index') ? 'active' : '' }}">
-                                    <i class="ri-bar-chart-2-fill"></i> <span>Tipos de servicio</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="" class="nav-link">
-                                    <i class="ri-add-circle-line"></i> <span>Crear</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li> --}}
-                {{-- <li class="nav-item">
-                    <a href="" class="nav-link">
-                        <i class="ri-team-fill"></i> <span>Personal</span>
-                    </a>
-                </li> --}}
+
                 @canany(['ver-role', 'ver-user'])
                 <li class="menu-title"><i class="ri-more-fill"></i> <span>Roles y Usuarios</span></li>
                 @endcanany

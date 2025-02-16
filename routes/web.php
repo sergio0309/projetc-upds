@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\PlantsPayController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ServiceRecordController;
@@ -29,7 +30,8 @@ Route::resources([
     'reservations' => ReservationController::class,
     'typesservice' => TypeServiceController::class,
     'statements' => StatementController::class,
-    'service_records' => ServiceRecordController::class
+    'service_records' => ServiceRecordController::class,
+    'plant_pay' => PlantsPayController::class
 ]);
 Route::get('/files/{file}/download', [App\Http\Controllers\FileController::class, 'download'])->name('files.download');
 

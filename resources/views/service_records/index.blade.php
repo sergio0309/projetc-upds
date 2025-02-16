@@ -44,7 +44,7 @@
                                         <th class="sort" data-sort="date">Fecha de consulta</th>
                                         <th class="sort" data-sort="customer_name">Cliente</th>
                                         <th class="sort" data-sort="customer_name">Deuda del servicio</th>
-                                        <th class="sort" data-sort="customer_name">Cancelado</th>
+                                        <th class="sort" data-sort="customer_name">Pagado</th>
                                         <th class="sort">Estado - Servicio</th>
                                         <th class="sort" data-sort="action">Acción</th>
                                     </tr>
