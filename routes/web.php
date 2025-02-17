@@ -4,6 +4,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\PayController;
 use App\Http\Controllers\PlantsPayController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ServiceRecordController;
@@ -33,7 +34,8 @@ Route::resources([
     'statements' => StatementController::class,
     'service_records' => ServiceRecordController::class,
     'plant_pay' => PlantsPayController::class,
-    'pays' => PayController::class
+    'pays' => PayController::class,
+    'reports' =>ReportController::class
 ]);
 
 Route::post('/clients/pay', [ClientController::class, 'pay'])->name('clients.pay');
@@ -49,3 +51,5 @@ Route::delete('/reservations/{id}', [ReservationController::class, 'destroy'])->
 Route::get('/files/{file}/download', [App\Http\Controllers\FileController::class, 'download'])->name('files.download');
 
 Route::get('statements/{id}/pdf', [StatementController::class, 'GenerarPDF'])->name('statement.pdf');
+Route::get('reports/{id}/pdf', [ReportController::class, 'GenerarPDF'])->name('reports.pdf');
+Route::get('anual_reports/{id}/pdf', [ReportController::class, 'anualGenerarPDF'])->name('reports.anual_pdf');

@@ -76,6 +76,12 @@
                 </li>
                 @endcan
 
+                <li class="nav-item">
+                    <a href="{{ route('reports.index')}}" class="nav-link {{ request()->routeIs('reports.index') ? 'active' : '' }}">
+                        <i class="ri-file-list-3-line"></i> <span>Reportes de Declaración</span>
+                    </a>
+                </li>
+
                 @can('ver-servicio')
                 <li class="nav-item">
                     <a href="{{ route('typesservice.index') }}" class="nav-link {{ request()->routeIs('typesservice.index') ? 'active' : '' }}">
@@ -97,11 +103,10 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('pays.index')}}" class="nav-link {{ request()->routeIs('pays.index') ? 'active' : '' }}">
-                        <i class="ri-funds-box-fill"></i> <span>Pagos</span>
+                    <a href="{{ route('pays.index') }}" class="nav-link {{ request()->routeIs('pays.index') ? 'active' : '' }}">
+                        <i class="ri-red-packet-line"></i> <span>Pagos</span>
                     </a>
                 </li>
-
 
                 @canany(['ver-role', 'ver-user'])
                 <li class="menu-title"><i class="ri-more-fill"></i> <span>Roles y Usuarios</span></li>

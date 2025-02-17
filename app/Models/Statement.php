@@ -24,16 +24,8 @@ class Statement extends Model
         'real_IT',
         'IUE',
     ];
-
-    // Relación con el modelo Client
-    public function client()
+    public function serviceRecord()
     {
-        return $this->belongsTo(Client::class);
-    }
-
-    // Relación con el modelo Worker
-    public function worker()
-    {
-        return $this->belongsTo(Worker::class);
+        return $this->hasOne(ServiceRecord::class, 'statement_id');  // Asumiendo que 'statement_id' es la clave foránea
     }
 }
