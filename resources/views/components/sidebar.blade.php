@@ -38,15 +38,21 @@
                 </li>
                 <li class="menu-title"><i class="ri-more-fill"></i> <span>Modulos</span></li>
                  <!----Clientes---->
-                 @can('ver-cliente')
+                @php
+                    // Obtener todos los clientes y contar los registros de servicio con status == 1
+                    $totalServiceRecords = \App\Models\Client::all()->sum(function ($client) {
+                        return $client->serviceRecords->where('status', 1)->count();
+                    });
+                @endphp
+                @can('ver-cliente')
                     <li class="nav-item position-relative">
-                        <a href="{{ route('clients.index')}}" class="nav-link {{ request()->routeIs('clients.index') ? 'active' : '' }}">
+                        <a href="{{ route('clients.index') }}" class="nav-link {{ request()->routeIs('clients.index') ? 'active' : '' }}">
                             <i class="ri-team-fill"></i>
                             <span>Clientes</span>
 
-                            <!-- Notificación simulada sobre el texto "Clientes" -->
+                            <!-- Notificación con el total de registros de servicio -->
                             <span class="badge bg-danger position-absolute top-0 start-50 translate-middle-x rounded-pill">
-                                5
+                                {{ $totalServiceRecords }}
                             </span>
                         </a>
                     </li>

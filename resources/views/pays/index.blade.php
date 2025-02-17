@@ -151,7 +151,6 @@
                                         <th data-sort="date">Fecha de consulta</th>
                                         <th data-sort="customer_name">Deuda del servicio</th>
                                         <th>Estado</th>
-                                        <th>Acción</th>
                                     </tr>
                                 </thead>
                                 <tbody class="list form-check-all">
@@ -177,30 +176,8 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <span class="badge bg-warning">Pendiente</span>
+                                                    <span class="badge bg-success">Cancelado</span>
                                                 </td>
-                                                <td>
-                                                    <div class="d-flex gap-2">
-                                                        {{-- Botón Editar --}}
-                                                        <button class="btn btn-sm btn-primary edit-item-btn"
-                                                            data-bs-toggle="modal"
-                                                            title="Ver"
-                                                            data-bs-target="#verPlan-{{$service->id}}"
-                                                        >
-                                                            <i class="ri-eye-fill"></i>
-                                                        </button>
-
-                                                        {{-- Botón Eliminar --}}
-                                                        <button class="btn btn-sm btn-warning remove-item-btn"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#EditarPlan-{{$service->id}}"
-                                                            title="Editar"
-                                                        >
-                                                            <i class="ri-edit-2-fill"></i>
-                                                        </button>
-                                                    </div>
-                                                </td>
-
                                             </tr>
                                         @endif
                                     @empty

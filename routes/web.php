@@ -35,6 +35,9 @@ Route::resources([
     'plant_pay' => PlantsPayController::class,
     'pays' => PayController::class
 ]);
+
+Route::post('/clients/pay', [ClientController::class, 'pay'])->name('clients.pay');
+
 Route::get('/reservations', [ReservationController::class, 'index'])->name('reservations.index');
 Route::get('/reservations/create', [ReservationController::class, 'create'])->name('reservations.create');
 Route::post('/reservations', [ReservationController::class, 'store'])->name('reservations.store');

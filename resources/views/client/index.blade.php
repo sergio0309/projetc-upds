@@ -1,6 +1,16 @@
 @extends('layouts.app')
 @include('client.create', ['users' => $users, 'roles' => $roles])
 @section('content')
+{{-- @foreach($clients as $client)
+    @foreach($client->serviceRecords as $serviceRecord)
+        <p>{{ $serviceRecord->description }}</p>
+        <p>{{ $serviceRecord->status}}</p>
+        @foreach($serviceRecord->pays as $pay)
+            <p>Pago: {{ $pay->pay }}</p>
+            <p>Archivo: <a href="{{ asset($pay->file) }}" target="_blank">{{ $pay->file }}</a></p>
+        @endforeach
+    @endforeach
+@endforeach --}}
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
@@ -45,7 +55,12 @@
                                 @foreach ($clients as $client)
                                 @include('client.edit')
                                 @include('client.show')
+                                @include('client.pay')
                                     <tr>
+                                        @php
+                                            // Contar la cantidad de registros de servicio con status == 1 para el cliente
+                                            $serviceRecordCount = $client->serviceRecords->where('status', 1)->count();
+                                        @endphp
                                         <td class="counter">{{ $loop->iteration }}</td>
                                         <td class="customer_name">{{ $client->user->first_name ?? 'N/A' }} {{ $client->user->last_name ?? 'N/A' }}</td>
                                         <td>{{ $client->user->ci }}</td>
@@ -66,6 +81,86 @@
                                         </td>
                                         <td>
                                             <div class="d-flex gap-2">
+
+                                                <div class="show" style="position: relative;">
+                                                    <button type="button" class="btn btn-sm btn-success" title="Pagar"
+                                                            data-bs-toggle="modal" data-bs-target="#pagarCliente-{{ $client->id }}">
+                                                        <i class="ri-funds-fill"></i>
+                                                    </button>
+
+                                                    @if ($serviceRecordCount > 0)
+                                                        <span class="badge rounded-pill bg-danger text-white position-absolute top-0 start-100 translate-middle" style="font-size: 10px;">
+                                                            {{ $serviceRecordCount }}
+                                                        </span>
+                                                    @endif
+                                                </div>
+
+                                                <div class="modal fade bs-example-modal-sm" id="pagarCliente-{{ $client->id }}" tabindex="-1" aria-labelledby="pagarClienteModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content ">
+                                                            <div class="modal-header bg-light p-3">
+                                                                <h5 class="modal-title" id="pagarClienteModalLabel">Pagar</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                                                    id="close-modal"></button>
+                                                            </div>
+                                                            <form action="{{ route('clients.pay')}}" method="POST" enctype="multipart/form-data">
+                                                                @csrf
+                                                                <div class="modal-body">
+                                                                    <div class="row mb-4">
+                                                                        <table class="table align-middle table-nowrap" id="customerTable">
+                                                                            <thead class="table-light">
+                                                                                <tr>
+                                                                                    <th class="text-center">Seleccionar</th> <!-- Título de la columna "Seleccionar" -->
+                                                                                    <th class="text-center">N°</th>
+                                                                                    <th class="text-center">Tipo de Servicio</th>
+                                                                                    <th class="text-center">Deuda</th>
+                                                                                    <th class="text-center">Monto a Pagar</th>
+                                                                                    <th class="text-center">Documento/Comprobante</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody class="list form-check-all">
+                                                                                @php $counter = 1; @endphp
+                                                                                @foreach ($client->serviceRecords as $servicio)
+                                                                                    @if ($servicio->status == 1)
+                                                                                        <tr>
+                                                                                            <td class="text-center">
+                                                                                                <input type="checkbox" name="service_records[]" value="{{ $servicio->id }}">
+                                                                                            </td>
+                                                                                            <td class="text-center">{{ $counter }}</td> <!-- Mostrar el número actual -->
+                                                                                            <td class="text-center">
+                                                                                                {{ $servicio->type_service?->name ?? ($servicio->statement?->name ?? 'Declaracion') }}
+                                                                                            </td>
+                                                                                            <td class="text-center">{{ $servicio->amount }}</td>
+                                                                                            <td class="text-center">
+                                                                                                {{ $servicio->pays->isNotEmpty() ? $servicio->pays->first()->pay : 'N/A' }}
+                                                                                            </td>
+                                                                                            <td class="text-center">
+                                                                                                @if ($servicio->pays->isNotEmpty() && $servicio->pays->first()->file)
+                                                                                                    <a href="{{ asset('storage/' . $servicio->pays->first()->file) }}" target="_blank" download class="btn btn-sm btn-primary" title="Descargar">
+                                                                                                        <i class="ri-file-3-fill"></i>
+                                                                                                    </a>
+                                                                                                @else
+                                                                                                    N/A
+                                                                                                @endif
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        @php $counter++; @endphp <!-- Incrementar después de imprimir -->
+                                                                                    @endif
+                                                                                @endforeach
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer d-flex justify-content-center">
+                                                                    <button type="submit" class="btn btn-success" id="add-btn">Pagar</button>
+                                                                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
                                                 <div class="show">
                                                     <button type="button" class="btn btn-sm btn-primary" title="Ver"
                                                             data-bs-toggle="modal" data-bs-target="#verClient-{{ $client->user->id }}">

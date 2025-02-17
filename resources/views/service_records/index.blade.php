@@ -76,11 +76,13 @@
                                         </td>
                                         <td>{{$service->paid}}</td>
                                         <td class="status">
-                                                @if ($service->status_debt == 1)
-                                                    <span class="badge badge-soft-success text-uppercase">Cancelado</span></td>
-                                                @else
-                                                    <span class="badge badge-soft-danger text-uppercase">Deuda</span>
-                                                @endif
+                                            @if ($service->status == 0)
+                                                <span class="badge badge-soft-danger text-uppercase">Deuda</span>
+                                            @elseif ($service->status == 1)
+                                                <span class="badge badge-soft-warning text-uppercase">Pendiente</span>
+                                            @elseif ($service->status == 2)
+                                                <span class="badge badge-soft-success text-uppercase">Cancelado</span>
+                                            @endif
                                         </td>
                                         <td class="phone">
                                             <div class="d-flex gap-2">

@@ -25,7 +25,13 @@ class ClientController extends Controller
     public function index()
     {
 
-        $clients = Client::with(['user', 'files', 'serviceRecords'])->get();
+        $clients = Client::with([
+            'user',
+            'files',
+            'serviceRecords.pays',
+            'serviceRecords.type_service',
+            'serviceRecords.statement'
+        ])->get();
         $serviceRecord = ServiceRecord::with('pays')->get();
         $users = User::with('roles')->get();
         $roles = Role::all();
@@ -231,5 +237,33 @@ class ClientController extends Controller
         $user->save();
 
         return redirect()->route('clients.index')->with('success', 'Cliente actualizado correctamente.');
+    }
+
+    public function pay(Request $request)
+    {
+        $serviceRecordIds = $request->input('service_records');
+
+        // Buscar los registros de ServiceRecord y cargar la relación con Pays
+        $serviceRecords = ServiceRecord::with('pays') // Cargar relación pays
+            ->whereIn('id', $serviceRecordIds)
+            ->get();
+        // dd($serviceRecords->all());
+        // Iterar sobre los registros de ServiceRecord y actualizar la relación con Pay
+        foreach ($serviceRecords as $serviceRecord) {
+            // Obtener el primer pago relacionado (si existe)
+            $firstPay = $serviceRecord->pays->first();
+
+            // Si hay al menos un pago relacionado, actualizar
+            if ($firstPay) {
+                $serviceRecord->update([
+                    'status' => 2,
+                    'amount' => 0,
+                    'paid' => $firstPay->pay // Usa el primer pago de la relación
+                ]);
+            }
+        }
+
+        // Puedes redirigir o devolver una respuesta
+        return redirect()->route('clients.index')->with('success', 'Pagos actualizados correctamente');
     }
 }
