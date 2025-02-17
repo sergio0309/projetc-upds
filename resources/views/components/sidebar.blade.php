@@ -76,11 +76,13 @@
                 </li>
                 @endcan
 
+                @can('ver-reporte')
                 <li class="nav-item">
                     <a href="{{ route('reports.index')}}" class="nav-link {{ request()->routeIs('reports.index') ? 'active' : '' }}">
                         <i class="ri-file-list-3-line"></i> <span>Reportes de Declaración</span>
                     </a>
                 </li>
+                @endcan
 
                 @can('ver-servicio')
                 <li class="nav-item">
@@ -90,23 +92,29 @@
                 </li>
                 @endcan
 
+                @can('ver-consulta')
                 <li class="nav-item">
                     <a href="{{ route('service_records.index') }}" class="nav-link {{ request()->routeIs('service_records.index') ? 'active' : '' }}">
                         <i class="ri-folder-3-fill"></i> <span>Consultas</span>
                     </a>
                 </li>
+                @endcan
 
+                @can('ver-plan-pagos')
                 <li class="nav-item">
                     <a href="{{ route('plant_pay.index') }}" class="nav-link {{ request()->routeIs('plant_pay.index') ? 'active' : '' }}">
                         <i class="ri-funds-box-fill"></i> <span>Plan de pagos</span>
                     </a>
                 </li>
+                @endcan
 
+                @can('ver-pagos')
                 <li class="nav-item">
                     <a href="{{ route('pays.index') }}" class="nav-link {{ request()->routeIs('pays.index') ? 'active' : '' }}">
                         <i class="ri-red-packet-line"></i> <span>Pagos</span>
                     </a>
                 </li>
+                @endcan
 
                 @canany(['ver-role', 'ver-user'])
                 <li class="menu-title"><i class="ri-more-fill"></i> <span>Roles y Usuarios</span></li>

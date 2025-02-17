@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('amount')->nullable();
             $table->integer('paid')->default(0);
             $table->tinyInteger('status_debt')->default(0)->comment('0 = Inactivo, 1 = Activo');
-            $table->tinyInteger('status')->default(1)->comment('0 = deuda, 1 = Pendiente , 2 = Pagado' );
+            $table->tinyInteger('status')->default(0)->comment('0 = deuda, 1 = Pendiente , 2 = Pagado' );
             $table->text('description')->nullable();
             $table->foreignId('type_service_id')->nullable()->constrained('type_services')
                 ->onUpdate('cascade')->onDelete('cascade');

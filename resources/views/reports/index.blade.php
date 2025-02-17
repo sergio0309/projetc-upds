@@ -28,7 +28,7 @@
                                 </tr>
                             </thead>
                             <tbody class="list form-check-all">
-                                @foreach ($serviceRecords as $service)
+                                @forelse ($serviceRecords as $service)
                                     @if ( $service->statement_id )
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
@@ -54,7 +54,11 @@
                                             </td>
                                         </tr>
                                     @endif
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="4" class="text-center">No hay declaraciones disponibles.</td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

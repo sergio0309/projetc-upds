@@ -45,6 +45,13 @@ class PermissionsSeeder extends Seeder
             'eliminar-archivo',
             'descargar-archivo',
 
+            //reporte
+            'ver-reporte',
+            'crear-reporte',
+            'editar-reporte',
+            'eliminar-reporte',
+            'descargar-reporte',
+
             //servicio
             'ver-servicio',
             'crear-servicio',
@@ -62,6 +69,18 @@ class PermissionsSeeder extends Seeder
             'crear-consulta',
             'editar-consulta',
             'eliminar-consulta',
+
+            //plan-pagos
+            'ver-plan-pagos',
+            'crear-plan-pagos',
+            'editar-plan-pagos',
+            'eliminar-plan-pagos',
+
+            //pagos
+            'ver-pagos',
+            'crear-pagos',
+            'editar-pagos',
+            'eliminar-pagos',
         ];
 
         foreach ($permissions as $permission) {
