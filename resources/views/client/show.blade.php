@@ -18,7 +18,7 @@
                                 <img src="{{ asset('storage/'.$client->user->image ) }}"
                                     class="rounded-circle avatar-lg img-thumbnail user-profile-image" alt="user-profile-image" style="width: 180px; height: 180px;">
                             @else
-                                <img src="{{ asset('assets/images/users/deafult-user.jpg') }}"
+                                <img src="{{ asset('assets/images/users/user-dummy-img.jpg') }}"
                                 class="rounded-circle avatar-lg img-thumbnail user-profile-image" alt="user-profile-image" style="width: 180px; height: 180px;">
                             @endif
                         </div>

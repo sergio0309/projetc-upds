@@ -37,6 +37,7 @@
                         <div class="modal-body">
                             <form>
                                 @csrf
+                                <input type="hidden" id="id" name="id" value="">
                                 <div class="form-group">
                                     <label for="client_id">Cliente:</label>
                                     <select name="client_id" id="client_id" class="form-control"
@@ -123,170 +124,165 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-    const formulario = document.querySelector("form");
-    var calendarEl = document.getElementById('calendar');
+    document.addEventListener('DOMContentLoaded', function() {
+        const formulario = document.querySelector("form");
+        var calendarEl = document.getElementById('calendar');
 
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        locale: 'es',
-        headerToolbar: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay'
-        },
-        buttonText: {
-            today: 'Hoy',
-            month: 'Mes',
-            week: 'Semana',
-            day: 'Día'
-        },
-        navLinks: true,
-        editable: true,
-        selectable: true,
-        events: @json($events),
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            locale: 'es',
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            buttonText: {
+                today: 'Hoy',
+                month: 'Mes',
+                week: 'Semana',
+                day: 'Día'
+            },
+            navLinks: true,
+            editable: true,
+            selectable: true,
+            events: @json($events),
 
-        eventClick: function(info) {
-            // Mostrar modal para editar evento
-            $("#evento").modal("show");
+            eventClick: function(info) {
+                // Mostrar modal para editar evento
+                $("#evento").modal("show");
 
-            // Cargar datos en los campos del formulario
-            document.getElementById('title').value = info.event.title || '';
-            document.getElementById('description').value = info.event.extendedProps.description || '';
-            document.getElementById('start').value = info.event.start.toISOString().split('T')[0] || '';
-            document.getElementById('start_time').value = info.event.start.toISOString().split('T')[1].slice(0, 5) || '';
-            document.getElementById('end').value = info.event.end ? info.event.end.toISOString().split('T')[0] : '';
-            document.getElementById('end_time').value = info.event.end ? info.event.end.toISOString().split('T')[1].slice(0, 5) : '';
-            document.getElementById('client_id').value = info.event.extendedProps.client_id || '';
-            document.getElementById('worker_id').value = info.event.extendedProps.worker_id || '';
+                // Cargar datos en los campos del formulario
+                document.getElementById('id').value = info.event.id || '';
+                document.getElementById('title').value = info.event.title || '';
+                document.getElementById('description').value = info.event.extendedProps.description || '';
+                document.getElementById('start').value = info.event.start.toISOString().split('T')[0] || '';
+                document.getElementById('start_time').value = info.event.start.toISOString().split('T')[1].slice(0, 5) || '';
+                document.getElementById('end').value = info.event.end ? info.event.end.toISOString().split('T')[0] : '';
+                document.getElementById('end_time').value = info.event.end ? info.event.end.toISOString().split('T')[1].slice(0, 5) : '';
+                document.getElementById('client_id').value = info.event.extendedProps.client_id || '';
+                document.getElementById('worker_id').value = info.event.extendedProps.worker_id || '';
 
-            // Mostrar botón de Modificar y ocultar Guardar
-            document.getElementById("btnModificar").style.display = 'inline-block';
-            document.getElementById("btnGuardar").style.display = 'none';
+                // Mostrar botón de Modificar y ocultar Guardar
+                document.getElementById("btnModificar").style.display = 'inline-block';
+                document.getElementById("btnGuardar").style.display = 'none';
+            },
 
-            // Guardar el ID del evento
-            document.getElementById('title').dataset.id = info.event.id;
-        },
+            dateClick: function(info) {
+                // Mostrar modal para nuevo evento sin limpiar campos
+                $("#evento").modal("show");
 
-        dateClick: function(info) {
-            // Mostrar modal para nuevo evento sin limpiar campos
-            $("#evento").modal("show");
+                // Establecer fecha seleccionada
+                if (!document.getElementById('start').value) {
+                    document.getElementById('start').value = info.dateStr;
+                    document.getElementById('end').value = info.dateStr;
+                }
 
-            // Establecer fecha seleccionada
-            if (!document.getElementById('start').value) {
-                document.getElementById('start').value = info.dateStr;
-                document.getElementById('end').value = info.dateStr;
+                // Mostrar botón de Guardar y ocultar Modificar
+                document.getElementById("btnModificar").style.display = 'none';
+                document.getElementById("btnGuardar").style.display = 'inline-block';
             }
+        });
 
-            // Mostrar botón de Guardar y ocultar Modificar
+        calendar.render();
+
+        // Crear nuevo evento
+        document.getElementById("btnGuardar").addEventListener("click", function(e) {
+            e.preventDefault();
+
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+            const start = document.getElementById('start').value;
+            const end = document.getElementById('end').value;
+            const client_id = document.getElementById('client_id').value;
+            const worker_id = document.getElementById('worker_id').value;
+            const startTime = document.getElementById('start_time').value;
+            const endTime = document.getElementById('end_time').value;
+
+            const startDatetime = `${start}T${startTime}`;
+            const endDatetime = `${end}T${endTime}`;
+
+            const datos = {
+                _token: document.querySelector('input[name="_token"]').value,
+                title, description, start: startDatetime, end: endDatetime,
+                client_id, worker_id
+            };
+
+            axios.post("http://127.0.0.1:8000/reservations", datos)
+                .then(response => {
+                    calendar.addEvent({
+                        id: response.data.id,
+                        title, start: startDatetime, end: endDatetime,
+                        extendedProps: { description, client_id, worker_id }
+                    });
+
+                    $("#evento").modal("hide");
+                })
+                .catch(error => console.error(error));
+        });
+
+        // Modificar evento
+        document.getElementById("btnModificar").addEventListener("click", function(e) {
+            e.preventDefault();
+            const id = document.getElementById('id').value;
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+            const start = document.getElementById('start').value;
+            const end = document.getElementById('end').value;
+            const client_id = document.getElementById('client_id').value;
+            const worker_id = document.getElementById('worker_id').value;
+            const startTime = document.getElementById('start_time').value;
+            const endTime = document.getElementById('end_time').value;
+
+            const startDatetime = `${start}T${startTime}`;
+            const endDatetime = `${end}T${endTime}`;
+
+            // Datos a enviar para la modificación
+            const datos = {
+                _token: document.querySelector('input[name="_token"]').value, id,
+                title, description, start: startDatetime, end: endDatetime,
+                client_id, worker_id
+            };
+            console.log(id);
+            // Hacer PUT request para modificar el evento
+            axios.put(`http://127.0.0.1:8000/reservations/${id}`, datos)
+                .then(response => {
+                    let event = calendar.getEventById(id);  // Buscar el evento en el calendario
+                    if (event) {
+                        // Actualizar los detalles del evento
+                        event.setProp('title', title);
+                        event.setExtendedProp('description', description);
+                        event.setExtendedProp('client_id', client_id);
+                        event.setExtendedProp('worker_id', worker_id);
+                        event.setStart(startDatetime);
+                        event.setEnd(endDatetime);
+                    }
+                    $("#evento").modal("hide");  // Cerrar el modal
+                })
+                .catch(error => console.error(error));
+        });
+
+        // Eliminar evento
+        document.getElementById("btnEliminar").addEventListener("click", function(e) {
+            e.preventDefault();
+            const id = document.getElementById('id').value;  // Obtener el ID del evento
+
+            // Hacer DELETE request para eliminar el evento
+            axios.delete(`http://127.0.0.1:8000/reservations/${id}`)
+                .then(response => {
+                    const event = calendar.getEventById(id);  // Buscar el evento en el calendario
+                    if (event) event.remove();  // Eliminarlo del calendario
+                    $("#evento").modal("hide");  // Cerrar el modal
+                })
+                .catch(error => console.error(error));
+        });
+
+
+        // Cuando se cierra el modal, los valores del formulario NO se limpian
+        $('#evento').on('hidden.bs.modal', function () {
             document.getElementById("btnModificar").style.display = 'none';
             document.getElementById("btnGuardar").style.display = 'inline-block';
-        }
+        });
     });
-
-    calendar.render();
-
-    // Crear nuevo evento
-    document.getElementById("btnGuardar").addEventListener("click", function(e) {
-        e.preventDefault();
-
-        const title = document.getElementById('title').value;
-        const description = document.getElementById('description').value;
-        const start = document.getElementById('start').value;
-        const end = document.getElementById('end').value;
-        const client_id = document.getElementById('client_id').value;
-        const worker_id = document.getElementById('worker_id').value;
-        const startTime = document.getElementById('start_time').value;
-        const endTime = document.getElementById('end_time').value;
-
-        const startDatetime = `${start}T${startTime}`;
-        const endDatetime = `${end}T${endTime}`;
-
-        const datos = {
-            _token: document.querySelector('input[name="_token"]').value,
-            title, description, start: startDatetime, end: endDatetime,
-            client_id, worker_id
-        };
-
-        axios.post("http://127.0.0.1:8000/reservations", datos)
-            .then(response => {
-                calendar.addEvent({
-                    id: response.data.id,
-                    title, start: startDatetime, end: endDatetime,
-                    extendedProps: { description, client_id, worker_id }
-                });
-
-                $("#evento").modal("hide");
-            })
-            .catch(error => console.error(error));
-    });
-
-    // Modificar evento
-    // Modificar evento
-document.getElementById("btnModificar").addEventListener("click", function(e) {
-    e.preventDefault();
-
-    const id = document.getElementById('title').dataset.id;  // Obtener ID del evento
-    const title = document.getElementById('title').value;
-    const description = document.getElementById('description').value;
-    const start = document.getElementById('start').value;
-    const end = document.getElementById('end').value;
-    const client_id = document.getElementById('client_id').value;
-    const worker_id = document.getElementById('worker_id').value;
-    const startTime = document.getElementById('start_time').value;
-    const endTime = document.getElementById('end_time').value;
-
-    const startDatetime = `${start}T${startTime}`;
-    const endDatetime = `${end}T${endTime}`;
-
-    // Datos a enviar para la modificación
-    const datos = {
-        _token: document.querySelector('input[name="_token"]').value,
-        title, description, start: startDatetime, end: endDatetime,
-        client_id, worker_id
-    };
-
-    // Hacer PUT request para modificar el evento
-    axios.put(`http://127.0.0.1:8000/reservations/${id}`, datos)
-        .then(response => {
-            let event = calendar.getEventById(id);  // Buscar el evento en el calendario
-            if (event) {
-                // Actualizar los detalles del evento
-                event.setProp('title', title);
-                event.setExtendedProp('description', description);
-                event.setExtendedProp('client_id', client_id);
-                event.setExtendedProp('worker_id', worker_id);
-                event.setStart(startDatetime);
-                event.setEnd(endDatetime);
-            }
-            $("#evento").modal("hide");  // Cerrar el modal
-        })
-        .catch(error => console.error(error));
-});
-
-// Eliminar evento
-document.getElementById("btnEliminar").addEventListener("click", function(e) {
-    e.preventDefault();
-
-    const eventId = document.getElementById('title').dataset.id;  // Obtener el ID del evento
-
-    // Hacer DELETE request para eliminar el evento
-    axios.delete(`http://127.0.0.1:8000/reservations/${eventId}`)
-        .then(response => {
-            const event = calendar.getEventById(eventId);  // Buscar el evento en el calendario
-            if (event) event.remove();  // Eliminarlo del calendario
-            $("#evento").modal("hide");  // Cerrar el modal
-        })
-        .catch(error => console.error(error));
-});
-
-
-    // Cuando se cierra el modal, los valores del formulario NO se limpian
-    $('#evento').on('hidden.bs.modal', function () {
-        document.getElementById("btnModificar").style.display = 'none';
-        document.getElementById("btnGuardar").style.display = 'inline-block';
-    });
-});
 
     </script>
 @endpush

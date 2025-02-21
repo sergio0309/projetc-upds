@@ -22,6 +22,7 @@ class ReservationController extends Controller
 
         foreach ($all_reservations as $event) {
             $events[] = [
+                'id' => $event->id,
                 'title' => $event->title, // Asegúrate de que 'event' sea el nombre correcto del campo
                 'start' => $event->start, // Convertir a formato ISO 8601
                 'end' => $event->end, // Convertir a formato ISO 8601
@@ -29,7 +30,7 @@ class ReservationController extends Controller
                 'worker_id' => $event->worker_id
             ];
         }
-
+        // return response()->json($events);
         return view('calendar.index', compact('events', 'clients', 'workers'));
     }
 
@@ -71,18 +72,22 @@ class ReservationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $reservation = Reservation::findOrFail($id);
+        try {
+            $reservation = Reservation::findOrFail($id);
 
-        $reservation->update([
-            'title' => $request->title,
-            'description' => $request->description,
-            'start' => $request->start,
-            'end' => $request->end,
-            'client_id' => $request->client_id,
-            'worker_id' => $request->worker_id,
-        ]);
+            $reservation->update([
+                'title' => $request->title,
+                'description' => $request->description,
+                'start' => $request->start,
+                'end' => $request->end,
+                'client_id' => $request->client_id,
+                'worker_id' => $request->worker_id,
+            ]);
 
-        return response()->json($reservation, 200);
+            return response()->json($reservation, 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
     }
 
     // Método para eliminar una reservación
