@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\Storage;
 
 class PlantsPayController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('permission:ver-plan-pagos|crear-plan-pagos|editar-plan-pagos|eliminar-plan-pagos', ['only' => ['index']]);
+        $this->middleware('permission:crear-plan-pagos', ['only' => ['create', 'store']]);
+        $this->middleware('permission:editar-plan-pagos', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:eliminar-plan-pagos', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      */

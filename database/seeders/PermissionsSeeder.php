@@ -81,6 +81,12 @@ class PermissionsSeeder extends Seeder
             'crear-pagos',
             'editar-pagos',
             'eliminar-pagos',
+
+            //reserva
+            'ver-reserva',
+            'crear-reserva',
+            'editar-reserva',
+            'eliminar-reserva',
         ];
 
         foreach ($permissions as $permission) {
