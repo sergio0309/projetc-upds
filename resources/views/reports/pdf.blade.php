@@ -15,7 +15,7 @@
         .report-container {
             width: 100%;
             max-width: 595px; /* Ancho de media hoja A4 (210mm / 2 = 105mm = 595px aprox) */
-            height: 550px;  /* Altura de media hoja A4 (297mm / 2 = 148.5mm = 420px aprox) */
+            height: 380px;  /* Altura de media hoja A4 (297mm / 2 = 148.5mm = 420px aprox) */
             border: 1px solid #000;
             padding: 10px;
             box-sizing: border-box;
@@ -152,7 +152,7 @@
             </table>
         </div>
 
-        <table>
+        {{-- <table>
             <tr>
                 <td>Servicio JPM Consultores</td>
                 <td colspan="2"></td>
@@ -171,7 +171,7 @@
             </tr>
         </table>
 
-        <div class="total">Total Deuda 7804051011 - 845</div>
+        <div class="total">Total Deuda 7804051011 - 845</div> --}}
 
         <div class="note">En el momento del pago exige tu <b>REPORTE TRIBUTARIO</b> actualizado. <br>Atte. JPM Consultores</div>
     </div>

@@ -19,9 +19,9 @@ class PayController extends Controller
     {
         $userId = Auth::id();
         $clientId = Client::where('user_id', $userId)->value('id');
-        $service_record = ServiceRecord::where('client_id', $clientId)->where('status', 0)->with(['plantsPays', 'type_service'])->get();
-        $confirmar_servicio = ServiceRecord::where('client_id', $clientId)->where('status', 1)->with('plantsPays')->get();
-        $pay_servicio = ServiceRecord::where('client_id', $clientId)->where('status', 2)->with('plantsPays')->get();
+        $service_record = ServiceRecord::where('client_id', $clientId)->where('status', 0)->with(['plantsPays', 'type_service'])->paginate(10);
+        $confirmar_servicio = ServiceRecord::where('client_id', $clientId)->where('status', 1)->with('plantsPays')->paginate(10);
+        $pay_servicio = ServiceRecord::where('client_id', $clientId)->where('status', 2)->with('plantsPays')->paginate(10);
         $plants_pay = PlantsPay::all();
         return view('pays.index', compact('service_record','plants_pay', 'confirmar_servicio', 'pay_servicio'));
     }

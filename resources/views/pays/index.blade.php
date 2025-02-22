@@ -65,6 +65,29 @@
                                 @endforelse
                             </table>
                         </div>
+                        <div class="d-flex justify-content-end">
+                            <div class="pagination-wrap hstack gap-2">
+                                {{-- Botón de Paginación Anterior --}}
+                                <a class="page-item pagination-prev {{ $service_record->onFirstPage() ? 'disabled' : '' }}" href="{{ $service_record->previousPageUrl() }}">
+                                    Previous
+                                </a>
+
+                                {{-- Lista de Páginas --}}
+                                <ul class="pagination listjs-pagination mb-0">
+                                    {{-- Mostrar las páginas --}}
+                                    @foreach ($service_record->getUrlRange(1, $service_record->lastPage()) as $page => $url)
+                                        <li class="page-item {{ $service_record->currentPage() == $page ? 'active' : '' }}">
+                                            <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+
+                                {{-- Botón de Paginación Siguiente --}}
+                                <a class="page-item pagination-next {{ $service_record->hasMorePages() ? '' : 'disabled' }}" href="{{ $service_record->nextPageUrl() }}">
+                                    Next
+                                </a>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Tabla Confirmar -->
@@ -138,6 +161,29 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="d-flex justify-content-end">
+                            <div class="pagination-wrap hstack gap-2">
+                                {{-- Botón de Paginación Anterior --}}
+                                <a class="page-item pagination-prev {{ $confirmar_servicio->onFirstPage() ? 'disabled' : '' }}" href="{{ $confirmar_servicio->previousPageUrl() }}">
+                                    Previous
+                                </a>
+
+                                {{-- Lista de Páginas --}}
+                                <ul class="pagination listjs-pagination mb-0">
+                                    {{-- Mostrar las páginas --}}
+                                    @foreach ($confirmar_servicio->getUrlRange(1, $confirmar_servicio->lastPage()) as $page => $url)
+                                        <li class="page-item {{ $confirmar_servicio->currentPage() == $page ? 'active' : '' }}">
+                                            <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+
+                                {{-- Botón de Paginación Siguiente --}}
+                                <a class="page-item pagination-next {{ $confirmar_servicio->hasMorePages() ? '' : 'disabled' }}" href="{{ $confirmar_servicio->nextPageUrl() }}">
+                                    Next
+                                </a>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Tabla Pagados -->
@@ -187,6 +233,29 @@
                                     @endforelse
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <div class="pagination-wrap hstack gap-2">
+                                {{-- Botón de Paginación Anterior --}}
+                                <a class="page-item pagination-prev {{ $pay_servicio->onFirstPage() ? 'disabled' : '' }}" href="{{ $pay_servicio->previousPageUrl() }}">
+                                    Previous
+                                </a>
+
+                                {{-- Lista de Páginas --}}
+                                <ul class="pagination listjs-pagination mb-0">
+                                    {{-- Mostrar las páginas --}}
+                                    @foreach ($pay_servicio->getUrlRange(1, $pay_servicio->lastPage()) as $page => $url)
+                                        <li class="page-item {{ $pay_servicio->currentPage() == $page ? 'active' : '' }}">
+                                            <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+
+                                {{-- Botón de Paginación Siguiente --}}
+                                <a class="page-item pagination-next {{ $pay_servicio->hasMorePages() ? '' : 'disabled' }}" href="{{ $pay_servicio->nextPageUrl() }}">
+                                    Next
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
