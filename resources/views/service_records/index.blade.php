@@ -25,14 +25,6 @@
                                 </div>
                             </div>
                             {{-- @endcan --}}
-                            <div class="col-sm">
-                                <div class="d-flex justify-content-sm-end">
-                                    <div class="search-box ms-2">
-                                        <input type="text" class="form-control search" placeholder="Search...">
-                                        <i class="ri-search-line search-icon"></i>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
                         <div class="table-responsive table-card mt-3 mb-1">
@@ -147,25 +139,26 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            <div class="noresult" style="display: none">
-                                <div class="text-center">
-                                    <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop"
-                                        colors="primary:#121331,secondary:#08a88a" style="width:75px;height:75px">
-                                    </lord-icon>
-                                    <h5 class="mt-2">Sorry! No Result Found</h5>
-                                    <p class="text-muted mb-0">We've searched more than 150+ Orders We did not find any
-                                        orders for you search.</p>
-                                </div>
-                            </div>
                         </div>
-
                         <div class="d-flex justify-content-end">
                             <div class="pagination-wrap hstack gap-2">
-                                <a class="page-item pagination-prev disabled" href="#">
+                                {{-- Botón de Paginación Anterior --}}
+                                <a class="page-item pagination-prev {{ $serviceRecords->onFirstPage() ? 'disabled' : '' }}" href="{{ $serviceRecords->previousPageUrl() }}">
                                     Previous
                                 </a>
-                                <ul class="pagination listjs-pagination mb-0"></ul>
-                                <a class="page-item pagination-next" href="#">
+
+                                {{-- Lista de Páginas --}}
+                                <ul class="pagination listjs-pagination mb-0">
+                                    {{-- Mostrar las páginas --}}
+                                    @foreach ($serviceRecords->getUrlRange(1, $serviceRecords->lastPage()) as $page => $url)
+                                        <li class="page-item {{ $serviceRecords->currentPage() == $page ? 'active' : '' }}">
+                                            <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+
+                                {{-- Botón de Paginación Siguiente --}}
+                                <a class="page-item pagination-next {{ $serviceRecords->hasMorePages() ? '' : 'disabled' }}" href="{{ $serviceRecords->nextPageUrl() }}">
                                     Next
                                 </a>
                             </div>

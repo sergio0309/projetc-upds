@@ -26,7 +26,7 @@ class WorkerController extends Controller
     public function index()
     {
 
-        $workers = Worker::with('user.roles')->get();
+        $workers = Worker::with('user.roles')->paginate(10);
         $users = User::with('roles')->get();
         $roles = Role::all();
         return view('worker.index', compact('workers', 'users', 'roles'));

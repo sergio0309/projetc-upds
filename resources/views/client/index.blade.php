@@ -1,16 +1,7 @@
 @extends('layouts.app')
 @include('client.create', ['users' => $users, 'roles' => $roles])
 @section('content')
-{{-- @foreach($clients as $client)
-    @foreach($client->serviceRecords as $serviceRecord)
-        <p>{{ $serviceRecord->description }}</p>
-        <p>{{ $serviceRecord->status}}</p>
-        @foreach($serviceRecord->pays as $pay)
-            <p>Pago: {{ $pay->pay }}</p>
-            <p>Archivo: <a href="{{ asset($pay->file) }}" target="_blank">{{ $pay->file }}</a></p>
-        @endforeach
-    @endforeach
-@endforeach --}}
+
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
@@ -26,14 +17,6 @@
                             </div>
                         </div>
                         @endcan
-                        <div class="col-sm">
-                            <div class="d-flex justify-content-sm-end">
-                                <div class="search-box ms-2">
-                                    <input type="text" class="form-control search" placeholder="Search...">
-                                    <i class="ri-search-line search-icon"></i>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="table-responsive table-card mt-3 mb-1">
@@ -271,29 +254,32 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <div class="noresult" style="display: none">
-                            <div class="text-center">
-                                <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop"
-                                    colors="primary:#121331,secondary:#08a88a" style="width:75px;height:75px">
-                                </lord-icon>
-                                <h5 class="mt-2">Sorry! No Result Found</h5>
-                                <p class="text-muted mb-0">We've searched more than 150+ Orders We did not find any
-                                    orders for you search.</p>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="d-flex justify-content-end">
                         <div class="pagination-wrap hstack gap-2">
-                            <a class="page-item pagination-prev disabled" href="#">
+                            {{-- Botón de Paginación Anterior --}}
+                            <a class="page-item pagination-prev {{ $clients->onFirstPage() ? 'disabled' : '' }}" href="{{ $clients->previousPageUrl() }}">
                                 Previous
                             </a>
-                            <ul class="pagination listjs-pagination mb-0"></ul>
-                            <a class="page-item pagination-next" href="#">
+
+                            {{-- Lista de Páginas --}}
+                            <ul class="pagination listjs-pagination mb-0">
+                                {{-- Mostrar las páginas --}}
+                                @foreach ($clients->getUrlRange(1, $clients->lastPage()) as $page => $url)
+                                    <li class="page-item {{ $clients->currentPage() == $page ? 'active' : '' }}">
+                                        <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
+
+                            {{-- Botón de Paginación Siguiente --}}
+                            <a class="page-item pagination-next {{ $clients->hasMorePages() ? '' : 'disabled' }}" href="{{ $clients->nextPageUrl() }}">
                                 Next
                             </a>
                         </div>
                     </div>
+
                 </div>
             </div><!-- end card -->
         </div>
@@ -303,33 +289,3 @@
 </div>
 @endsection
 
-{{-- @push('js')
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const viewFileButtons = document.querySelectorAll('.view-file-btn');
-            viewFileButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const fileUrl = this.getAttribute('data-file-url');
-                    const fileType = this.getAttribute('data-file-type');
-                    const previewContainer = document.getElementById('file-preview-container');
-
-                    // Limpiar cualquier contenido previo
-                    previewContainer.innerHTML = '';
-
-                    // Mostrar vista previa según el tipo de archivo
-                    if (fileType.startsWith('image/')) {
-                        // Vista previa para imágenes
-                        previewContainer.innerHTML = `<img src="${fileUrl}" alt="Vista previa" class="img-fluid" />`;
-                    } else if (fileType === 'application/pdf') {
-                        // Vista previa para PDFs
-                        previewContainer.innerHTML = `<iframe src="${fileUrl}" class="img-fluid" style="height: 500px;" frameborder="0"></iframe>`;
-                    } else {
-                        // Si el archivo no tiene vista previa disponible
-                        previewContainer.innerHTML = `<p>Vista previa no disponible para este tipo de archivo.</p>`;
-                    }
-                });
-            });
-        });
-
-    </script>
-@endpush --}}

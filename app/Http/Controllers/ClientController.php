@@ -31,7 +31,7 @@ class ClientController extends Controller
             'serviceRecords.pays',
             'serviceRecords.type_service',
             'serviceRecords.statement'
-        ])->get();
+        ])->paginate(10);
         $serviceRecord = ServiceRecord::with('pays')->get();
         $users = User::with('roles')->get();
         $roles = Role::all();

@@ -17,7 +17,7 @@ class ServiceRecordController extends Controller
      */
     public function index()
     {
-        $serviceRecords = ServiceRecord::with('client.user', 'worker.user', 'statement', 'type_service')->get();
+        $serviceRecords = ServiceRecord::with('client.user', 'worker.user', 'statement', 'type_service')->paginate(10);
         $services = TypeService::all();
         $clients = Client::all();
         return view('service_records.index', compact('services', 'clients', 'serviceRecords'));

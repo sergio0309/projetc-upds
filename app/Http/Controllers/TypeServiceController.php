@@ -22,7 +22,7 @@ class TypeServiceController extends Controller
      */
     public function index()
     {
-        $types_service = TypeService::all();
+        $types_service = TypeService::paginate(10);
         return view('typeservice.index', compact('types_service'));
     }
 

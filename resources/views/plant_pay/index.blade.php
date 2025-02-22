@@ -7,7 +7,7 @@
             <div class="card-body">
                 <div id="customerList">
                     <div class="row g-4 mb-3">
-                        @can('crear-plan-pagos')
+                        {{-- @can('crear-servicio') --}}
                         <div class="col-sm-auto">
                             <div>
                                 <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal"
@@ -15,15 +15,7 @@
                                         class="ri-add-line align-bottom me-1"></i>Nuevo Plan de Pago</button>
                             </div>
                         </div>
-                        @endcan
-                        <div class="col-sm">
-                            <div class="d-flex justify-content-sm-end">
-                                <div class="search-box ms-2">
-                                    <input type="text" class="form-control search" placeholder="Search...">
-                                    <i class="ri-search-line search-icon"></i>
-                                </div>
-                            </div>
-                        </div>
+                        {{-- @endcan --}}
                     </div>
 
                     <div class="table-responsive table-card mt-3 mb-1">
@@ -59,7 +51,7 @@
                                                     </button>
                                                 </div>
 
-                                                @can('editar-plan-pagos')
+                                                {{-- @can('editar-user') --}}
                                                 <div class="edit">
                                                     <button class="btn btn-sm btn-warning edit-item-btn"
                                                         data-bs-toggle="modal"
@@ -68,9 +60,9 @@
                                                         <i class="ri-edit-2-fill"></i>
                                                     </button>
                                                 </div>
-                                                @endcan
+                                                {{-- @endcan --}}
 
-                                                @can('eliminar-plan-pagos')
+                                                {{-- @can('eliminar-user') --}}
                                                 <div class="remove">
                                                     <button class="btn btn-sm btn-danger remove-item-btn"
                                                         data-bs-toggle="modal"
@@ -80,7 +72,7 @@
                                                         <i class="ri-refresh-line"></i>
                                                     </button>
                                                 </div>
-                                                @endcan
+                                                {{-- @endcan --}}
                                             </div>
                                             <!-- Modal-Estado-->
                                             <div class="modal fade" id="eliminarPlan-{{$plant->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
