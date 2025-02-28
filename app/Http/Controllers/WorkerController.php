@@ -216,16 +216,22 @@ class WorkerController extends Controller
      */
     public function destroy($id, Request $request)
     {
-        $user = User::findOrFail($id);
+        try {
+            $user = User::findOrFail($id);
 
-        if ($request->input('status') == 1) {
-            $user->status = 0; // Cambia el estado a inactivo
-        } else {
-            $user->status = 1; // Cambia el estado a activo
+            if ($request->input('status') == 1) {
+                $user->status = 0; // Cambia el estado a inactivo
+                $message = 'Trabajador desactivado correctamente.';
+            } else {
+                $user->status = 1; // Cambia el estado a activo
+                $message = 'Trabajador activado correctamente.';
+            }
+
+            $user->save();
+
+            return redirect()->route('workers.index')->with('success', $message);
+        } catch (\Exception $e) {
+            return redirect()->route('workers.index')->with('error', 'Error al actualizar el estado del trabajador: ' . $e->getMessage());
         }
-
-        $user->save();
-
-        return redirect()->route('workers.index')->with('success', 'Trabajador actualizado correctamente.');
     }
 }

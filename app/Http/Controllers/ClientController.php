@@ -226,44 +226,63 @@ class ClientController extends Controller
      */
     public function destroy($id, Request $request)
     {
-        $user = User::findOrFail($id);
+        try {
+            $user = User::findOrFail($id);
 
-        if ($request->input('status') == 1) {
-            $user->status = 0; // Cambia el estado a inactivo
-        } else {
-            $user->status = 1; // Cambia el estado a activo
+            if ($request->input('status') == 1) {
+                $user->status = 0; // Cambia el estado a inactivo
+                $message = 'Cliente desactivado correctamente.';
+            } else {
+                $user->status = 1; // Cambia el estado a activo
+                $message = 'Cliente activado correctamente.';
+            }
+
+            $user->save();
+
+            return redirect()->route('clients.index')->with('success', $message);
+        } catch (\Exception $e) {
+            return redirect()->route('clients.index')->with('error', 'Error al actualizar el estado del cliente: ' . $e->getMessage());
         }
-
-        $user->save();
-
-        return redirect()->route('clients.index')->with('success', 'Cliente actualizado correctamente.');
     }
 
     public function pay(Request $request)
     {
-        $serviceRecordIds = $request->input('service_records');
+        try {
+            $serviceRecordIds = $request->input('service_records');
 
-        // Buscar los registros de ServiceRecord y cargar la relación con Pays
-        $serviceRecords = ServiceRecord::with('pays') // Cargar relación pays
-            ->whereIn('id', $serviceRecordIds)
-            ->get();
-        // dd($serviceRecords->all());
-        // Iterar sobre los registros de ServiceRecord y actualizar la relación con Pay
-        foreach ($serviceRecords as $serviceRecord) {
-            // Obtener el primer pago relacionado (si existe)
-            $firstPay = $serviceRecord->pays->first();
-
-            // Si hay al menos un pago relacionado, actualizar
-            if ($firstPay) {
-                $serviceRecord->update([
-                    'status' => 2,
-                    'amount' => 0,
-                    'paid' => $firstPay->pay // Usa el primer pago de la relación
-                ]);
+            if (!$serviceRecordIds || !is_array($serviceRecordIds)) {
+                return redirect()->route('clients.index')->with('error', 'No se seleccionaron registros de servicio válidos.');
             }
-        }
 
-        // Puedes redirigir o devolver una respuesta
-        return redirect()->route('clients.index')->with('success', 'Pagos actualizados correctamente');
+            // Buscar los registros de ServiceRecord y cargar la relación con Pays
+            $serviceRecords = ServiceRecord::with('pays') // Cargar relación pays
+                ->whereIn('id', $serviceRecordIds)
+                ->get();
+
+            if ($serviceRecords->isEmpty()) {
+                return redirect()->route('clients.index')->with('error', 'No se encontraron registros de servicio para actualizar.');
+            }
+
+            // Iterar sobre los registros de ServiceRecord y actualizar la relación con Pay
+            foreach ($serviceRecords as $serviceRecord) {
+                // Obtener el primer pago relacionado (si existe)
+                $firstPay = $serviceRecord->pays->first();
+
+                // Si hay al menos un pago relacionado, actualizar
+                if ($firstPay) {
+                    $serviceRecord->update([
+                        'status' => 2,
+                        'amount' => 0,
+                        'paid' => $firstPay->pay // Usa el primer pago de la relación
+                    ]);
+                } else {
+                    return redirect()->route('clients.index')->with('error', 'Uno o más registros no tienen pagos asociados.');
+                }
+            }
+
+            return redirect()->route('clients.index')->with('success', 'Pagos actualizados correctamente.');
+        } catch (\Exception $e) {
+            return redirect()->route('clients.index')->with('error', 'Error al actualizar los pagos: ' . $e->getMessage());
+        }
     }
 }
