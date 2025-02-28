@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @include('worker.create', ['workers' => $workers, 'roles' => $roles])
 @section('content')
+@include('layouts.alerts.alert')
 <div class="row">
     <div class="col-lg-12">
         <div class="card">

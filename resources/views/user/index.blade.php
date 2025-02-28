@@ -1,8 +1,7 @@
-{{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
 @extends('layouts.app')
 @include('user.create')
 @section('content')
-{{-- @include('layouts.partials.alert') --}}
+@include('layouts.alerts.alert')
     <div class="row">
         <div class="col-lg-12">
             <div class="card">

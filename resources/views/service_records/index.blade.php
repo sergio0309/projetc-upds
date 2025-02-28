@@ -2,6 +2,7 @@
 @include('service_records.create')
 @include('service_records.statement')
 @section('content')
+@include('layouts.alerts.alert')
     <div class="row">
         <div class="col-lg-12">
             <div class="card">

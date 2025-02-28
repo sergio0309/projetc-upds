@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-{{-- @include('layouts.partials.alert') --}}
+@include('layouts.alerts.alert')
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
