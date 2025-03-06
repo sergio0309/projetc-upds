@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-xl">
         <div class="modal-content ">
             <div class="modal-header bg-light p-3">
-                <h5 class="modal-title" id="verWorkerModalLabel">Ver Cliente</h5>
+                <h5 class="modal-title" id="verWorkerModalLabel">VER TRABAJADOR</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                     id="close-modal"></button>
             </div>
@@ -13,18 +13,12 @@
                         <div class="col-md-3 d-flex justify-content-center">
                             <!-- Imagen de perfil -->
                             <div class="profile-user position-relative d-inline-block">
-                                @if(!empty($worker->user->image) && file_exists(public_path('assets/imagenes/users/'.$worker->user->image)))
-                                    <img src="{{ asset('assets/imagenes/users/'.$worker->user->image) }}"
-                                        class="rounded-circle avatar-lg img-thumbnail user-profile-image"
-                                        alt="user-profile-image"
-                                        style="width: 180px; height: 180px;">
-                                @elseif(file_exists(public_path('assets/imagenes/users/default-user.jpg')))
-                                    <img src="{{ asset('assets/imagenes/users/default-user.jpg') }}"
-                                        class="rounded-circle avatar-lg img-thumbnail user-profile-image"
-                                        alt="user-profile-image"
-                                        style="width: 180px; height: 180px;">
+                                @if(file_exists(public_path('storage/'.$worker->user->image)))
+                                    <img src="{{ asset('storage/'.$worker->user->image ) }}"
+                                        class="rounded-circle avatar-lg img-thumbnail user-profile-image" alt="user-profile-image" style="width: 180px; height: 180px;">
                                 @else
-                                    <p>Error: Imagen no encontrada.</p>
+                                    <img src="{{ asset('assets/images/users/user-dummy-img.jpg') }}"
+                                    class="rounded-circle avatar-lg img-thumbnail user-profile-image" alt="user-profile-image" style="width: 180px; height: 180px;">
                                 @endif
                             </div>
                         </div>

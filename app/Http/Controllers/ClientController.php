@@ -71,6 +71,7 @@ class ClientController extends Controller
             'emergency_contact' => 'nullable|string|max:255',
             'emergency_number' => 'nullable|string|max:255',
             'email_2' => 'nullable|string|email|max:255|unique:clients,email_2',
+            'password_2' => 'nullable|string|min:8',
             'deadline' => 'nullable|string|max:255',
             'rol' => 'nullable|integer|exists:roles,id'
         ]);
@@ -85,6 +86,7 @@ class ClientController extends Controller
                 Client::create([
                     'email_2' => $request->input('email_2'),
                     'deadline' => $request->input('deadline'),
+                    'password_2' => Hash::make($request->input('password_2')),
                     'user_id' => $user->id
                 ]);
 

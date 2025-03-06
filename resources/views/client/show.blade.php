@@ -89,17 +89,25 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <label for="phone" class="form-label">Número de Celular</label>
                         <input value="{{ $client->user->phone }}" type="text" id="phone" name="phone" class="form-control" disabled/>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-3">
                         <label for="email-field" class="form-label">Correo electrónico</label>
                         <input value="{{ $client->user->email }}" type="email" id="email" name="email" class="form-control" disabled/>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-3">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input value="{{ $client->user->password }}" type="password" id="password" name="password" class="form-control" disabled/>
+                    </div>
+                    <div class="col-md-3">
                         <label for="email_2" class="form-labe">2° Correo electrónico</label>
                         <input value="{{ $client->email_2 }}" type="email" class="form-control" id="email_2" name="email_2" disabled/>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="password_2" class="form-label">2° Contraseña</label>
+                        <input value="{{ $client->password_2 }}" type="password_2" id="password_2" name="password_2" class="form-control" disabled/>
                     </div>
                 </div>
                 <div class="row mb-3">
