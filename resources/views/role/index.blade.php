@@ -46,10 +46,36 @@
                                                         <a class="btn btn-sm btn-warning edit-item-btn" href="{{ route('roles.edit', $role->id) }}"><i class="ri-edit-2-fill"></i></i></a>
                                                     </div>
                                                     @endcan
-                                                    {{-- <div class="remove">
-                                                        <button class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal"
-                                                            data-bs-target="#deleteRecordModal"><i data-feather="refresh-cw"></i></button>
-                                                    </div> --}}
+                                                    @can('eliminar-role')
+                                                    <div class="edit">
+                                                        <button class="btn btn-sm btn-danger remove-item-btn"
+                                                            data-bs-toggle="modal" data-bs-target="#confirmarModal-{{ $role->id }}">
+                                                            <i class="ri-delete-bin-6-fill"></i> </i>
+                                                        </button>
+                                                    </div>
+                                                    @endcan
+                                                    <div class="modal fade" id="confirmarModal-{{ $role->id }}" tabindex="-1" aria-labelledby="modalLabel-{{ $role->id }}" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="modalLabel-{{ $role->id }}">Mensaje de Confirmación</h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    ¿Estás seguro de que deseas eliminar este rol?
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                                    <!-- Formulario dentro del modal -->
+                                                                    <form action="{{ route('roles.destroy', $role->id) }}" method="POST">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit" class="btn btn-danger">Confirmar</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </td>
                                         </tr>

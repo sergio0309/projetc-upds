@@ -108,6 +108,28 @@ class RoleController extends Controller
 
     public function destroy($id)
     {
-        // Eliminar un recurso específico
+        try {
+            DB::beginTransaction();
+
+            $role = Role::findOrFail($id);
+
+            // Verificar si el rol tiene usuarios asignados (opcional)
+            if ($role->users()->exists()) {
+                return back()->withErrors('No se puede eliminar el rol porque tiene usuarios asignados.');
+            }
+
+            // Eliminar relaciones con permisos antes de eliminar el rol
+            $role->permissions()->detach();
+
+            // Eliminar el rol
+            $role->delete();
+
+            DB::commit();
+
+            return redirect()->route('roles.index')->with('success', 'Rol eliminado correctamente');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->withErrors('Error al eliminar el rol: ' . $e->getMessage());
+        }
     }
 }
