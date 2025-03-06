@@ -43,39 +43,6 @@
                                                     <img src="http://localhost/creative2/public/assets/images/logo-light.png" alt="" height="18">
                                                 </a>
                                             </div>
-                                            <div class="mt-auto">
-                                                <div class="mb-3">
-                                                    <i class="ri-double-quotes-l display-4 text-success"></i>
-                                                </div>
-
-                                                <div id="qoutescarouselIndicators" class="carousel slide"
-                                                    data-bs-ride="carousel">
-                                                    <div class="carousel-indicators">
-                                                        <button type="button" data-bs-target="#qoutescarouselIndicators"
-                                                            data-bs-slide-to="0" class="active" aria-current="true"
-                                                            aria-label="Slide 1"></button>
-                                                        <button type="button" data-bs-target="#qoutescarouselIndicators"
-                                                            data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                                        <button type="button" data-bs-target="#qoutescarouselIndicators"
-                                                            data-bs-slide-to="2" aria-label="Slide 3"></button>
-                                                    </div>
-                                                    <div class="carousel-inner text-center text-white-50 pb-5">
-                                                        <div class="carousel-item active">
-                                                            <p class="fs-15 fst-italic">" Great! Clean code, clean design,
-                                                                easy for customization. Thanks very much! "</p>
-                                                        </div>
-                                                        <div class="carousel-item">
-                                                            <p class="fs-15 fst-italic">" The theme is really great with an
-                                                                amazing customer support."</p>
-                                                        </div>
-                                                        <div class="carousel-item">
-                                                            <p class="fs-15 fst-italic">" Great! Clean code, clean design,
-                                                                easy for customization. Thanks very much! "</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- end carousel -->
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -101,39 +68,16 @@
                                                 <div class="mb-3">
                                                     <label class="form-label" for="password-input">Contraseña</label>
                                                     <div class="position-relative auth-pass-inputgroup mb-3">
-                                                        <input type="password" class="form-control pe-5"
-                                                            placeholder="Contraseña" id="password-input" name="password">
-                                                        <button
-                                                            class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted"
-                                                            type="button" id="password-addon"><i
-                                                                class="ri-eye-fill align-middle"></i></button>
+                                                        <input type="password" class="form-control pe-5" placeholder="Contraseña" id="password-input" name="password">
+                                                        <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted"
+                                                            type="button" id="password-addon">
+                                                            <i class="ri-eye-fill align-middle"></i>
+                                                        </button>
                                                     </div>
                                                 </div>
                                                 <div class="mt-4">
                                                     <button class="btn btn-success w-100" type="submit">Iniciar Sesión</button>
                                                 </div>
-
-                                                <div class="mt-4 text-center">
-                                                    <div class="signin-other-title">
-                                                        <h5 class="fs-13 mb-4 title"></h5>
-                                                    </div>
-
-                                                    <div>
-                                                        <button type="button"
-                                                            class="btn btn-primary btn-icon waves-effect waves-light"><i
-                                                                class="ri-facebook-fill fs-16"></i></button>
-                                                        <button type="button"
-                                                            class="btn btn-danger btn-icon waves-effect waves-light"><i
-                                                                class="ri-google-fill fs-16"></i></button>
-                                                        <button type="button"
-                                                            class="btn btn-dark btn-icon waves-effect waves-light"><i
-                                                                class="ri-github-fill fs-16"></i></button>
-                                                        <button type="button"
-                                                            class="btn btn-info btn-icon waves-effect waves-light"><i
-                                                                class="ri-twitter-fill fs-16"></i></button>
-                                                    </div>
-                                                </div>
-
                                             </form>
                                         </div>
                                     </div>
@@ -181,6 +125,22 @@
     <script src="{{asset('assets/js/pages/plugins/lord-icon-2.1.0.min.js')}}"></script>
     <script src="{{asset('assets/js/plugins.min.js')}}"></script>
     <script src="{{asset('assets/js/app.min.js')}}"></script>
+    <script>
+        document.getElementById("password-addon").addEventListener("click", function () {
+            let passwordInput = document.getElementById("password-input");
+            let icon = this.querySelector("i");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                icon.classList.remove("ri-eye-fill");
+                icon.classList.add("ri-eye-off-fill");
+            } else {
+                passwordInput.type = "password";
+                icon.classList.remove("ri-eye-off-fill");
+                icon.classList.add("ri-eye-fill");
+            }
+        });
+    </script>
 </body>
 
 </html>
