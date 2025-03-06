@@ -1,5 +1,5 @@
 <div class="modal fade bs-example-modal-sm" id="crearServicio" tabindex="-1" aria-labelledby="crearServicioModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-sm">
         <div class="modal-content ">
             <div class="modal-header bg-light p-3">
                 <h5 class="modal-title" id="editUserModalLabel">Nuevo Servicio</h5>
