@@ -39,25 +39,29 @@
 
     <div id="layout-wrapper">
         <!-- Header and Sidebar -->
-        <x-header />
-        <x-sidebar />
+        <x-header-component/>
+        <x-sidebar-component/>
 
         <!-- Main Content -->
         <div class="main-content">
             <div class="page-content">
                 <div class="container-fluid">
-                    @yield('content')
-                    @stack('css')
-                    @stack('js')
+                    <div class="row">
+                        <div class="card">
+                            @yield('content')
+                            @stack('css')
+                            @stack('js')
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Footer -->
-            <x-footer />
+            <x-footer-component />
         </div>
     </div>
 
-    <x-boton/>
+    <x-button-component/>
 
     <!-- Cargar jQuery primero -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"

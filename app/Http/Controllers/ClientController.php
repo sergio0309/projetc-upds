@@ -127,6 +127,7 @@ class ClientController extends Controller
 
             Client::create([
                 'email_2' => $request->input('email_2'),
+                'password_2' => Hash::make($request->input('password_2')),
                 'deadline' => $request->input('deadline'),
                 'user_id' => $user->id,
             ]);
