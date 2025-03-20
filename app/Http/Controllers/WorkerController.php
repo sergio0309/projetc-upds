@@ -121,7 +121,7 @@ class WorkerController extends Controller
             return redirect()->route('workers.index')->with('success', 'Trabajador creado exitosamente.');
         } catch (\Throwable $th) {
             DB::commit();
-            return redirect()->route('workers.index')->with('Error', 'Error al registrar el trabajador');
+            return redirect()->route('workers.index')->with('error', 'Error al registrar el trabajador');
         }
     }
 
@@ -207,7 +207,7 @@ class WorkerController extends Controller
             return redirect()->route('workers.index')->with('success', 'Trabajador actualizado exitosamente.');
         } catch (\Throwable $th) {
             DB::commit();
-            return redirect()->route('workers.index')->with('Error', 'Error al actualizar el trabajador');
+            return redirect()->route('workers.index')->with('error', 'Error al actualizar el trabajador');
         }
     }
 

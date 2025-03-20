@@ -9,9 +9,14 @@ use Illuminate\Http\Request;
 
 class ReservationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    function __construct()
+    {
+        $this->middleware('permission:ver-reserva|crear-reserva|editar-reserva|eliminar-reserva', ['only' => ['index']]);
+        $this->middleware('permission:crear-reserva', ['only' => ['create', 'store']]);
+        $this->middleware('permission:editar-reserva', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:eliminar-reserva', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $all_reservations = Reservation::all();

@@ -2,16 +2,6 @@
 @section('content')
 <div class="row">
     <div class="col-12">
-        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-            <h4 class="mb-sm-0 font-size-18">App</h4>
-
-            <div class="page-title-right">
-                <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
-                </ol>
-            </div>
-        </div>
         <div class="col-xl-12">
             <div class="card card-h-100">
                 <div class="card-body">
@@ -104,9 +94,17 @@
                             </form>
                         </div>
                         <div class="modal-footer">
+                            @can('crear-reserva')
                             <button type="button" id="btnGuardar" class="btn btn-success">Guardar</button>
+                            @endcan
+
+                            @can('editar-reserva')
                             <button type="button" id="btnModificar" class="btn btn-warning">Modificar</button>
+                            @endcan
+
+                            @can('eliminar-reserva')
                             <button type="button" id="btnEliminar" class="btn btn-danger">Eliminar</button>
+                            @endcan
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                         </div>
                     </div>
@@ -134,13 +132,11 @@
             headerToolbar: {
                 left: 'prev,next today',
                 center: 'title',
-                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                right: 'dayGridMonth'
             },
             buttonText: {
                 today: 'Hoy',
-                month: 'Mes',
-                week: 'Semana',
-                day: 'Día'
+                month: 'Mes'
             },
             navLinks: true,
             editable: true,

@@ -31,11 +31,13 @@
             </div>
             <ul class="navbar-nav" id="navbar-nav">
                 <li class="menu-title"><span>Inicio</span></li>
+                @can('ver-reserva')
                 <li class="nav-item menu-link">
                     <a href="{{route('home')}}" class="nav-link {{ request()->routeIs('reservations.index') ? 'active' : ''}}">
-                        <i class="ri-dashboard-2-line"></i> <span>Home</span>
+                        <i class="ri-home-2-fill"></i> <span>Inicio</span>
                     </a>
                 </li>
+                @endcan
                 <li class="menu-title"><i class="ri-more-fill"></i> <span>Modulos</span></li>
                  <!----Clientes---->
                 @php

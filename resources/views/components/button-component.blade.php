@@ -69,7 +69,7 @@
                         </div>
                         <h5 class="fs-13 text-center mt-2">Horizontal</h5>
                     </div>
-                    <div class="col-4">
+                    {{-- <div class="col-4">
                         <div class="form-check card-radio">
                             <input id="customizer-layout03" name="data-layout" type="radio" value="twocolumn"
                                 class="form-check-input">
@@ -101,7 +101,7 @@
                             </label>
                         </div>
                         <h5 class="fs-13 text-center mt-2">Two Column</h5>
-                    </div>
+                    </div> --}}
                     <!-- end col -->
                 </div>
 
