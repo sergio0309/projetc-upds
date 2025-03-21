@@ -110,8 +110,12 @@
                                         <label for="email_2" class="form-label">Correo electrónico 2</label>
                                         <input type="email" id="email_2" name="email_2" class="form-control" placeholder="Ingrese correo electrónico" required/>
                                     </div>
-
                                     <div class="col-md-3">
+                                        <label for="rol" class="form-label">Rol</label>
+                                        <input type="text" class="form-control" value="CLIENTE" readonly>
+                                        <input type="hidden" id="rol" name="rol" value="{{ $roles->firstWhere('name', 'CLIENTE')->id }}">
+                                    </div>
+                                    {{-- <div class="col-md-3">
                                         <label for="password_2-input">Contraseña 2</label>
                                         <div class="position-relative auth-pass-inputgroup mb-3">
                                             <input type="password" class="form-control pe-5" placeholder="Ingrese Contraseña"
@@ -121,22 +125,22 @@
                                                 <i class="ri-eye-fill align-middle" id="toggle-password_2-icon"></i>
                                             </button>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-md-6">
                                         <label for="address" class="form-labe">Dirección:</label>
                                         <input type="text" class="form-control" id="address" name="address" placeholder="Ingrese Dirección" >
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-6">
                                         <label for="image" class="form-labe">Imagen</label>
                                         <input type="file" class="form-control" id="image" name="image" placeholder="Selecciones imagen">
                                     </div>
-                                    <div class="col-md-3">
+                                    {{-- <div class="col-md-3">
                                         <label for="rol" class="form-label">Rol</label>
                                         <input type="text" class="form-control" value="CLIENTE" readonly>
                                         <input type="hidden" id="rol" name="rol" value="{{ $roles->firstWhere('name', 'CLIENTE')->id }}">
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="border mt-3 border-dashed"></div><br>
                                 <div class="row mb-3">

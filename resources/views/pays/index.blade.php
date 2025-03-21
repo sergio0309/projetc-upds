@@ -99,7 +99,7 @@
                                         <th data-sort="customer_name">N°</th>
                                         <th data-sort="customer_name">Servicio</th>
                                         <th data-sort="date">Fecha de consulta</th>
-                                        <th data-sort="customer_name">Deuda del servicio</th>
+                                        <th data-sort="customer_name">Precio del servicio</th>
                                         <th>Estado</th>
                                         <th>Acción</th>
                                     </tr>

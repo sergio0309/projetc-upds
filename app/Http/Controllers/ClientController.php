@@ -252,7 +252,7 @@ class ClientController extends Controller
     {
         try {
             $serviceRecordIds = $request->input('service_records');
-
+            $monto = $request->input('monto');
             if (!$serviceRecordIds || !is_array($serviceRecordIds)) {
                 return redirect()->route('clients.index')->with('error', 'No se seleccionaron registros de servicio válidos.');
             }
@@ -271,11 +271,15 @@ class ClientController extends Controller
                 // Obtener el primer pago relacionado (si existe)
                 $firstPay = $serviceRecord->pays->first();
 
+                $newAmount = max(0, $serviceRecord->amount - $monto);
+
+                // Determinar el nuevo estado: 2 si el monto es 0, 0 si no lo es
+                $newStatus = $newAmount == 0 ? 2 : 0;
                 // Si hay al menos un pago relacionado, actualizar
                 if ($firstPay) {
                     $serviceRecord->update([
-                        'status' => 2,
-                        'amount' => 0,
+                        'status' => $newStatus,
+                        'amount' => $newAmount,
                         'paid' => $firstPay->pay // Usa el primer pago de la relación
                     ]);
                 } else {

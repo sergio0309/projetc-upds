@@ -115,8 +115,9 @@
                                                                                             </td>
                                                                                             <td class="text-center">{{ $servicio->amount }}</td>
                                                                                             <td class="text-center">
-                                                                                                {{ $servicio->pays->isNotEmpty() ? $servicio->pays->first()->pay : 'N/A' }}
+                                                                                                {{ $servicio->pays->isNotEmpty() ? $servicio->pays->last()->pay : 'N/A' }}
                                                                                             </td>
+                                                                                            <input type="hidden" name="monto" value="{{ $servicio->pays->isNotEmpty() ? $servicio->pays->last()->pay : 'N/A' }}">
                                                                                             <td class="text-center">
                                                                                                 @if ($servicio->pays->isNotEmpty() && $servicio->pays->first()->file)
                                                                                                     <a href="{{ asset('storage/' . $servicio->pays->first()->file) }}" target="_blank" download class="btn btn-sm btn-primary" title="Descargar">
