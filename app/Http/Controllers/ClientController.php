@@ -53,11 +53,11 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        // dd('Llegó aquí', $request->all());
+        $request->merge(['rol' => (int) $request->rol]); // Convertir rol a entero
         $request->validate([
             'user_id' => 'nullable|exists:users,id',
-            'ci' => 'nullable|string|max:15|unique:users,ci',
-            'complement_ci' => 'nullable|string|max:15|unique:users,complement_ci',
+            'ci' => 'nullable|string|max:15|unique:users,ci,' . $request->user_id,
+            'complement_ci' => 'nullable|string|max:15|unique:users,complement_ci' . $request->user_id,
             'nit' => 'nullable|string|max:25|unique:users,nit',
             'first_name' => 'nullable|string|max:255',
             'last_name' => 'nullable|string|max:255',

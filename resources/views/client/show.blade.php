@@ -124,6 +124,61 @@
                         <input value="{{ $client->user->address }}" type="text" class="form-control" id="address" name="address" disabled/>
                     </div>
                 </div>
+                @php
+                    $filteredServices = $client->serviceRecords->filter(function ($service) {
+                        return $service->status === 0 || $service->status === 1;
+                    });
+                @endphp
+                @if ($filteredServices->isNotEmpty())
+                <div class="row mb-3">
+                    <div class="col-md-2">
+                        <strong class="form-label">N°</strong>
+                    </div>
+                    <div class="col-md-4">
+                        <strong class="form-label">Servicio</strong>
+                    </div>
+                    <div class="col-md-3">
+                        <strong class="form-label">Monto</strong>
+                    </div>
+                    <div class="col-md-3">
+                        <strong class="form-label">Estado</strong>
+                    </div>
+                    {{-- <div class="col-md-3">
+                        <strong class="form-label">Acción</strong>
+                    </div> --}}
+                </div>
+
+                @php $number = 1; @endphp
+                @foreach ($filteredServices as $service)
+                    <hr>
+                    <div class="row mb-3 align-items-center">
+                        <div class="col-md-2">
+                            <span class="h6">{{ $number++ }}</span>
+                        </div>
+                        <div class="col-md-4">
+                            <span class="h6">
+                                {{ $service->statement ? 'DECLARACIÓN' : ($service->type_service?->name ?? 'Sin tipo de servicio') }}
+                            </span>
+                        </div>
+                        <div class="col-md-3">
+                            <span class="h6">{{ $service->amount }} Bs.</span>
+                        </div>
+                        <div class="col-md-3">
+                            @if ($service->status === 0)
+                                <span class="badge badge-soft-danger text-uppercase fs-6">DEUDA</span>
+                            @elseif ($service->status === 1)
+                                <span class="badge badge-soft-warning text-uppercase fs-6">PENDIENTE</span>
+                            @endif
+                        </div>
+                        {{-- <div class="col-md-3">
+                            <button type="submit" class="btn btn-success btn-sm">
+                                <i class="fas fa-money-bill-wave"></i> Pagar
+                            </button>
+                        </div> --}}
+                    </div>
+                    <hr>
+                @endforeach
+            @endif
             </div>
         </form>
         </div>

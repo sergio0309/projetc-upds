@@ -115,17 +115,6 @@
                                         <input type="text" class="form-control" value="CLIENTE" readonly>
                                         <input type="hidden" id="rol" name="rol" value="{{ $roles->firstWhere('name', 'CLIENTE')->id }}">
                                     </div>
-                                    {{-- <div class="col-md-3">
-                                        <label for="password_2-input">Contraseña 2</label>
-                                        <div class="position-relative auth-pass-inputgroup mb-3">
-                                            <input type="password" class="form-control pe-5" placeholder="Ingrese Contraseña"
-                                                   id="password_2-input" name="password_2">
-                                            <button class="btn btn-link position-absolute end-0 top-0 mt-1 me-2 text-decoration-none text-muted"
-                                                    type="button" id="password_2-addon">
-                                                <i class="ri-eye-fill align-middle" id="toggle-password_2-icon"></i>
-                                            </button>
-                                        </div>
-                                    </div> --}}
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-md-6">
@@ -136,11 +125,6 @@
                                         <label for="image" class="form-labe">Imagen</label>
                                         <input type="file" class="form-control" id="image" name="image" placeholder="Selecciones imagen">
                                     </div>
-                                    {{-- <div class="col-md-3">
-                                        <label for="rol" class="form-label">Rol</label>
-                                        <input type="text" class="form-control" value="CLIENTE" readonly>
-                                        <input type="hidden" id="rol" name="rol" value="{{ $roles->firstWhere('name', 'CLIENTE')->id }}">
-                                    </div> --}}
                                 </div>
                                 <div class="border mt-3 border-dashed"></div><br>
                                 <div class="row mb-3">
@@ -264,9 +248,14 @@
         togglePasswordVisibility('password-confirmation', 'toggle-password-confirmation-icon');
     });
 
+    // document.getElementById('password_2-addon').addEventListener('click', function () {
+    //     togglePasswordVisibility('password_2-input', 'toggle-password_2-icon');
+    // });
+    // Elimina o comenta esta parte si no tienes un campo `password_2-input`
     document.getElementById('password_2-addon').addEventListener('click', function () {
         togglePasswordVisibility('password_2-input', 'toggle-password_2-icon');
     });
+
 
     // Activar/desactivar NIT basado en checkbox
     document.getElementById('enable_nit').addEventListener('change', function () {
@@ -282,6 +271,7 @@
 
     //Searcg-CI
     var users = @json($users);
+    console.log("Usuarios cargados:", users);
     function searchClientByCI() {
         var ciInput = document.getElementById('search-ci').value; // Obtener el valor del campo CI
         var user = users.find(function(user) {
