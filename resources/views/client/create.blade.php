@@ -251,11 +251,6 @@
     // document.getElementById('password_2-addon').addEventListener('click', function () {
     //     togglePasswordVisibility('password_2-input', 'toggle-password_2-icon');
     // });
-    // Elimina o comenta esta parte si no tienes un campo `password_2-input`
-    document.getElementById('password_2-addon').addEventListener('click', function () {
-        togglePasswordVisibility('password_2-input', 'toggle-password_2-icon');
-    });
-
 
     // Activar/desactivar NIT basado en checkbox
     document.getElementById('enable_nit').addEventListener('change', function () {

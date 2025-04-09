@@ -161,25 +161,25 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'ci' => 'nullable|string|max:15|unique:users,ci,' . $id,
-            'complement_ci' => 'nullable|string|max:15|unique:users,complement_ci,' . $id,
-            'nit' => 'nullable|string|max:25|unique:users,nit,' . $id,
-            'first_name' => 'nullable|string|max:255',
-            'last_name' => 'nullable|string|max:255',
-            'gender' => 'nullable|string',
-            'date_birth' => 'nullable|date',
-            'phone' => 'nullable|string|max:15',
-            'email' => 'nullable|string|email|max:255|unique:users,email,' . $id,
-            'password' => 'nullable|string|min:8|confirmed',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'address' => 'nullable|string|max:255',
-            'emergency_contact' => 'nullable|string|max:255',
-            'emergency_number' => 'nullable|string|max:255',
-            'email_2' => 'nullable|string|email|max:255|unique:clients,email_2',
-            'deadline' => 'nullable|string|max:255',
-        ]);
-
+        // $request->validate([
+        //     'ci' => 'nullable|string|max:15|unique:users,ci,' . $id,
+        //     'complement_ci' => 'nullable|string|max:15|unique:users,complement_ci,' . $id,
+        //     'nit' => 'nullable|string|max:25|unique:users,nit,' . $id,
+        //     'first_name' => 'nullable|string|max:255',
+        //     'last_name' => 'nullable|string|max:255',
+        //     'gender' => 'nullable|string',
+        //     'date_birth' => 'nullable|date',
+        //     'phone' => 'nullable|string|max:15',
+        //     'email' => 'nullable|string|email|max:255|unique:users,email,' . $id,
+        //     'password' => 'nullable|string|min:8|confirmed',
+        //     'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        //     'address' => 'nullable|string|max:255',
+        //     'emergency_contact' => 'nullable|string|max:255',
+        //     'emergency_number' => 'nullable|string|max:255',
+        //     'email_2' => 'nullable|string|email|max:255|unique:clients,email_2',
+        //     'deadline' => 'nullable|string|max:255',
+        // ]);
+        // dd($request->all());
         try {
             DB::beginTransaction();
             $user = User::findOrFail($id);

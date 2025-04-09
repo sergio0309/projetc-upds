@@ -46,7 +46,11 @@
                                         @endphp
                                         <td class="counter">{{ $loop->iteration }}</td>
                                         <td class="customer_name">{{ $client->user->first_name ?? 'N/A' }} {{ $client->user->last_name ?? 'N/A' }}</td>
-                                        <td>{{ $client->user->ci }}</td>
+                                        @if ( $client->user->complement_ci )
+                                            <td>{{ $client->user->ci }} - {{ $client->user->complement_ci}}</td>
+                                        @else
+                                            <td>{{ $client->user->ci }}</td>
+                                        @endif
                                         @if ( $client->user->nit )
                                             <td class="counter">{{ $client->user->nit }}</td>
                                         @else
